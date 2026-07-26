@@ -1,0 +1,48 @@
+[Unit]
+Description=Talent Match V2 staging student portal
+After=network-online.target tmv2-api.service
+Wants=network-online.target
+Requires=tmv2-api.service
+ConditionPathExists=/var/www/tmV2/platform/current/app/student/.next/standalone/server.js
+
+[Service]
+Type=simple
+User=tmv2
+Group=tmv2
+WorkingDirectory=/var/www/tmV2/platform/current/app/student
+EnvironmentFile=/var/www/tmV2/platform/shared/env/student.env.production
+Environment=NODE_ENV=production
+Environment=APP_ENV=staging
+Environment=ENV_FILE_POLICY=production-only
+Environment=PORT=4102
+Environment=HOSTNAME=127.0.0.1
+ExecStart=/usr/bin/node .next/standalone/server.js
+Restart=on-failure
+RestartSec=5s
+TimeoutStartSec=30s
+TimeoutStopSec=30s
+KillSignal=SIGTERM
+SyslogIdentifier=tmv2-student
+UMask=0027
+LimitNOFILE=65536
+
+NoNewPrivileges=true
+PrivateDevices=true
+PrivateTmp=true
+ProtectClock=true
+ProtectControlGroups=true
+ProtectHome=true
+ProtectKernelLogs=true
+ProtectKernelModules=true
+ProtectKernelTunables=true
+ProtectSystem=strict
+ReadWritePaths=/var/www/tmV2/platform/current/app/student/.next/standalone/.next/cache
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+RestrictRealtime=true
+RestrictSUIDSGID=true
+LockPersonality=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+
+[Install]
+WantedBy=multi-user.target
