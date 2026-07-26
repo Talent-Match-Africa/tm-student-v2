@@ -3,12 +3,12 @@
   "version": "2.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 4003",
+    "dev": "next dev -p 4002",
     "lockfile:validate": "node scripts/validate-linux-package-lock.mjs",
     "postinstall": "npm run lockfile:validate",
     "prebuild": "npm run lockfile:validate",
     "build": "next build",
-    "start": "next start -p 4003",
+    "start": "next start -p 4002",
     "lint": "eslint",
     "typecheck": "tsc --noEmit"
   },
