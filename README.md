@@ -22,7 +22,7 @@ npm install
 npm run dev
 ```
 
-The local portal runs at `http://localhost:4003`. Start from `.env.example` for
+The local portal runs at `http://localhost:4002`. Start from `.env.example` for
 local configuration.
 
 ## Quality Checks
