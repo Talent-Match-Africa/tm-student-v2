@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Talent Match Student Portal
 
-## Getting Started
+The Talent Match V2 student portal owns authenticated student self-service
+workflows. It is deployed independently from the public authentication app,
+administrator console, university portal, and employer portal.
 
-First, run the development server:
+## Project Boundary
+
+This project will own student profile management, education and experience,
+opportunity discovery, applications, appointments, resources, notifications,
+and student account settings. Authentication entry and recovery remain in
+`../app`; administration remains in `../admin`; all data and authorization come
+from `../../api/api`.
+
+The browser must never connect directly to the database or store access and
+refresh tokens in browser storage.
+
+## Local Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The local portal runs at `http://localhost:4003`. Start from `.env.example` for
+local configuration.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Quality Checks
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lockfile:validate
+npm run typecheck
+npm run lint
+npm run build
+```
 
-## Learn More
+## Staging Deployment
 
-To learn more about Next.js, take a look at the following resources:
+- Public URL: `https://student.talentmatch.rw`
+- Loopback runtime: `127.0.0.1:4102`
+- Service: `tmv2-student.service`
+- Protected environment:
+  `/var/www/tmV2/platform/shared/env/student.env.production`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The app is built as a standalone Next.js artifact and shares only the V2
+staging httpOnly cookies with the authentication app and other role portals.
+See `docs/deploy.md` for the guarded deployment procedure.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Documentation
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Read `docs/README.md`, `docs/git.md`, and `docs/deploy.md` before changing or
+deploying this repository.
