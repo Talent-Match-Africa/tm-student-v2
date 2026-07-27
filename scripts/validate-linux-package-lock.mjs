@@ -40,7 +40,6 @@ for (const [packagePath, expectedVersion] of requiredPackages) {
 
 for (const packagePath of [
   "node_modules/@emnapi/core",
-  "node_modules/@emnapi/runtime",
   "node_modules/@emnapi/wasi-threads",
 ]) {
   const entry = packages[packagePath];
@@ -48,6 +47,13 @@ for (const packagePath of [
   if (entry && (!entry.optional || !entry.peer)) {
     errors.push(`Invalid Linux optional peer metadata for ${packagePath}.`);
   }
+}
+
+const runtimeEntry = packages["node_modules/@emnapi/runtime"];
+if (runtimeEntry && !runtimeEntry.optional) {
+  errors.push(
+    "Invalid Linux optional metadata for node_modules/@emnapi/runtime.",
+  );
 }
 
 if (errors.length > 0) {
