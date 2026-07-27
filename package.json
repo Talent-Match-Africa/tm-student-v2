@@ -2,6 +2,11 @@
   "name": "Talent Match Student App",
   "version": "2.0.0",
   "private": true,
+  "packageManager": "npm@10.8.2",
+  "engines": {
+    "node": "20.20.x",
+    "npm": "10.8.x"
+  },
   "scripts": {
     "dev": "next dev -p 4002",
     "lockfile:validate": "node scripts/validate-linux-package-lock.mjs",
@@ -10,7 +15,10 @@
     "build": "next build",
     "start": "next start -p 4002",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "ci:check": "npm run lockfile:validate && npm run typecheck && npm run lint && npm run test && npm run build"
   },
   "dependencies": {
     "@fontsource/outfit": "^5.2.8",
@@ -33,6 +41,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "4.1.10"
   }
 }
