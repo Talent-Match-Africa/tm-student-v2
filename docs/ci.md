@@ -32,4 +32,16 @@ requiring pull requests and the quality gate.
 
 The workflow has read-only repository permission, pins actions to complete
 commit SHAs, and does not persist checkout credentials. It does not receive
-staging secrets or read `.env.production`; deployment remains a separate phase.
+the staging application environment or read `.env.production`.
+
+## Continuous Delivery
+
+After the quality gate succeeds for a push to protected `main`, the `Deploy
+student portal to staging` job requests deployment of that exact commit. Its
+GitHub `staging` environment contains a repository-specific SSH key whose
+server forced command permits student deployments only.
+
+Candidate compilation occurs before the active release changes. A failed build
+leaves the live version untouched, and a failed activation restores the
+previous application release. Configure the deployment variables and secrets
+in the [central continuous-delivery runbook](https://github.com/talent-ma/tm-api-v2/blob/main/docs/deployment/continuous-delivery.md).
