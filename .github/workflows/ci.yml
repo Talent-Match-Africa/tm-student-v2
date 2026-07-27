@@ -89,6 +89,8 @@ jobs:
 
       - name: Deploy immutable student portal commit
         run: |
+          set +e
+          deployment_log="${RUNNER_TEMP}/staging-deployment.log"
           ssh \
             -i "${HOME}/.ssh/deploy_key" \
             -o BatchMode=yes \
@@ -99,4 +101,25 @@ jobs:
             -o ServerAliveCountMax=20 \
             -p "${DEPLOY_PORT}" \
             "${DEPLOY_USER}@${DEPLOY_HOST}" \
-            "deploy ${GITHUB_SHA} ${GITHUB_RUN_ID}"
+            "deploy ${GITHUB_SHA} ${GITHUB_RUN_ID} ${GITHUB_RUN_ATTEMPT}" \
+            2>&1 | tee "${deployment_log}"
+          deployment_status="${PIPESTATUS[0]}"
+          set -e
+
+          {
+            printf '## Student portal staging deployment\n\n'
+            printf -- '- Commit: `%s`\n' "${GITHUB_SHA}"
+            printf -- '- Run: `%s`, attempt `%s`\n' \
+              "${GITHUB_RUN_ID}" "${GITHUB_RUN_ATTEMPT}"
+            if test "${deployment_status}" -eq 0; then
+              printf -- '- Result: `succeeded`\n'
+            else
+              printf -- '- Result: `failed`\n'
+            fi
+            printf '\n<details><summary>Deployment output</summary>\n\n'
+            printf '```text\n'
+            tail -n 60 "${deployment_log}"
+            printf '```\n</details>\n'
+          } >> "${GITHUB_STEP_SUMMARY}"
+
+          exit "${deployment_status}"
