@@ -46,6 +46,9 @@ jobs:
       - name: Install dependencies
         run: npm ci --include=dev --no-audit --no-fund
 
+      - name: Audit student portal runtime dependencies
+        run: npm audit --omit=dev --audit-level=high
+
       - name: Run student portal quality gate
         run: npm run ci:check
 
