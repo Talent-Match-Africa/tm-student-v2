@@ -47,4 +47,4 @@ server forced command permits student deployments only.
 Candidate compilation occurs before the active release changes. A failed build
 leaves the live version untouched, and a failed activation restores the
 previous application release. Configure the deployment variables and secrets
-in the [central continuous-delivery runbook](https://github.com/talent-ma/tm-api-v2/blob/main/docs/deployment/continuous-delivery.md).
+in the [central continuous-delivery runbook](https://github.com/Talent-Match-Africa/tm-api-v2/blob/main/docs/deployment/continuous-delivery.md).
