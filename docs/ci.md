@@ -13,6 +13,9 @@ The gate performs a clean install, lock validation, TypeScript checking,
 non-mutating lint, deterministic unit tests, and a production Next.js build
 through `npm run ci:check`.
 
+Before the quality command, CI audits production dependencies and blocks high
+or critical runtime advisories.
+
 ## Main Branch Protection
 
 After the first successful workflow run, protect `main` in GitHub:
