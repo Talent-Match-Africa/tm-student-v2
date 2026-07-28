@@ -1,7 +1,7 @@
 # Staging Deployment
 
 > Public URL: `https://student.talentmatch.rw`
-> Source: `https://github.com/talent-ma/tm-student-v2`
+> Source: `https://github.com/Talent-Match-Africa/tm-student-v2`
 > Runtime: `127.0.0.1:4102`
 
 The student portal follows the same immutable release, protected environment,
