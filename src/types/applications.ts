@@ -10,6 +10,8 @@ export interface WorkHistoryEntry {
 export type ApplicationRouteType = "job-listings" | "internships";
 
 export interface ApplicationFilters {
+  appliedFrom: string | null;
+  appliedTo: string | null;
   page: number;
   search: string | null;
   status: string | null;
