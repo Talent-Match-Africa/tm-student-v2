@@ -4,7 +4,10 @@ The application workspace mirrors the administrator applications presentation:
 the same header measurements, type rail, filter shell, sidebar, responsive card
 grid, empty states, progressive loading, and route skeletons. Search and status
 remain URL-owned; only filters supported by the student API are rendered.
-Students can inspect only their own job and internship submissions.
+Students can inspect only their own job and internship submissions. Search,
+status, applied-from, and applied-to filters remain URL-owned; reversed date
+ranges are normalized in the browser and rejected by the API if submitted
+directly.
 
 The first page is rendered on the server after `requireStudentSession` verifies
 the STUDENT role. Further pages pass through the authenticated same-origin
