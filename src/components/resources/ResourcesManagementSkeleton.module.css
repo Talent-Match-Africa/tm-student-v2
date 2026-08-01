@@ -1,0 +1,403 @@
+.workspace {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.header {
+  align-items: end;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.headerCopy,
+.stack {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.headerActions,
+.dateControls,
+.filterActions,
+.pagination {
+  align-items: center;
+  display: flex;
+  gap: 0.65rem;
+}
+
+.eyebrow,
+.title,
+.description,
+.resultBadge,
+.addButton,
+.controlLabel,
+.controlField,
+.filterButton,
+.filterButtonPrimary,
+.tableCount,
+.tablePage,
+.cover,
+.lineName,
+.lineDescription,
+.typeBadge,
+.lineMedium,
+.ownerAvatar,
+.lineOwner,
+.lineShort,
+.lineAudience,
+.statusBadge,
+.rowActions span,
+.paginationButton,
+.paginationStatus {
+  animation: resource-skeleton-pulse 1.35s ease-in-out infinite;
+  background: linear-gradient(90deg, #f1ebed, #faf7f8, #f1ebed);
+  background-size: 200% 100%;
+  border-radius: 999px;
+  display: block;
+}
+
+.eyebrow {
+  height: 0.62rem;
+  width: 11rem;
+}
+
+.title {
+  height: 1.45rem;
+  width: 8rem;
+}
+
+.description {
+  height: 0.8rem;
+  width: min(46rem, 62vw);
+}
+
+.resultBadge {
+  height: 2.25rem;
+  width: 8.6rem;
+}
+
+.addButton {
+  border-radius: 999px;
+  height: 2.8rem;
+  width: 8.5rem;
+}
+
+.filterPanel {
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid rgba(73, 21, 26, 0.1);
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 48px rgba(24, 24, 27, 0.06);
+  padding: 1rem;
+}
+
+.filterForm {
+  align-items: end;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.searchControl,
+.dateControl {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.searchControl {
+  flex: 1 1 auto;
+  max-width: 28rem;
+  min-width: 16rem;
+}
+
+.dateControl {
+  width: 10.5rem;
+}
+
+.controlLabel {
+  height: 0.65rem;
+  width: 5.5rem;
+}
+
+.controlField {
+  border-radius: 8px;
+  height: 48px;
+  width: 100%;
+}
+
+.filterButton,
+.filterButtonPrimary {
+  height: clamp(2.76rem, 4vw, 3.2rem);
+  width: 6.4rem;
+}
+
+.filterButtonPrimary {
+  background: linear-gradient(
+    90deg,
+    rgba(73, 21, 26, 0.18),
+    rgba(73, 21, 26, 0.08),
+    rgba(73, 21, 26, 0.18)
+  );
+  background-size: 200% 100%;
+}
+
+.tablePanel {
+  background: #fff;
+  border: 1px solid rgba(73, 21, 26, 0.09);
+  border-radius: 0.75rem;
+  box-shadow: 0 16px 36px rgba(31, 21, 25, 0.05);
+  overflow: hidden;
+}
+
+.tableHeader {
+  align-items: center;
+  border-bottom: 1px solid rgba(73, 21, 26, 0.08);
+  display: flex;
+  justify-content: space-between;
+  min-height: 3.2rem;
+  padding: 0 0.9rem;
+}
+
+.tableCount {
+  height: 0.75rem;
+  width: 7rem;
+}
+
+.tablePage {
+  height: 0.68rem;
+  width: 5.5rem;
+}
+
+.scroller {
+  overflow: hidden;
+}
+
+.table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.table th:nth-child(1) {
+  width: 20%;
+}
+.table th:nth-child(2) {
+  width: 13%;
+}
+.table th:nth-child(3) {
+  width: 15%;
+}
+.table th:nth-child(4) {
+  width: 16%;
+}
+.table th:nth-child(5) {
+  width: 12%;
+}
+.table th:nth-child(6) {
+  width: 24%;
+}
+
+.table th {
+  background: #fbf8f9;
+  color: #817479;
+  font-size: 0.66rem;
+  font-weight: 700;
+  padding: 0.7rem 0.85rem;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.table td {
+  border-top: 1px solid rgba(73, 21, 26, 0.065);
+  padding: 0.7rem 0.85rem;
+  vertical-align: middle;
+}
+
+.identity,
+.owner {
+  align-items: center;
+  display: flex;
+  gap: 0.7rem;
+  min-width: 0;
+}
+
+.cover {
+  border-radius: 0.55rem;
+  flex: 0 0 2.75rem;
+  height: 2.75rem;
+  width: 2.75rem;
+}
+
+.lineName {
+  height: 0.72rem;
+  width: 9rem;
+}
+.lineDescription {
+  height: 0.58rem;
+  width: 11rem;
+}
+.typeBadge {
+  height: 1.45rem;
+  width: 4.6rem;
+}
+.lineMedium {
+  height: 0.58rem;
+  width: 7rem;
+}
+.ownerAvatar {
+  height: 2rem;
+  width: 2rem;
+}
+.lineOwner {
+  height: 0.68rem;
+  width: 7.5rem;
+}
+.lineShort {
+  height: 0.56rem;
+  width: 4.2rem;
+}
+.lineAudience {
+  height: 0.68rem;
+  width: 8rem;
+}
+.statusBadge {
+  height: 1.95rem;
+  width: 6.3rem;
+}
+
+.rowActions {
+  display: flex;
+  gap: 0.38rem;
+}
+
+.rowActions span {
+  height: 2.1rem;
+  width: 3.45rem;
+}
+
+.pagination {
+  justify-content: flex-end;
+}
+
+.paginationButton {
+  height: 2.45rem;
+  width: 5.7rem;
+}
+.paginationStatus {
+  height: 0.75rem;
+  width: 6rem;
+}
+
+.screenReaderOnly {
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  position: absolute;
+  width: 1px;
+}
+
+@keyframes resource-skeleton-pulse {
+  0%,
+  100% {
+    background-position: 100% 0;
+  }
+  50% {
+    background-position: 0 0;
+  }
+}
+
+@media (max-width: 1240px) {
+  .filterForm {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .searchControl {
+    width: min(100%, 28rem);
+  }
+  .filterActions {
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 1180px) {
+  .table,
+  .table tbody {
+    display: block;
+  }
+  .table thead {
+    display: none;
+  }
+  .table tbody {
+    display: grid;
+    gap: 0.75rem;
+    padding: 0.75rem;
+  }
+  .table tbody tr {
+    border: 1px solid rgba(73, 21, 26, 0.09);
+    border-radius: 0.75rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .table td {
+    border: 0;
+    display: grid;
+    gap: 0.38rem;
+    padding: 0.72rem;
+  }
+  .table td::before {
+    color: #8b7d82;
+    content: attr(data-label);
+    font-size: 0.62rem;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+}
+
+@media (max-width: 760px) {
+  .header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 620px) {
+  .table tbody tr {
+    grid-template-columns: 1fr;
+  }
+  .headerActions {
+    flex-wrap: wrap;
+  }
+  .resultBadge {
+    flex: 1 1 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eyebrow,
+  .title,
+  .description,
+  .resultBadge,
+  .controlLabel,
+  .controlField,
+  .filterButton,
+  .filterButtonPrimary,
+  .tableCount,
+  .tablePage,
+  .cover,
+  .lineName,
+  .lineDescription,
+  .typeBadge,
+  .lineMedium,
+  .ownerAvatar,
+  .lineOwner,
+  .lineShort,
+  .lineAudience,
+  .statusBadge,
+  .rowActions span,
+  .paginationButton,
+  .paginationStatus {
+    animation: none;
+  }
+}
