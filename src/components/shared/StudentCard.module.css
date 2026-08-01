@@ -1,0 +1,255 @@
+.card {
+	background: #fff;
+	border: 1px solid rgba(36, 27, 30, 0.12);
+	border-radius: 0.85rem;
+	display: grid;
+	gap: 0.8rem;
+	grid-template-columns: 5.85rem minmax(0, 1fr);
+	min-width: 0;
+	overflow: hidden;
+	padding: 0.75rem;
+	transition:
+		border-color 160ms ease,
+		box-shadow 160ms ease,
+		transform 160ms ease;
+}
+
+.card:hover {
+	border-color: rgba(73, 21, 26, 0.2);
+	box-shadow: 0 14px 30px rgba(42, 24, 30, 0.08);
+	transform: translateY(-2px);
+}
+
+.imageLink {
+	border-radius: 999px;
+	display: block;
+	min-width: 0;
+}
+
+.imageLink:focus-visible {
+	box-shadow: 0 0 0 4px rgba(73, 21, 26, 0.14);
+	outline: 0;
+}
+
+.imageShell {
+	align-self: start;
+	aspect-ratio: 1;
+	background: #f1ece1;
+	border: 1px solid rgba(36, 27, 30, 0.08);
+	border-radius: 999px;
+	display: block;
+	overflow: hidden;
+	position: relative;
+}
+
+.image {
+	height: 100%;
+	object-fit: cover;
+	width: 100%;
+}
+
+.statusIndicator {
+	align-items: center;
+	background: rgba(255, 255, 255, 0.92);
+	border-radius: 999px;
+	bottom: 0.48rem;
+	box-shadow: 0 8px 22px rgba(24, 24, 27, 0.16);
+	display: inline-flex;
+	height: 1.05rem;
+	justify-content: center;
+	padding: 0.18rem;
+	position: absolute;
+	right: 0.48rem;
+	width: 1.05rem;
+}
+
+.statusIndicator::before,
+.statusIndicator::after {
+	border-radius: 999px;
+	content: "";
+	display: block;
+}
+
+.statusIndicator::before {
+	height: 0.52rem;
+	position: relative;
+	width: 0.52rem;
+	z-index: 1;
+}
+
+.statusIndicator::after {
+	animation: statusPulse 1.9s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+	inset: 0.28rem;
+	opacity: 0.48;
+	position: absolute;
+}
+
+.statusIndicator[data-active="true"]::before,
+.statusIndicator[data-active="true"]::after {
+	background: #059669;
+}
+
+.statusIndicator[data-active="false"]::before,
+.statusIndicator[data-active="false"]::after {
+	background: #dc2626;
+}
+
+.content {
+	align-content: start;
+	display: grid;
+	gap: 0.65rem;
+	min-width: 0;
+}
+
+.identity {
+	display: grid;
+	gap: 0.3rem;
+	min-width: 0;
+}
+
+.identity h3 {
+	color: #241b1e;
+	font-size: 0.875rem;
+	font-weight: 800;
+	line-height: 1.2;
+	margin: 0;
+	overflow-wrap: anywhere;
+}
+
+.identity h3 a {
+	color: inherit;
+	text-decoration: none;
+}
+
+.identity h3 a:hover {
+	color: var(--brand-primary);
+	text-decoration: underline;
+}
+
+.identity h3 a:focus-visible {
+	border-radius: 0.25rem;
+	box-shadow: 0 0 0 3px rgba(73, 21, 26, 0.12);
+	outline: 0;
+}
+
+.genderBadge {
+	color: #a9782f;
+	font-size: 0.63rem;
+	font-weight: 900;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+
+.badgeList {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.38rem;
+}
+
+.infoBadge {
+	align-items: center;
+	background: rgba(250, 247, 242, 0.86);
+	border: 1px solid rgba(36, 27, 30, 0.09);
+	border-radius: 999px;
+	color: #6b5f63;
+	display: inline-flex;
+	font-size: 0.68rem;
+	font-weight: 800;
+	gap: 0.28rem;
+	line-height: 1.2;
+	max-width: 100%;
+	min-height: 1.75rem;
+	min-width: 0;
+	overflow-wrap: anywhere;
+	padding: 0.32rem 0.55rem;
+}
+
+.actions {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.38rem;
+	margin-top: auto;
+}
+
+.action {
+	align-items: center;
+	background: rgba(73, 21, 26, 0.06);
+	border: 1px solid rgba(73, 21, 26, 0.1);
+	border-radius: 999px;
+	color: var(--brand-primary);
+	cursor: pointer;
+	display: inline-flex;
+	font: inherit;
+	font-size: 0.65rem;
+	font-weight: 850;
+	gap: 0.28rem;
+	justify-content: center;
+	line-height: 1;
+	min-height: 1.85rem;
+	padding: 0.35rem 0.58rem;
+	text-decoration: none;
+	transition:
+		background-color 160ms ease,
+		border-color 160ms ease,
+		box-shadow 160ms ease,
+		transform 160ms ease;
+}
+
+.action:hover {
+	background: rgba(73, 21, 26, 0.1);
+	border-color: rgba(73, 21, 26, 0.18);
+	transform: translateY(-1px);
+}
+
+.action:focus-visible {
+	box-shadow: 0 0 0 4px rgba(73, 21, 26, 0.12);
+	outline: 0;
+}
+
+.deleteAction {
+	background: #fff5f5;
+	border-color: rgba(220, 38, 38, 0.14);
+	color: #b91c1c;
+}
+
+.deleteAction:hover {
+	background: #fee2e2;
+	border-color: rgba(220, 38, 38, 0.24);
+}
+
+@keyframes statusPulse {
+	0% {
+		opacity: 0.5;
+		transform: scale(1);
+	}
+
+	100% {
+		opacity: 0;
+		transform: scale(2.4);
+	}
+}
+
+@media (max-width: 520px) {
+	.card {
+		grid-template-columns: 4.85rem minmax(0, 1fr);
+		padding: 0.65rem;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.statusIndicator::after {
+		animation: none;
+	}
+
+	.card,
+	.action {
+		transition: none;
+	}
+
+	.card:hover,
+	.action:hover {
+		transform: none;
+	}
+}
