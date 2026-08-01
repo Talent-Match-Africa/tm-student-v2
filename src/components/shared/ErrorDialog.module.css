@@ -1,0 +1,231 @@
+.overlay {
+  animation: overlayIn 180ms ease;
+  background-color: rgba(24, 24, 27, 0.56);
+  backdrop-filter: blur(8px);
+  inset: 0;
+  position: fixed;
+  z-index: 40;
+}
+
+.content {
+  animation: dialogIn 190ms ease;
+  background-color: #fff;
+  border: 1px solid rgba(73, 21, 26, 0.12);
+  border-radius: 1.75rem;
+  box-shadow:
+    0 28px 70px rgba(24, 24, 27, 0.22),
+    0 12px 28px rgba(73, 21, 26, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  left: 50%;
+  max-height: calc(100vh - 2rem);
+  max-width: 30rem;
+  overflow: hidden;
+  padding: 1rem;
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 2rem);
+  z-index: 50;
+}
+
+.header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.badge {
+  align-items: center;
+  background-color: rgba(185, 28, 28, 0.08);
+  border: 1px solid rgba(185, 28, 28, 0.12);
+  border-radius: 999px;
+  color: #b91c1c;
+  display: inline-flex;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  padding: 0.55rem 0.8rem;
+}
+
+.closeButton {
+  align-items: center;
+  background-color: #f7f7f8;
+  border: 1px solid #eeeeef;
+  border-radius: 999px;
+  color: #71717a;
+  cursor: pointer;
+  display: inline-flex;
+  height: 2.35rem;
+  justify-content: center;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+  width: 2.35rem;
+}
+
+.closeButton:hover {
+  background-color: #fff2f2;
+  border-color: rgba(185, 28, 28, 0.18);
+  color: #b91c1c;
+  transform: translateY(-1px);
+}
+
+.closeButton:focus-visible {
+  box-shadow: 0 0 0 4px rgba(73, 21, 26, 0.14);
+  outline: 0;
+}
+
+.body {
+  align-items: flex-start;
+  display: flex;
+  gap: 1rem;
+  padding: 0.25rem 0.25rem 1.25rem;
+}
+
+.iconWrap {
+  align-items: center;
+  background-color: #fff1f2;
+  border: 1px solid rgba(185, 28, 28, 0.12);
+  border-radius: 999px;
+  box-shadow: 0 12px 24px rgba(185, 28, 28, 0.1);
+  color: #b91c1c;
+  display: flex;
+  flex: 0 0 auto;
+  height: 3.25rem;
+  justify-content: center;
+  width: 3.25rem;
+}
+
+.copy {
+  min-width: 0;
+  padding-top: 0.1rem;
+}
+
+.title {
+  color: #18181b;
+  font-size: clamp(1.25rem, 3vw, 1.55rem);
+  font-weight: 950;
+  letter-spacing: -0.035em;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.message {
+  color: #5f5f66;
+  font-size: clamp(0.92rem, 2vw, 1rem);
+  font-weight: 650;
+  line-height: 1.65;
+  margin: 0.65rem 0 0;
+  overflow-wrap: anywhere;
+}
+
+.footer {
+  background-color: #fbfbfc;
+  border: 1px solid #f0f0f1;
+  border-radius: 1.25rem;
+  display: flex;
+  justify-content: flex-end;
+  padding: 0.75rem;
+}
+
+.actionButton {
+  align-items: center;
+  background-color: var(--brand-primary);
+  border: 1px solid var(--brand-primary);
+  border-radius: 999px;
+  box-shadow: 0 14px 28px rgba(73, 21, 26, 0.22);
+  color: #fff;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 0.92rem;
+  font-weight: 900;
+  height: 2.85rem;
+  justify-content: center;
+  min-width: 10.5rem;
+  padding: 0 1.15rem;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.actionButton:hover {
+  background-color: var(--brand-primary);
+  border-color: var(--brand-primary);
+  box-shadow: 0 18px 34px rgba(73, 21, 26, 0.3);
+  transform: translateY(-1px);
+}
+
+.actionButton:focus-visible {
+  box-shadow:
+    0 0 0 4px rgba(73, 21, 26, 0.14),
+    0 14px 28px rgba(73, 21, 26, 0.22);
+  outline: 0;
+}
+
+@keyframes overlayIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes dialogIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -48%) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@media (max-width: 480px) {
+  .content {
+    border-radius: 1.35rem;
+    padding: 0.85rem;
+    width: calc(100% - 1rem);
+  }
+
+  .body {
+    gap: 0.8rem;
+    padding-bottom: 1rem;
+  }
+
+  .iconWrap {
+    height: 2.85rem;
+    width: 2.85rem;
+  }
+
+  .footer {
+    display: grid;
+  }
+
+  .actionButton {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .content {
+    animation: none;
+  }
+
+  .closeButton,
+  .actionButton {
+    transition: none;
+  }
+}
