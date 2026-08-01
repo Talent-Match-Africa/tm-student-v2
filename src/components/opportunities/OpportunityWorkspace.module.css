@@ -1,8 +1,7 @@
 .workspace {
   display: grid;
-  gap: 1rem;
-  margin: 0 auto;
-  max-width: 1440px;
+  gap: 1.15rem;
+  min-width: 0;
 }
 
 .header {
@@ -12,129 +11,154 @@
   justify-content: space-between;
 }
 
-.header p {
+.eyebrow {
   color: #9c6b2e;
-  font-size: 0.68rem;
-  font-weight: 850;
-  letter-spacing: 0.11em;
-  margin: 0 0 0.35rem;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.3rem;
   text-transform: uppercase;
 }
 
-.header h2 {
-  color: #211719;
-  font-size: clamp(1.6rem, 4vw, 2.35rem);
-  letter-spacing: -0.045em;
+.header h1 {
+  color: #2b2023;
+  font-size: 1.45rem;
+  font-weight: 750;
+  line-height: 1.15;
   margin: 0;
 }
 
-.header > div > span {
-  color: #756a6f;
-  display: block;
-  margin-top: 0.45rem;
+.description {
+  color: #75686b;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  margin: 0.35rem 0 0;
+}
+
+.headerActions {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 0.65rem;
+}
+
+.addButton {
+  min-width: 0;
+  width: auto;
 }
 
 .resultBadge {
-  align-items: center;
+  align-items: baseline;
   background: #fff;
-  border: 1px solid rgba(73, 21, 26, 0.1);
+  border: 1px solid rgba(73, 21, 26, 0.11);
   border-radius: 999px;
-  display: flex;
-  gap: 0.65rem;
-  padding: 0.45rem 0.95rem 0.45rem 0.48rem;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 0.48rem;
+  padding: 0.48rem 0.8rem;
 }
 
 .resultBadge strong {
-  align-items: center;
-  background: var(--brand-primary);
-  border-radius: 999px;
-  color: #fff;
-  display: flex;
-  height: 2.55rem;
-  justify-content: center;
-  min-width: 2.55rem;
-  padding: 0 0.55rem;
+  color: #49151a;
+  font-size: 0.9rem;
+  font-weight: 800;
 }
 
 .resultBadge span {
-  color: #756a6f;
-  font-size: 0.7rem;
-  font-weight: 750;
+  color: #75686b;
+  font-size: 0.68rem;
+  font-weight: 700;
 }
 
-.content {
+.contentLayout {
   align-items: start;
   display: grid;
   gap: 1rem;
-  grid-template-columns: 14rem minmax(0, 1fr);
+  grid-template-columns: 18rem minmax(0, 1fr);
+  min-width: 0;
 }
 
-.content aside {
+.categoryRail {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-rows: auto minmax(0, 1fr);
+  max-height: calc(100dvh - 7.85rem);
+  min-width: 0;
+  overflow: hidden;
   position: sticky;
   top: 1rem;
 }
 
-.content main {
+.sidebarScroll {
+  min-height: 0;
+  min-width: 0;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  padding-right: 0.25rem;
+  scrollbar-color: rgba(73, 21, 26, 0.3) transparent;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  touch-action: pan-y;
+}
+
+.sidebarScroll::-webkit-scrollbar {
+  width: 0.42rem;
+}
+
+.sidebarScroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebarScroll::-webkit-scrollbar-thumb {
+  background: rgba(73, 21, 26, 0.3);
+  border-radius: 999px;
+}
+
+.sidebarScroll:focus-visible {
+  border-radius: 0.5rem;
+  outline: 2px solid rgba(73, 21, 26, 0.4);
+  outline-offset: 2px;
+}
+
+.results {
   display: grid;
   gap: 1rem;
   min-width: 0;
 }
 
-.grid {
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
-.empty {
-  background: #fff;
-  border: 1px solid rgba(73, 21, 26, 0.1);
-  border-radius: 1rem;
-  display: grid;
-  gap: 0.45rem;
-  padding: 2rem;
-}
-
-.empty span {
-  color: #9c6b2e;
-  font-size: 0.68rem;
-  font-weight: 850;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.empty h3,
-.empty p {
-  margin: 0;
-}
-
-.empty p {
-  color: #756a6f;
-}
-
-@media (max-width: 1280px) {
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 820px) {
-  .content {
+@media (max-width: 1120px) {
+  .contentLayout {
     grid-template-columns: 1fr;
   }
 
-  .content aside {
+  .categoryRail {
+    max-height: none;
+    overflow: visible;
     position: static;
+  }
+
+  .sidebarScroll {
+    overflow: visible;
+    overscroll-behavior: auto;
+    padding-right: 0;
+    scrollbar-gutter: auto;
+    touch-action: auto;
   }
 }
 
 @media (max-width: 680px) {
   .header {
-    align-items: flex-start;
+    align-items: start;
     flex-direction: column;
   }
 
-  .grid {
-    grid-template-columns: 1fr;
+  .headerActions {
+    align-items: stretch;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .addButton {
+    flex: 1 1 11rem;
   }
 }
