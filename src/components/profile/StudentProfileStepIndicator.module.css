@@ -1,0 +1,173 @@
+.rail {
+  background: #fff;
+  border: 1px solid rgba(73, 21, 26, 0.1);
+  border-radius: 1.05rem;
+  box-shadow: 0 14px 34px rgba(24, 24, 27, 0.05);
+  display: grid;
+  gap: 0.55rem;
+  padding: 0.65rem;
+  position: sticky;
+  top: 5.8rem;
+}
+
+.header {
+  display: grid;
+  gap: 0.18rem;
+  padding: 0.45rem 0.55rem 0.65rem;
+}
+
+.header span {
+  color: var(--brand-primary);
+  font-size: 0.62rem;
+  font-weight: 850;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.header strong {
+  color: #21191d;
+  font-size: 0.9rem;
+  font-weight: 850;
+}
+
+.steps {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.step {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 0.82rem;
+  color: #4b4145;
+  cursor: pointer;
+  display: grid;
+  font: inherit;
+  gap: 0.65rem;
+  grid-template-columns: auto minmax(0, 1fr);
+  min-height: 4rem;
+  padding: 0.65rem;
+  text-align: left;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.step:hover {
+  background: #fff8f8;
+  border-color: rgba(73, 21, 26, 0.1);
+  transform: translateX(2px);
+}
+
+.step:focus-visible {
+  box-shadow: 0 0 0 4px rgba(73, 21, 26, 0.12);
+  outline: 0;
+}
+
+.step:disabled {
+  cursor: wait;
+  opacity: 0.62;
+  transform: none;
+}
+
+.step[data-active="true"] {
+  background: var(--brand-primary);
+  border-color: var(--brand-primary);
+  border-radius: 999px;
+  box-shadow: 0 14px 28px rgba(73, 21, 26, 0.2);
+  color: #fff;
+}
+
+.marker {
+  align-items: center;
+  background: rgba(73, 21, 26, 0.08);
+  border-radius: 999px;
+  color: var(--brand-primary);
+  display: inline-flex;
+  height: 2.2rem;
+  justify-content: center;
+  width: 2.2rem;
+}
+
+.step[data-active="true"] .marker {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+}
+
+.copy {
+  align-self: center;
+  display: grid;
+  gap: 0.14rem;
+  min-width: 0;
+}
+
+.copy strong {
+  color: #2f2529;
+  font-size: 0.78rem;
+  font-weight: 820;
+}
+
+.copy small {
+  color: #81757a;
+  font-size: 0.65rem;
+  font-weight: 620;
+  line-height: 1.3;
+}
+
+.step[data-active="true"] .copy strong {
+  color: #fff;
+}
+
+.step[data-active="true"] .copy small {
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.note {
+  background: #fbf8f9;
+  border-radius: 0.72rem;
+  color: #796d72;
+  font-size: 0.65rem;
+  font-weight: 620;
+  line-height: 1.5;
+  margin: 0.15rem 0 0;
+  padding: 0.7rem;
+}
+
+@media (max-width: 980px) {
+  .rail {
+    position: static;
+  }
+
+  .header,
+  .note {
+    display: none;
+  }
+
+  .steps {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+
+  .step {
+    flex: 0 0 12rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .step {
+    flex-basis: 9rem;
+  }
+
+  .copy small {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .step {
+    transition: none;
+  }
+}
