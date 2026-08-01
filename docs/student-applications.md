@@ -11,3 +11,8 @@ draft. A same-origin handler allowlists fields, bounds the request envelope,
 refreshes the secure session once, and forwards multipart data without exposing
 tokens. The API remains authoritative for MIME signatures, audience, open
 dates, ownership, rate limiting, and duplicate races.
+
+The newest profile CV is selected by default. Submissions may instead include a
+new local document. Saved-document submissions send only an opaque document id;
+the API verifies student ownership and copies the private asset into independent
+application storage before creating the application.
