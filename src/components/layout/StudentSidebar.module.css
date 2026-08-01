@@ -1,11 +1,23 @@
 .sidebar {
   --sidebar-width: 22rem;
   --sidebar-collapsed-width: 5.35rem;
+  --sidebar-radius: 1.65rem;
+  --sidebar-surface: rgba(255, 255, 255, 0.08);
+  --sidebar-surface-strong: rgba(255, 255, 255, 0.14);
+  --sidebar-border: rgba(255, 255, 255, 0.16);
+  --sidebar-text: #fff;
+  --sidebar-muted: rgba(255, 255, 255, 0.66);
+  --sidebar-soft: rgba(255, 255, 255, 0.1);
+
   background-color: var(--brand-primary);
-  color: #fff;
+  color: var(--sidebar-text);
   display: flex;
   flex: 0 0 var(--sidebar-width);
+  flex-direction: column;
+  height: 100vh;
   height: 100dvh;
+  max-height: 100vh;
+  max-height: 100dvh;
   min-height: 100vh;
   padding: 0.95rem;
   position: sticky;
@@ -22,7 +34,7 @@
 .sidebar::after {
   background-color: rgba(255, 255, 255, 0.055);
   border-radius: 999px;
-  content: "";
+  content: '';
   pointer-events: none;
   position: absolute;
 }
@@ -42,6 +54,8 @@
 }
 
 .sidebarSurface {
+  background-color: transparent;
+  border: none;
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -75,21 +89,35 @@
   min-width: 0;
   padding: 0.46rem 0.55rem;
   text-decoration: none;
-  transition: 170ms ease;
+  transition:
+    background-color 170ms ease,
+    border-color 170ms ease,
+    box-shadow 170ms ease,
+    transform 170ms ease;
 }
 
-.brand:hover,
-.navLink:hover {
+.brand:hover {
   background-color: rgba(255, 255, 255, 0.105);
   border-color: rgba(255, 255, 255, 0.14);
-  transform: translateX(3px);
+  box-shadow: 0 14px 28px rgba(24, 11, 13, 0.16);
+  transform: translateY(-1px);
+}
+
+.brand:focus-visible {
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, 0.14),
+    0 14px 28px rgba(24, 11, 13, 0.16);
+  outline: 0;
 }
 
 .brandMark {
   align-items: center;
-  background: #fff;
+  background-color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.36);
   border-radius: 999px;
-  box-shadow: 0 14px 28px rgba(24, 11, 13, 0.22);
+  box-shadow:
+    0 14px 28px rgba(24, 11, 13, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.96);
   color: var(--brand-primary);
   display: inline-flex;
   flex: 0 0 2.55rem;
@@ -97,12 +125,20 @@
   font-weight: 950;
   height: 2.55rem;
   justify-content: center;
+  letter-spacing: -0.03em;
   width: 2.55rem;
+}
+
+.brandCopy {
+  display: grid;
+  min-width: 0;
 }
 
 .brandName {
   font-size: 0.94rem;
   font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -110,15 +146,35 @@
 
 .toggleButton {
   align-items: center;
-  background: rgba(255, 255, 255, 0.13);
+  background-color: rgba(255, 255, 255, 0.13);
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 999px;
   color: #fff;
+  cursor: pointer;
   display: inline-flex;
   flex: 0 0 2.55rem;
   height: 2.55rem;
   justify-content: center;
+  transition:
+    background-color 170ms ease,
+    border-color 170ms ease,
+    box-shadow 170ms ease,
+    transform 170ms ease;
   width: 2.55rem;
+}
+
+.toggleButton:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.24);
+  box-shadow: 0 14px 28px rgba(24, 11, 13, 0.18);
+  transform: translateY(-1px);
+}
+
+.toggleButton:focus-visible {
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, 0.14),
+    0 14px 28px rgba(24, 11, 13, 0.18);
+  outline: 0;
 }
 
 .nav {
@@ -126,8 +182,18 @@
   margin-top: 1.15rem;
   min-height: 0;
   overflow-y: auto;
+  padding-right: 0.12rem;
   scrollbar-color: rgba(255, 255, 255, 0.32) transparent;
   scrollbar-width: thin;
+}
+
+.nav::-webkit-scrollbar {
+  width: 0.35rem;
+}
+
+.nav::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.28);
+  border-radius: 999px;
 }
 
 .navList {
@@ -154,95 +220,404 @@
   padding: 0 0.68rem;
   position: relative;
   text-decoration: none;
-  transition: 170ms ease;
+  transition:
+    background-color 170ms ease,
+    border-color 170ms ease,
+    box-shadow 170ms ease,
+    color 170ms ease,
+    transform 170ms ease;
+}
+
+.groupTrigger {
+	background: transparent;
+	cursor: pointer;
+	font-family: inherit;
+	text-align: left;
+	width: 100%;
+}
+
+.groupTriggerActive:not(.navLinkActive) {
+  background-color: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.13);
+  color: #fff;
+}
+
+.groupChevron {
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  margin-left: auto;
+  transition: transform 170ms ease;
+}
+
+.groupChevron[data-open='true'] {
+  transform: rotate(180deg);
+}
+
+.subnav {
+  display: grid;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0.38rem 0 0;
+  padding: 0 0 0 1rem;
+}
+
+.nestedLink {
+  min-height: 2.7rem;
+  padding-left: 0.55rem;
+}
+
+.nestedLink .navIcon {
+  flex-basis: 1.85rem;
+  height: 1.85rem;
+  width: 1.85rem;
+}
+
+.nestedLink .navLabel {
+  font-size: 0.77rem;
+}
+
+.navLink::before {
+  border: 1px solid transparent;
+  border-radius: 999px;
+  content: '';
+  inset: 0.18rem;
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
+  transition:
+    border-color 170ms ease,
+    opacity 170ms ease;
+}
+
+.navLink::after {
+  background-color: transparent;
+  border-radius: 999px;
+  content: '';
+  height: 0.5rem;
+  opacity: 0;
+  position: absolute;
+  right: 0.95rem;
+  top: 50%;
+  transform: translateY(-50%);
+  transition:
+    background-color 170ms ease,
+    opacity 170ms ease,
+    transform 170ms ease;
+  width: 0.5rem;
+}
+
+.navLink:hover {
+  background-color: rgba(255, 255, 255, 0.105);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  transform: translateX(3px);
+}
+
+.navLink:hover::before {
+  border-color: rgba(255, 255, 255, 0.08);
+  opacity: 1;
+}
+
+.navLink:focus-visible {
+  box-shadow:
+    0 0 0 4px rgba(255, 255, 255, 0.14),
+    0 14px 28px rgba(24, 11, 13, 0.16);
+  outline: 0;
 }
 
 .navLinkActive {
-  background: #fff;
+  background-color: #fff;
   border-color: rgba(255, 255, 255, 0.44);
-  box-shadow: 0 18px 38px rgba(24, 11, 13, 0.26);
+  border-radius: 999px;
+  box-shadow:
+    0 18px 38px rgba(24, 11, 13, 0.26),
+    inset 0 1px 0 rgba(255, 255, 255, 0.96);
   color: var(--brand-primary);
   padding-right: 1.65rem;
 }
 
+.navLinkActive::before {
+  border-color: rgba(73, 21, 26, 0.1);
+  opacity: 1;
+}
+
 .navLinkActive::after {
-  background: var(--brand-primary);
-  border-radius: 999px;
+  background-color: var(--brand-primary);
   box-shadow: 0 0 0 4px rgba(73, 21, 26, 0.1);
-  content: "";
-  height: 0.5rem;
-  position: absolute;
-  right: 0.95rem;
-  width: 0.5rem;
+  opacity: 1;
+}
+
+.navLinkActive:hover {
+  background-color: #fff;
+  border-color: rgba(255, 255, 255, 0.52);
+  color: var(--brand-primary);
+  transform: translateX(3px);
+}
+
+.navLinkActive:hover::after {
+  transform: translateY(-50%) scale(1.15);
+}
+
+.navIcon,
+.navLabel {
+  position: relative;
+  z-index: 1;
 }
 
 .navIcon {
   align-items: center;
-  background: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.105);
+  border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: 999px;
   display: inline-flex;
   flex: 0 0 2.15rem;
   height: 2.15rem;
   justify-content: center;
+  transition:
+    background-color 170ms ease,
+    border-color 170ms ease,
+    box-shadow 170ms ease,
+    color 170ms ease,
+    transform 170ms ease;
   width: 2.15rem;
 }
 
+.navLink:hover .navIcon {
+  background-color: rgba(255, 255, 255, 0.17);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 10px 20px rgba(24, 11, 13, 0.12);
+  transform: scale(1.04);
+}
+
 .navLinkActive .navIcon {
-  background: rgba(73, 21, 26, 0.08);
+  background-color: var(--brand-primary);
+  border-color: var(--brand-primary);
+  box-shadow: 0 12px 24px rgba(73, 21, 26, 0.24);
+  color: #fff;
 }
 
 .navLabel {
-  font-size: 0.82rem;
-  font-weight: 750;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: -0.012em;
+  line-height: 1.15;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navLinkActive .navLabel {
+  font-weight: 800;
+}
+
+.footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.13);
+  display: grid;
+  gap: 0.78rem;
+  margin-top: 1rem;
+  padding-top: 0.95rem;
+}
+
+.footerStatus {
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.095);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 999px;
+  display: flex;
+  gap: 0.6rem;
+  min-height: 2.85rem;
+  padding: 0 0.85rem;
+}
+
+.statusDot {
+  background-color: #22c55e;
+  border: 2px solid rgba(255, 255, 255, 0.72);
+  border-radius: 999px;
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.14);
+  flex: 0 0 auto;
+  height: 0.72rem;
+  width: 0.72rem;
+}
+
+.statusCopy {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1.25;
+  min-width: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .copyright {
-  color: rgba(255, 255, 255, 0.58);
+  color: rgba(255, 255, 255, 0.56);
   font-size: 0.68rem;
-  margin: 1rem 0 0;
+  font-weight: 750;
+  margin: 0;
   text-align: center;
 }
 
-.sidebarCollapsed .brandName,
+.sidebarCollapsed .sidebarSurface {
+  padding-inline: 0.5rem;
+}
+
+.sidebarCollapsed .brand {
+  justify-content: center;
+  padding-inline: 0;
+}
+
+.sidebarCollapsed .brandCopy,
+.sidebarCollapsed,
 .sidebarCollapsed .navLabel,
+.sidebarCollapsed .footerStatus,
 .sidebarCollapsed .copyright {
   display: none;
 }
 
-.sidebarCollapsed .brand {
-  padding: 0;
+.sidebarCollapsed .brandRow {
+  display: grid;
+  justify-items: center;
 }
 
 .sidebarCollapsed .toggleButton {
-  display: none;
+  margin-inline: auto;
 }
 
 .sidebarCollapsed .navLink {
   justify-content: center;
-  padding: 0;
+  padding-inline: 0;
+  padding-right: 0;
+}
+
+.sidebarCollapsed .groupChevron,
+.sidebarCollapsed .subnav {
+  display: none;
+}
+
+.sidebarCollapsed .navLink::after {
+  bottom: 0.18rem;
+  height: 0.34rem;
+  left: 50%;
+  right: auto;
+  top: auto;
+  transform: translateX(-50%);
+  width: 0.34rem;
+}
+
+.sidebarCollapsed .navLinkActive::after {
+  box-shadow: 0 0 0 3px rgba(73, 21, 26, 0.1);
 }
 
 @media (max-width: 980px) {
   .sidebar {
-    box-shadow: 24px 0 60px rgba(24, 11, 13, 0.25);
-    left: 0;
+    bottom: 1rem;
+    box-shadow: 24px 0 70px rgba(24, 11, 13, 0.28);
+    left: 1rem;
+    max-width: calc(100vw - 2rem);
+    min-height: auto;
     position: fixed;
-    transform: translateX(-105%);
-    width: min(22rem, 88vw);
+    top: 1rem;
+    transform: translateX(calc(-100% - 2rem));
+    width: min(var(--sidebar-width), calc(100vw - 2rem));
+  }
+
+  .sidebarCollapsed {
+    flex-basis: var(--sidebar-width);
+    width: min(var(--sidebar-width), calc(100vw - 2rem));
   }
 
   .sidebarMobileOpen {
     transform: translateX(0);
   }
+
+  .sidebarCollapsed .sidebarSurface {
+    padding-inline: 0.75rem;
+  }
+
+  .sidebarCollapsed .brandCopy,
+  .sidebarCollapsed,
+  .sidebarCollapsed .navLabel,
+  .sidebarCollapsed .footerStatus,
+  .sidebarCollapsed .copyright {
+    display: grid;
+  }
+
+  .sidebarCollapsed .footerStatus {
+    display: flex;
+  }
+
+  .sidebarCollapsed .brandRow {
+    align-items: center;
+    display: flex;
+  }
+
+  .sidebarCollapsed .brand {
+    justify-content: flex-start;
+    padding: 0.46rem 0.55rem;
+  }
+
+  .sidebarCollapsed .navLink {
+    justify-content: flex-start;
+    padding: 0 0.68rem;
+    padding-right: 1.65rem;
+  }
+
+  .sidebarCollapsed .groupChevron {
+    display: inline-flex;
+  }
+
+  .sidebarCollapsed .subnav {
+    display: grid;
+  }
+
+  .sidebarCollapsed .navLink::after {
+    bottom: auto;
+    left: auto;
+    right: 0.95rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .sidebarCollapsed .navLinkActive:hover::after {
+    transform: translateY(-50%) scale(1.15);
+  }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .sidebar,
-  .brand,
+@media (max-width: 480px) {
+  .sidebar {
+    bottom: 0.75rem;
+    left: 0.75rem;
+    max-width: calc(100vw - 1.5rem);
+    padding: 0.65rem;
+    top: 0.75rem;
+    width: calc(100vw - 1.5rem);
+  }
+
+  .sidebarSurface {
+    border-radius: 1.35rem;
+    padding: 0.65rem;
+  }
+
+  .brandRow {
+    gap: 0.5rem;
+  }
+
+  .brandMark,
+  .toggleButton {
+    height: 2.4rem;
+    width: 2.4rem;
+  }
+
   .navLink {
-    transition: none;
+    min-height: 3rem;
+  }
+
+  .navIcon {
+    flex-basis: 2.05rem;
+    height: 2.05rem;
+    width: 2.05rem;
   }
 }
