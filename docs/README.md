@@ -13,6 +13,9 @@
 - `testing.md`: unit, component, integration, and end-to-end coverage.
 - `performance_optimization.md`: rendering and payload boundaries.
 - `skeleton-loading.md`: structural loading-state requirements.
+- `student-dashboard.md`: student command-center aggregate.
+- `student-opportunities.md`: discovery, filters, cards, details, and pagination.
+- `student-applications.md`: secure opportunity application workflow.
 - `deploy.md`: staging build, activation, validation, and rollback.
 - `git.md`: mandatory one-file-per-commit workflow.
 
