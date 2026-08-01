@@ -19,7 +19,7 @@ export function OpportunityFeed({ errorMessage, filters, initialData, onReset, t
   const [loading, setLoading] = useState(false);
   const sentinelRef = useRef<HTMLDivElement>(null);
   const loadingRef = useRef(false);
-  const filtered = Boolean(filters.search || filters.workFlexibility || filters.industrySector || filters.location || filters.status !== "ACTIVE" || filters.ordering !== "-created_at");
+  const filtered = Boolean(filters.search || filters.createdFrom || filters.createdTo || filters.workFlexibility || filters.industrySector || filters.location || filters.status !== "ACTIVE" || filters.ordering !== "-created_at");
 
   useEffect(() => {
     const target = sentinelRef.current;
