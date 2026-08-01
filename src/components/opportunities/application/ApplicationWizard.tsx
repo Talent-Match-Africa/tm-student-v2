@@ -6,15 +6,17 @@ import { CheckmarkCircle02Icon, SentIcon } from "@hugeicons/core-free-icons";
 import { HugeIcon } from "@/components/shared/HugeIcon";
 import { toApiType } from "@/endpoints/student/opportunity-query";
 import type { OpportunityRecord, OpportunityRouteType } from "@/types/opportunities";
+import type { StudentDocument } from "@/types/student-self-service";
 import styles from "./ApplicationWizard.module.css";
 
 interface ApplicationWizardProps {
   autoOpen: boolean;
+  latestDocument: StudentDocument | null;
   opportunity: OpportunityRecord;
   type: OpportunityRouteType;
 }
 
-export function ApplicationWizard({ autoOpen, opportunity, type }: ApplicationWizardProps) {
+export function ApplicationWizard({ autoOpen, latestDocument, opportunity, type }: ApplicationWizardProps) {
   const router = useRouter();
   const [open, setOpen] = useState(autoOpen);
   const [step, setStep] = useState(1);
@@ -24,6 +26,7 @@ export function ApplicationWizard({ autoOpen, opportunity, type }: ApplicationWi
   const [experience, setExperience] = useState("");
   const [document, setDocument] = useState<File | null>(null);
   const [coverDocument, setCoverDocument] = useState<File | null>(null);
+  const [useSavedDocument, setUseSavedDocument] = useState(Boolean(latestDocument));
 
   async function submit(event: FormEvent) {
     event.preventDefault();
@@ -42,6 +45,7 @@ export function ApplicationWizard({ autoOpen, opportunity, type }: ApplicationWi
     if (coverLetter.trim()) body.set("cover_letter", coverLetter.trim());
     if (type === "job-listings" && experience.trim()) body.set("experience_summary", experience.trim());
     if (document) body.set("document", document);
+    else if (useSavedDocument && latestDocument) body.set("document_id", latestDocument.id);
     if (type === "job-listings" && coverDocument) body.set("cover_letter_document", coverDocument);
     try {
       const response = await fetch(`/api/student/applications/${toApiType(type)}/${opportunity.id}`, { method: "POST", body });
@@ -106,7 +110,8 @@ export function ApplicationWizard({ autoOpen, opportunity, type }: ApplicationWi
             {step === 3 ? (
               <form className={styles.step} onSubmit={submit}>
                 <span>Documents and confirmation</span><h3>Review your submission</h3>
-                <label className={styles.file}><span>Résumé or supporting document <small>PDF, DOC, or DOCX · maximum 10 MB</small></span><input accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" onChange={(event) => setDocument(event.target.files?.[0] ?? null)} type="file" /></label>
+                {latestDocument ? <div className={styles.review}><strong>Primary CV</strong><p>{latestDocument.file_name} · uploaded {new Date(latestDocument.created_at).toLocaleDateString("en-RW")}</p><button onClick={() => { setUseSavedDocument(true); setDocument(null); }} type="button">{useSavedDocument && !document ? "Selected" : "Use this CV"}</button></div> : null}
+                <label className={styles.file}><span>{latestDocument ? "Or choose another file" : "Résumé or supporting document"} <small>PDF, DOC, or DOCX · maximum 10 MB</small></span><input accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" onChange={(event) => { const file = event.target.files?.[0] ?? null; setDocument(file); if (file) setUseSavedDocument(false); }} type="file" /></label>
                 {type === "job-listings" ? <label className={styles.file}><span>Cover letter document <small>Optional · maximum 10 MB</small></span><input accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" onChange={(event) => setCoverDocument(event.target.files?.[0] ?? null)} type="file" /></label> : null}
                 <div className={styles.review}><strong>Ready to submit</strong><p>Your application will be sent to {opportunity.posted_by.name}. You cannot submit the same opportunity twice.</p></div>
                 {error ? <p className={styles.error} role="alert">{error}</p> : null}
