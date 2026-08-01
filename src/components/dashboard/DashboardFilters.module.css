@@ -1,0 +1,16 @@
+.dateField {
+  min-width: 12.5rem;
+}
+
+.actionButton {
+  min-width: 7.4rem;
+  width: auto;
+}
+
+@media (max-width: 680px) {
+  .dateField,
+  .actionButton {
+    min-width: 0;
+    width: 100%;
+  }
+}
