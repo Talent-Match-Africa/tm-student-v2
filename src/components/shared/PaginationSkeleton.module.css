@@ -1,0 +1,57 @@
+.pagination {
+  align-items: center;
+  display: flex;
+  gap: 0.7rem;
+  justify-content: flex-end;
+}
+
+.placeholder {
+  animation: pagination-skeleton-pulse 1.35s ease-in-out infinite;
+  background: linear-gradient(90deg, #eee7e9, #faf7f8, #eee7e9);
+  background-size: 200% 100%;
+  border-radius: 999px;
+  display: block;
+}
+
+.pageButton {
+  height: 2.45rem;
+  width: 5.7rem;
+}
+
+.pageStatus {
+  height: 0.72rem;
+  width: 5.6rem;
+}
+
+@keyframes pagination-skeleton-pulse {
+  0%,
+  100% {
+    background-position: 100% 0;
+  }
+
+  50% {
+    background-position: 0 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .pagination {
+    align-items: stretch;
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .pageButton {
+    width: 100%;
+  }
+
+  .pageStatus {
+    justify-self: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .placeholder {
+    animation: none;
+  }
+}
