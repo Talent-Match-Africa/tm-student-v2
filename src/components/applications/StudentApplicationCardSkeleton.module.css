@@ -1,0 +1,239 @@
+.card {
+  background: #fff;
+  border: 1px solid rgba(73, 21, 26, 0.1);
+  border-radius: 0.9rem;
+  display: grid;
+  gap: 0.75rem;
+  min-width: 0;
+  padding: 0.9rem;
+}
+
+.header {
+  align-items: start;
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: auto minmax(0, 1fr);
+}
+
+.heading,
+.decisionHeader > div {
+  display: grid;
+  gap: 0.3rem;
+  min-width: 0;
+}
+
+.headingMeta,
+.decisionHeader,
+.applicantBadges,
+.statusChoices,
+.actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.42rem;
+}
+
+.headingMeta,
+.decisionHeader {
+  justify-content: space-between;
+}
+
+.avatar,
+.typeLabel,
+.statusBadge,
+.studentName,
+.submittedAt,
+.applicantBadges span,
+.decisionLabel,
+.decisionHelp,
+.saveButton,
+.statusChoices span,
+.actions span,
+.opportunityIcon,
+.opportunityLabel,
+.opportunityTitle,
+.opportunityOwner,
+.opportunityLink {
+  animation: student-application-card-skeleton 1.35s ease-in-out infinite;
+  background: linear-gradient(90deg, #f1ebed, #faf7f8, #f1ebed);
+  background-size: 200% 100%;
+  border-radius: 999px;
+  display: block;
+}
+
+.opportunityContext {
+  align-items: center;
+  background: #faf7f4;
+  border: 1px solid rgba(73, 21, 26, 0.09);
+  border-radius: 0.55rem;
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns: 2rem minmax(0, 1fr) auto;
+  min-width: 0;
+  padding: 0.65rem;
+}
+
+.opportunityContext div {
+  display: grid;
+  gap: 0.22rem;
+  min-width: 0;
+}
+
+.opportunityIcon {
+  border-radius: 0.4rem;
+  height: 2rem;
+  width: 2rem;
+}
+
+.opportunityLabel {
+  height: 0.45rem;
+  width: 5.6rem;
+}
+
+.opportunityTitle {
+  height: 0.62rem;
+  width: min(90%, 10rem);
+}
+
+.opportunityOwner {
+  height: 0.45rem;
+  width: min(65%, 7rem);
+}
+
+.opportunityLink {
+  height: 0.55rem;
+  width: 4.2rem;
+}
+
+.avatar {
+  height: 2.75rem;
+  width: 2.75rem;
+}
+
+.typeLabel {
+  height: 0.5rem;
+  width: 5.4rem;
+}
+
+.statusBadge {
+  height: 1.55rem;
+  width: 4.7rem;
+}
+
+.studentName {
+  height: 0.82rem;
+  width: min(72%, 9rem);
+}
+
+.submittedAt {
+  height: 0.55rem;
+  width: min(88%, 12rem);
+}
+
+.applicantBadges span {
+  height: 1.75rem;
+  width: 7.2rem;
+}
+
+.applicantBadges span:nth-child(2) {
+  width: 6.2rem;
+}
+
+.applicantBadges span:nth-child(3) {
+  width: 8rem;
+}
+
+.applicantBadges span:nth-child(4) {
+  width: 9rem;
+}
+
+.statusEditor {
+  display: grid;
+  gap: 0.6rem;
+  padding: 0.65rem;
+}
+
+.decisionLabel {
+  height: 0.5rem;
+  width: 6.3rem;
+}
+
+.decisionHelp {
+  height: 0.55rem;
+  width: 10.5rem;
+}
+
+.saveButton {
+  height: 2.25rem;
+  width: 6.6rem;
+}
+
+.statusChoices span {
+  height: 1.95rem;
+  width: 5.1rem;
+}
+
+.statusChoices span:nth-child(2),
+.statusChoices span:nth-child(3) {
+  width: 6.7rem;
+}
+
+.actions {
+  justify-content: flex-end;
+}
+
+.actions span {
+  height: 2.25rem;
+  width: 6.2rem;
+}
+
+.actions span:last-child {
+  width: 8.2rem;
+}
+
+@keyframes student-application-card-skeleton {
+  0%,
+  100% {
+    background-position: 100% 0;
+  }
+
+  50% {
+    background-position: 0 0;
+  }
+}
+
+@media (max-width: 680px) {
+  .decisionHeader {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .saveButton {
+    align-self: flex-start;
+  }
+
+  .actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .avatar,
+  .typeLabel,
+  .statusBadge,
+  .studentName,
+  .submittedAt,
+  .applicantBadges span,
+  .decisionLabel,
+  .decisionHelp,
+  .saveButton,
+  .statusChoices span,
+  .actions span,
+  .opportunityIcon,
+  .opportunityLabel,
+  .opportunityTitle,
+  .opportunityOwner,
+  .opportunityLink {
+    animation: none;
+  }
+}
