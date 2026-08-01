@@ -1,0 +1,148 @@
+.workspace {
+  display: grid;
+  gap: 1.15rem;
+  min-width: 0;
+}
+
+.header {
+  align-items: end;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.eyebrow {
+  color: #9c6b2e;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.3rem;
+  text-transform: uppercase;
+}
+
+.header h1 {
+  color: #2b2023;
+  font-size: 1.45rem;
+  font-weight: 750;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.description {
+  color: #75686b;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  margin: 0.35rem 0 0;
+  max-width: 45rem;
+}
+
+.resultBadge {
+  align-items: baseline;
+  background: #fff;
+  border: 1px solid rgba(73, 21, 26, 0.11);
+  border-radius: 999px;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 0.48rem;
+  padding: 0.48rem 0.8rem;
+}
+
+.resultBadge strong {
+  color: #49151a;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.resultBadge span {
+  color: #75686b;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.contentLayout {
+  align-items: start;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 18rem minmax(0, 1fr);
+  min-width: 0;
+}
+
+.categoryRail {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-rows: auto minmax(0, 1fr);
+  max-height: calc(100dvh - 7.85rem);
+  min-width: 0;
+  overflow: hidden;
+  position: sticky;
+  top: 1rem;
+}
+
+.sidebarScroll {
+  min-height: 0;
+  min-width: 0;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  padding-right: 0.25rem;
+  scrollbar-color: rgba(73, 21, 26, 0.3) transparent;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  touch-action: pan-y;
+}
+
+.sidebarScroll::-webkit-scrollbar {
+  width: 0.42rem;
+}
+
+.sidebarScroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebarScroll::-webkit-scrollbar-thumb {
+  background: rgba(73, 21, 26, 0.3);
+  border-radius: 999px;
+}
+
+.sidebarScroll:focus-visible {
+  border-radius: 0.5rem;
+  outline: 2px solid rgba(73, 21, 26, 0.4);
+  outline-offset: 2px;
+}
+
+.results {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+@media (max-width: 1120px) {
+  .contentLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .categoryRail {
+    max-height: none;
+    overflow: visible;
+    position: static;
+  }
+
+  .sidebarScroll {
+    overflow: visible;
+    overscroll-behavior: auto;
+    padding-right: 0;
+    scrollbar-gutter: auto;
+    touch-action: auto;
+  }
+}
+
+@media (max-width: 680px) {
+  .header {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .resultBadge {
+    align-self: stretch;
+    justify-content: center;
+  }
+}
