@@ -1,0 +1,2 @@
+import{backendJson,type BackendResult}from"@/lib/api-client";import type{Appointment,PageResponse}from"@/types/student-self-service";
+export function listAppointments(token:string,page:number,status:string|null,upcoming:boolean):Promise<BackendResult<PageResponse<Appointment>>>{const q=new URLSearchParams({page:String(page),page_size:"20",upcoming:String(upcoming)});if(status)q.set("status",status);return backendJson(`/student/appointments?${q}`,{accessToken:token,method:"GET"})}
