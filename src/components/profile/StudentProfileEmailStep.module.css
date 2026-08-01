@@ -1,0 +1,123 @@
+.section {
+  display: grid;
+  gap: 1rem;
+}
+
+.currentEmail {
+  align-items: center;
+  background: #fbf8f9;
+  border: 1px solid rgba(73, 21, 26, 0.09);
+  border-radius: 0.8rem;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  padding: 0.8rem;
+}
+
+.currentIcon {
+  align-items: center;
+  background: rgba(73, 21, 26, 0.08);
+  border-radius: 999px;
+  color: var(--brand-primary);
+  display: inline-flex;
+  height: 2.5rem;
+  justify-content: center;
+  width: 2.5rem;
+}
+
+.currentEmail > div:nth-child(2) {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.currentEmail span,
+.currentEmail strong {
+  overflow-wrap: anywhere;
+}
+
+.currentEmail > div span {
+  color: #82757a;
+  font-size: 0.66rem;
+  font-weight: 700;
+}
+
+.currentEmail strong {
+  color: #241b1e;
+  font-size: 0.84rem;
+  font-weight: 820;
+}
+
+.verified {
+  align-items: center;
+  background: #fff6e7;
+  border-radius: 999px;
+  color: #9a5d0b;
+  display: inline-flex;
+  font-size: 0.67rem;
+  font-weight: 800;
+  gap: 0.3rem;
+  padding: 0.42rem 0.62rem;
+}
+
+.verified[data-verified="true"] {
+  background: #e9f8f0;
+  color: #047857;
+}
+
+.pending {
+  align-items: start;
+  background: #fff9ed;
+  border: 1px solid rgba(169, 120, 47, 0.2);
+  border-radius: 0.78rem;
+  color: #8a5a13;
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns: auto minmax(0, 1fr);
+  padding: 0.78rem;
+}
+
+.pending div {
+  display: grid;
+  gap: 0.18rem;
+}
+
+.pending strong {
+  font-size: 0.76rem;
+  font-weight: 820;
+}
+
+.pending span {
+  font-size: 0.68rem;
+  font-weight: 620;
+  line-height: 1.5;
+}
+
+.fields {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.guidance {
+  color: #74686d;
+  font-size: 0.7rem;
+  font-weight: 620;
+  line-height: 1.55;
+  margin: 0;
+}
+
+@media (max-width: 720px) {
+  .currentEmail {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .verified {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+
+  .fields {
+    grid-template-columns: 1fr;
+  }
+}
