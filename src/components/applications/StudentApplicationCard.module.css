@@ -1,0 +1,462 @@
+.card {
+  background: #fff;
+  border: 1px solid rgba(73, 21, 26, 0.1);
+  border-radius: 0.9rem;
+  display: grid;
+  gap: 0.75rem;
+  min-width: 0;
+  padding: 0.9rem;
+}
+
+.card[data-expanded="true"] {
+  border-radius: 1rem;
+  padding: 1rem;
+}
+
+.header {
+  align-items: start;
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: auto minmax(0, 1fr);
+}
+
+.ownerAvatar {
+  align-items: center;
+  background: #f5edef;
+  border: 1px solid rgba(73, 21, 26, 0.11);
+  border-radius: 999px;
+  color: var(--brand-primary);
+  display: flex;
+  font-size: 0.7rem;
+  font-weight: 900;
+  height: 2.75rem;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  width: 2.75rem;
+}
+
+.ownerAvatar img {
+  object-fit: cover;
+}
+
+.activeDot {
+  background: #dc2626;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  bottom: 0.05rem;
+  height: 0.72rem;
+  position: absolute;
+  right: 0.05rem;
+  width: 0.72rem;
+}
+
+.activeDot[data-active="true"] {
+  background: #059669;
+}
+
+.applicantBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.38rem;
+}
+
+.opportunityContext {
+  align-items: center;
+  background: #faf7f4;
+  border: 1px solid rgba(73, 21, 26, 0.09);
+  border-radius: 0.55rem;
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns: 2rem minmax(0, 1fr) auto;
+  min-width: 0;
+  padding: 0.65rem;
+}
+
+.opportunityIcon {
+  align-items: center;
+  background: rgba(73, 21, 26, 0.07);
+  border-radius: 0.4rem;
+  color: #49151a;
+  display: inline-flex;
+  height: 2rem;
+  justify-content: center;
+  width: 2rem;
+}
+
+.opportunityContext div {
+  display: grid;
+  gap: 0.08rem;
+  min-width: 0;
+}
+
+.opportunityContext div > span,
+.opportunityContext small {
+  color: #817477;
+  font-size: 0.62rem;
+  font-weight: 650;
+  line-height: 1.3;
+}
+
+.opportunityContext strong {
+  color: #2b2023;
+  font-size: 0.74rem;
+  font-weight: 780;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+}
+
+.opportunityContext a {
+  color: #49151a;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+}
+
+.opportunityContext a:focus-visible {
+  border-radius: 0.2rem;
+  outline: 2px solid rgba(73, 21, 26, 0.35);
+  outline-offset: 3px;
+}
+
+.applicantBadges > span {
+  align-items: center;
+  background: #faf8f6;
+  border: 1px solid rgba(73, 21, 26, 0.08);
+  border-radius: 999px;
+  color: #6e6266;
+  display: inline-flex;
+  font-size: 0.62rem;
+  font-weight: 700;
+  gap: 0.3rem;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  padding: 0.3rem 0.5rem;
+}
+
+.applicantBadges > span svg {
+  color: #9c6b2e;
+  flex: 0 0 auto;
+}
+
+.universitySource {
+  align-items: center;
+  background: #faf8f6;
+  border: 1px solid rgba(73, 21, 26, 0.08);
+  border-radius: 999px;
+  display: inline-flex;
+  max-width: 100%;
+  min-height: 1.75rem;
+  padding: 0.3rem 0.55rem;
+}
+
+.universitySource > * {
+  max-width: min(14rem, 100%);
+}
+
+.heading {
+  display: grid;
+  gap: 0.22rem;
+  min-width: 0;
+}
+
+.headingMeta {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  justify-content: space-between;
+}
+
+.headingMeta > span:first-child,
+.decisionHeader > div > span,
+.dialog > div > span {
+  color: var(--brand-primary);
+  font-size: 0.59rem;
+  font-weight: 850;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.status {
+  align-items: center;
+  background: #eff6ff;
+  border-radius: 999px;
+  color: #1d4ed8;
+  display: inline-flex;
+  font-size: 0.59rem;
+  font-weight: 850;
+  gap: 0.28rem;
+  padding: 0.26rem 0.5rem;
+}
+
+.status[data-status="UNDER_REVIEW"] {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.status[data-status="SHORTLISTED"] {
+  background: #ecfeff;
+  color: #0f766e;
+}
+
+.status[data-status="REJECTED"] {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+.status[data-status="HIRED"] {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.status[data-status="WITHDRAWN"] {
+  background: #f4f4f5;
+  color: #52525b;
+}
+
+.heading h3 {
+  color: #2b2225;
+  font-size: 0.9rem;
+  font-weight: 850;
+  line-height: 1.3;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.heading p,
+.dialog p {
+  color: #796d72;
+  font-size: 0.66rem;
+  font-weight: 600;
+  line-height: 1.5;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.statusEditor {
+  background: transparent;
+  border-radius: 0.7rem;
+  display: grid;
+  gap: 0.6rem;
+  padding: 0.65rem;
+}
+
+.decisionHeader {
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-between;
+}
+
+.decisionHeader > div {
+  display: grid;
+  gap: 0.16rem;
+}
+
+.decisionHeader strong {
+  color: #62565b;
+  font-size: 0.64rem;
+}
+
+.saveButton {
+  min-width: 6.6rem;
+}
+
+.statusChoices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.42rem;
+}
+
+.statusChoices button {
+  --decision-background: #eff6ff;
+  --decision-color: #1d4ed8;
+  --decision-glow: rgba(37, 99, 235, 0.16);
+  align-items: center;
+  background: var(--decision-background);
+  border: 1px solid transparent;
+  border-radius: 999px;
+  box-shadow: 0 5px 15px var(--decision-glow);
+  color: var(--decision-color);
+  cursor: pointer;
+  display: inline-flex;
+  flex: 0 0 auto;
+  font: inherit;
+  font-size: 0.59rem;
+  font-weight: 800;
+  gap: 0.3rem;
+  justify-content: center;
+  min-height: 1.95rem;
+  padding: 0.24rem 0.55rem 0.24rem 0.3rem;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+  width: max-content;
+}
+
+.statusChoices button[data-status="UNDER_REVIEW"] {
+  --decision-background: #fff7ed;
+  --decision-color: #c2410c;
+  --decision-glow: rgba(234, 88, 12, 0.16);
+}
+
+.statusChoices button[data-status="SHORTLISTED"] {
+  --decision-background: #ecfeff;
+  --decision-color: #0f766e;
+  --decision-glow: rgba(13, 148, 136, 0.16);
+}
+
+.statusChoices button[data-status="REJECTED"] {
+  --decision-background: #fef2f2;
+  --decision-color: #b91c1c;
+  --decision-glow: rgba(220, 38, 38, 0.14);
+}
+
+.statusChoices button[data-status="HIRED"] {
+  --decision-background: #ecfdf5;
+  --decision-color: #047857;
+  --decision-glow: rgba(5, 150, 105, 0.16);
+}
+
+.statusChoices button[data-status="WITHDRAWN"] {
+  --decision-background: #f4f4f5;
+  --decision-color: #52525b;
+  --decision-glow: rgba(82, 82, 91, 0.14);
+}
+
+.statusChoices button:hover {
+  box-shadow: 0 7px 19px var(--decision-glow);
+  transform: translateY(-1px);
+}
+
+.statusChoices button[aria-checked="true"] {
+  border-color: var(--decision-color);
+  box-shadow:
+    0 0 0 2px #fff,
+    0 0 0 4px var(--decision-glow),
+    0 7px 19px var(--decision-glow);
+}
+
+.statusChoices button:focus-visible {
+  box-shadow: 0 0 0 4px var(--decision-glow);
+  outline: 0;
+}
+
+.decisionIcon {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.78);
+  border-radius: 999px;
+  display: inline-flex;
+  height: 1.35rem;
+  justify-content: center;
+  width: 1.35rem;
+}
+
+.actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.deleteButton {
+  min-width: 8.2rem;
+}
+
+.error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 0.55rem;
+  color: #b91c1c;
+  font-size: 0.68rem;
+  font-weight: 700;
+  margin: 0;
+  padding: 0.65rem;
+}
+
+.backdrop {
+  align-items: center;
+  background: rgba(25, 16, 19, 0.52);
+  display: flex;
+  inset: 0;
+  justify-content: center;
+  padding: 1rem;
+  position: fixed;
+  z-index: 100;
+}
+
+.dialog {
+  background: #fff;
+  border: 1px solid rgba(73, 21, 26, 0.12);
+  border-radius: 0.9rem;
+  box-shadow: 0 30px 90px rgba(25, 16, 19, 0.3);
+  display: grid;
+  gap: 0.9rem;
+  max-width: 31rem;
+  padding: 1.15rem;
+  width: 100%;
+}
+
+.dialogIcon {
+  align-items: center;
+  background: #fef2f2;
+  border-radius: 0.7rem;
+  color: #b91c1c;
+  display: inline-flex;
+  height: 3rem;
+  justify-content: center;
+  width: 3rem;
+}
+
+.dialog h2 {
+  color: #2f2529;
+  font-size: 1.05rem;
+  margin: 0.2rem 0 0.4rem;
+}
+
+.dialogActions {
+  display: grid;
+  gap: 0.6rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 680px) {
+  .opportunityContext {
+    grid-template-columns: 2rem minmax(0, 1fr);
+  }
+
+  .opportunityContext a {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+  .decisionHeader {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .saveButton {
+    align-self: flex-start;
+  }
+
+  .actions {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 520px) {
+  .dialogActions {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .statusChoices button {
+    transition: none;
+  }
+}
