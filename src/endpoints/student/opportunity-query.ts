@@ -19,7 +19,14 @@ export function parseOpportunityFilters(
   const status = value(query.status)?.toUpperCase() ?? "ACTIVE";
   const ordering = value(query.ordering) ?? "-created_at";
   const flexibility = value(query.work_flexibility)?.toUpperCase() ?? null;
+  let createdFrom = validDate(value(query.created_from));
+  let createdTo = validDate(value(query.created_to));
+  if (createdFrom && createdTo && createdFrom > createdTo) {
+    [createdFrom, createdTo] = [createdTo, createdFrom];
+  }
   return {
+    createdFrom,
+    createdTo,
     page: boundedInteger(value(query.page), 1, 100_000, 1),
     search: boundedSearch(value(query.search)),
     workFlexibility:
@@ -42,6 +49,8 @@ export function buildOpportunityQuery(filters: OpportunityFilters): string {
   setOptional(query, "work_flexibility", filters.workFlexibility);
   setOptional(query, "industry_sector", filters.industrySector);
   setOptional(query, "location", filters.location);
+  setOptional(query, "created_from", filters.createdFrom);
+  setOptional(query, "created_to", filters.createdTo);
   return query.toString();
 }
 
@@ -80,6 +89,15 @@ function boundedSearch(input: string | null): string | null {
 
 function boundedText(input: string | null, max: number): string | null {
   return input && input.length <= max ? input : null;
+}
+
+function validDate(input: string | null) {
+  if (!input || !/^\d{4}-\d{2}-\d{2}$/.test(input)) return null;
+  const parsed = new Date(`${input}T00:00:00.000Z`);
+  return !Number.isNaN(parsed.getTime()) &&
+    parsed.toISOString().slice(0, 10) === input
+    ? input
+    : null;
 }
 
 function boundedInteger(
