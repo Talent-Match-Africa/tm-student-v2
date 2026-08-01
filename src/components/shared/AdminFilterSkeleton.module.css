@@ -1,0 +1,160 @@
+.panel {
+	background-color: rgba(255, 255, 255, 0.94);
+	border: 1px solid rgba(73, 21, 26, 0.1);
+	border-radius: 1.5rem;
+	box-shadow:
+		0 20px 48px rgba(24, 24, 27, 0.06),
+		inset 0 1px 0 rgba(255, 255, 255, 0.98);
+	overflow: hidden;
+	padding: 1rem;
+}
+
+.form {
+	align-items: end;
+	display: flex;
+	gap: 1rem;
+	justify-content: space-between;
+}
+
+.searchControl,
+.dateControl {
+	display: grid;
+	gap: 0.45rem;
+}
+
+.searchControl {
+	flex: 0 1 28rem;
+	max-width: 28rem;
+	min-width: min(100%, 18rem);
+}
+
+.dateControls,
+.actions {
+	align-items: end;
+	display: flex;
+	flex: 0 0 auto;
+	gap: 0.65rem;
+}
+
+.dateControl {
+	flex: 0 0 12.5rem;
+	min-width: 0;
+}
+
+.label,
+.field,
+.button,
+.primaryButton {
+	animation: admin-filter-skeleton-pulse 1.35s ease-in-out infinite;
+	background: linear-gradient(90deg, #f1ebed, #faf7f8, #f1ebed);
+	background-size: 200% 100%;
+	border-radius: 999px;
+	display: block;
+}
+
+.label {
+	height: 0.65rem;
+	width: 5.8rem;
+}
+
+.field {
+	border-radius: 8px;
+	height: 48px;
+	width: 100%;
+}
+
+.button,
+.primaryButton {
+	height: clamp(2.76rem, 4vw, 3.2rem);
+	width: 8.5rem;
+}
+
+.primaryButton {
+	background: linear-gradient(
+		90deg,
+		rgba(73, 21, 26, 0.18),
+		rgba(73, 21, 26, 0.08),
+		rgba(73, 21, 26, 0.18)
+	);
+	background-size: 200% 100%;
+}
+
+@keyframes admin-filter-skeleton-pulse {
+	0%,
+	100% {
+		background-position: 100% 0;
+	}
+
+	50% {
+		background-position: 0 0;
+	}
+}
+
+@media (max-width: 1240px) {
+	.form {
+		align-items: stretch;
+		flex-direction: column;
+	}
+
+	.searchControl {
+		flex: none;
+		max-width: 28rem;
+		min-width: 0;
+		width: 100%;
+	}
+
+	.dateControl {
+		flex: none;
+	}
+
+	.actions {
+		justify-content: flex-end;
+		width: 100%;
+	}
+}
+
+@media (max-width: 680px) {
+	.dateControls,
+	.actions {
+		display: grid;
+		width: 100%;
+	}
+
+	.dateControls {
+		grid-template-columns: 1fr;
+	}
+
+	.actions {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.actions[data-action-count="2"] {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	.dateControl,
+	.button,
+	.primaryButton {
+		width: 100%;
+	}
+}
+
+@media (max-width: 480px) {
+	.panel {
+		border-radius: 1.25rem;
+		padding: 0.85rem;
+	}
+
+	.actions {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.label,
+	.field,
+	.button,
+	.primaryButton {
+		animation: none;
+	}
+}
