@@ -1,0 +1,134 @@
+.card {
+  --severity-color: #71717a;
+  --severity-surface: #f4f4f5;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.98),
+      rgba(250, 247, 242, 0.86)
+    ),
+    #fff;
+  border: 1px solid rgba(36, 27, 30, 0.11);
+  border-radius: 0.85rem;
+  box-shadow: 0 14px 30px rgba(24, 24, 27, 0.05);
+  display: grid;
+  gap: 0.78rem;
+  min-width: 0;
+  overflow: hidden;
+  padding: 0.85rem;
+  position: relative;
+}
+
+.card::before {
+  background: var(--severity-color);
+  content: "";
+  height: 100%;
+  left: 0;
+  opacity: 0.9;
+  position: absolute;
+  top: 0;
+  width: 0.22rem;
+}
+
+.card[data-severity="INFO"] {
+  --severity-color: #2563eb;
+  --severity-surface: #eff6ff;
+}
+
+.card[data-severity="WARNING"] {
+  --severity-color: #b45309;
+  --severity-surface: #fffbeb;
+}
+
+.card[data-severity="ERROR"],
+.card[data-severity="CRITICAL"] {
+  --severity-color: #be123c;
+  --severity-surface: #fff1f2;
+}
+
+.header {
+  align-items: center;
+  display: grid;
+  gap: 0.62rem;
+  grid-template-columns: auto minmax(0, 1fr);
+  min-width: 0;
+}
+
+.eventIcon {
+  align-items: center;
+  background: var(--severity-surface);
+  border: 1px solid color-mix(in srgb, var(--severity-color) 22%, white);
+  border-radius: 999px;
+  color: var(--severity-color);
+  display: inline-flex;
+  height: 2.35rem;
+  justify-content: center;
+  width: 2.35rem;
+}
+
+.eventTitle {
+  display: grid;
+  gap: 0.22rem;
+  min-width: 0;
+}
+
+.eventTitle span {
+  color: #241b1e;
+  font-size: 0.86rem;
+  font-weight: 850;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.eventTitle strong {
+  color: var(--severity-color);
+  font-size: 0.64rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.description {
+  color: #5f5559;
+  font-size: 0.76rem;
+  font-weight: 650;
+  line-height: 1.45;
+  margin: 0;
+  min-height: 3.3rem;
+  overflow-wrap: anywhere;
+}
+
+.metaGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.38rem;
+  min-width: 0;
+}
+
+.metaGrid span,
+.footer span {
+  align-items: center;
+  background: rgba(250, 247, 242, 0.86);
+  border: 1px solid rgba(36, 27, 30, 0.09);
+  border-radius: 999px;
+  color: #6b5f63;
+  display: inline-flex;
+  font-size: 0.67rem;
+  font-weight: 800;
+  gap: 0.28rem;
+  line-height: 1.2;
+  max-width: 100%;
+  min-height: 1.7rem;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  padding: 0.32rem 0.55rem;
+}
+
+.footer {
+  align-items: center;
+  border-top: 1px solid rgba(36, 27, 30, 0.08);
+  display: flex;
+  justify-content: flex-start;
+  padding-top: 0.68rem;
+}
