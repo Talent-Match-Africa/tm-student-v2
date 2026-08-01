@@ -8,6 +8,7 @@ const ALLOWED_TEXT_FIELDS = new Set([
   "cover_letter",
   "experience_summary",
   "work_history",
+  "document_id",
 ]);
 const ALLOWED_FILE_FIELDS = new Set(["document", "cover_letter_document"]);
 
