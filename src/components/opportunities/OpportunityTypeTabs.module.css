@@ -1,33 +1,159 @@
-.tabs {
+.rail {
   background: #fff;
   border: 1px solid rgba(73, 21, 26, 0.1);
-  border-radius: 1rem;
-  box-shadow: 0 14px 34px rgba(35, 20, 23, 0.05);
+  border-radius: 0.5rem;
   display: grid;
   gap: 0.45rem;
-  padding: 0.85rem;
+  padding: 0.65rem;
 }
 
-.tabs > span {
-  color: #9c6b2e;
+.railLabel {
+  color: #8b7d80;
   font-size: 0.62rem;
-  font-weight: 850;
-  letter-spacing: 0.1em;
-  padding: 0.3rem 0.55rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  margin: 0;
+  padding: 0.15rem 0.35rem;
   text-transform: uppercase;
 }
 
-.tab {
-  border-radius: 999px;
-  color: #756a6f;
-  font-size: 0.78rem;
-  font-weight: 750;
-  padding: 0.75rem 0.85rem;
-  text-decoration: none;
+.tabs {
+  display: grid;
+  gap: 0.35rem;
 }
 
-.active {
-  background: var(--brand-primary);
-  box-shadow: 0 14px 30px rgba(73, 21, 26, 0.2);
+.tab {
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 0.45rem;
+  color: #665a5e;
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns: 2.15rem minmax(0, 1fr);
+  min-height: 3.55rem;
+  padding: 0.5rem;
+  text-decoration: none;
+  transition:
+    background 170ms ease,
+    border-color 170ms ease,
+    color 170ms ease;
+}
+
+.tab:hover {
+  background: #faf7f4;
+  border-color: rgba(73, 21, 26, 0.1);
+  color: #49151a;
+  border-radius: 999px;
+}
+
+.tab[data-active="true"] {
+  background: #f7f0ee;
+  border-color: rgba(73, 21, 26, 0.16);
+  color: #49151a;
+  border-radius: 999px;
+}
+
+.icon {
+  align-items: center;
+  background: #faf7f4;
+  border: 1px solid rgba(73, 21, 26, 0.08);
+  border-radius: 999px;
+  display: inline-flex;
+  height: 2.15rem;
+  justify-content: center;
+  width: 2.15rem;
+}
+
+.tab[data-active="true"] .icon {
+  background: #49151a;
+  border-color: #49151a;
   color: #fff;
+}
+
+.copy {
+  display: grid;
+  gap: 0.12rem;
+  min-width: 0;
+}
+
+.copy strong {
+  font-size: 0.75rem;
+  font-weight: 780;
+  line-height: 1.25;
+}
+
+.copy small {
+  color: #897b7f;
+  font-size: 0.61rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+@media (max-width: 1120px) {
+  .rail {
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid rgba(73, 21, 26, 0.12);
+    border-radius: 0;
+    padding: 0;
+  }
+
+  .railLabel,
+  .copy small {
+    display: none;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 1.25rem;
+    overflow-x: auto;
+  }
+
+  .tab {
+    border: 0;
+    border-radius: 0;
+    display: inline-flex;
+    flex: 0 0 auto;
+    min-height: 2.85rem;
+    padding: 0;
+    position: relative;
+  }
+
+  .tab::after {
+    background: #49151a;
+    bottom: -1px;
+    content: "";
+    height: 2px;
+    left: 0;
+    position: absolute;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 180ms ease;
+    width: 100%;
+  }
+
+  .tab:hover,
+  .tab[data-active="true"] {
+    background: transparent;
+  }
+
+  .tab[data-active="true"]::after {
+    transform: scaleX(1);
+  }
+
+  .icon,
+  .tab[data-active="true"] .icon {
+    background: transparent;
+    border: 0;
+    color: inherit;
+    height: auto;
+    width: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tab,
+  .tab::after {
+    transition: none;
+  }
 }
