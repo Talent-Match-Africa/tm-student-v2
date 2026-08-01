@@ -1,2 +1,18 @@
-import {backendJson,type BackendResult} from "@/lib/api-client";import type{PageResponse,StudentApplication}from"@/types/student-self-service";
-export function listApplications(token:string,type:"jobs"|"internships",page:number,status:string|null,search:string|null):Promise<BackendResult<PageResponse<StudentApplication>>>{const q=new URLSearchParams({page:String(page),page_size:"24"});if(status)q.set("status",status);if(search)q.set("search",search);return backendJson(`/student/applications/${type}?${q}`,{accessToken:token,method:"GET"})}
+import { backendJson, type BackendResult } from "@/lib/api-client";
+import type { ApplicationFilters } from "@/types/applications";
+import type {
+  PageResponse,
+  StudentApplication,
+} from "@/types/student-self-service";
+import { buildApplicationQuery } from "./application-query";
+
+export function listApplications(
+  token: string,
+  type: "jobs" | "internships",
+  filters: ApplicationFilters,
+): Promise<BackendResult<PageResponse<StudentApplication>>> {
+  return backendJson(
+    `/student/applications/${type}?${buildApplicationQuery(filters)}`,
+    { accessToken: token, method: "GET" },
+  );
+}
