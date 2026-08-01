@@ -1,0 +1,553 @@
+.card {
+  /* ---- tokens ---- */
+  --ink: #1c1917;
+  --ink-soft: #6b615c;
+  --paper: #fbf8f3;
+  --line: rgba(28, 25, 23, 0.1);
+
+  --brass: #9c6b2e;
+  --brass-strong: #7a5222;
+  --brass-wash: rgba(156, 107, 46, 0.09);
+
+  --forest: #2b5233;
+  --forest-wash: #eef4ee;
+  --forest-line: #bfdac8;
+
+  --rust: #8c3a34;
+  --rust-wash: #fbedec;
+  --rust-line: #edc3bf;
+
+  --amber: #92600e;
+  --amber-wash: #fdf3df;
+  --amber-line: #f0d9a3;
+
+  --status-color: #6b615c;
+  --status-wash: #f2efe9;
+  --status-line: var(--line);
+
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 0.9rem;
+  box-shadow:
+    0 1px 2px rgba(28, 25, 23, 0.04),
+    0 14px 30px rgba(28, 25, 23, 0.05);
+  display: grid;
+  gap: 0;
+  min-width: 0;
+  overflow: hidden;
+  position: relative;
+  transition:
+    box-shadow 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.32s ease;
+  animation: cardRise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes cardRise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card:hover,
+.card:focus-within {
+  border-color: color-mix(in srgb, var(--brass) 32%, var(--line));
+  box-shadow:
+    0 1px 2px rgba(28, 25, 23, 0.05),
+    0 22px 40px rgba(28, 25, 23, 0.1);
+  transform: translateY(-3px);
+}
+
+.card::before {
+  background: var(--status-color);
+  content: "";
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transition: width 0.32s ease;
+  width: 0.2rem;
+}
+
+.card:hover::before {
+  width: 0.3rem;
+}
+
+.card[data-open="true"] {
+  --status-color: var(--forest);
+  --status-wash: var(--forest-wash);
+  --status-line: var(--forest-line);
+}
+
+.card[data-open="false"] {
+  --status-color: var(--rust);
+  --status-wash: var(--rust-wash);
+  --status-line: var(--rust-line);
+}
+
+/* ---- header ---- */
+
+.ownerHeader {
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  min-width: 0;
+  padding: 0.95rem 1.05rem;
+}
+
+.ownerImageShell {
+  align-items: center;
+  background: var(--brass-wash);
+  border: 1px solid rgba(28, 25, 23, 0.08);
+  border-radius: 999px;
+  display: inline-flex;
+  height: 2.6rem;
+  justify-content: center;
+  overflow: hidden;
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+  width: 2.6rem;
+}
+
+.card:hover .ownerImageShell {
+  transform: scale(1.05);
+}
+
+.ownerImage {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.ownerInitials {
+  color: var(--brass-strong);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.ownerCopy {
+  display: grid;
+  gap: 0.18rem;
+  min-width: 0;
+}
+
+.ownerCopy strong {
+  color: var(--ink);
+  font-size: 0.86rem;
+  font-weight: 700;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.ownerCopy span {
+  color: var(--ink-soft);
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.statusBadge {
+  align-items: center;
+  background: var(--status-wash);
+  border: 1px solid var(--status-line);
+  border-radius: 999px;
+  color: var(--status-color);
+  display: inline-flex;
+  font-size: 0.66rem;
+  font-weight: 800;
+  gap: 0.4rem;
+  letter-spacing: 0.04em;
+  padding: 0.36rem 0.68rem 0.36rem 0.6rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.statusDot {
+  background: var(--status-color);
+  border-radius: 999px;
+  height: 0.4rem;
+  position: relative;
+  width: 0.4rem;
+}
+
+.card[data-open="true"] .statusDot::after {
+  animation: statusPing 2.2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  background: var(--status-color);
+  border-radius: 999px;
+  content: "";
+  inset: 0;
+  position: absolute;
+}
+
+@keyframes statusPing {
+  0% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(2.6);
+  }
+}
+
+/* ---- body ---- */
+
+.body {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+  padding: 1rem 1.05rem 0.4rem;
+}
+
+.titleBlock {
+  display: grid;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.eyebrow {
+  color: var(--brass);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  overflow-wrap: anywhere;
+  text-transform: uppercase;
+}
+
+.titleBlock h3 {
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.2;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.titleBlock p {
+  color: var(--ink-soft);
+  display: -webkit-box;
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1.5;
+  margin: 0;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.badgeList {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.infoBadge {
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink-soft);
+  display: inline-flex;
+  font-size: 0.7rem;
+  font-weight: 700;
+  gap: 0.32rem;
+  line-height: 1.2;
+  max-width: 100%;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  padding: 0.36rem 0.62rem;
+}
+
+.infoBadge svg {
+  color: var(--brass);
+  flex-shrink: 0;
+}
+
+/* ---- timeline (signature element) ---- */
+
+.timeline {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 0.65rem;
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.7rem 0.8rem 0.75rem;
+}
+
+.timelineLabels {
+  align-items: baseline;
+  display: flex;
+  font-size: 0.66rem;
+  font-weight: 700;
+  gap: 0.5rem;
+  justify-content: space-between;
+}
+
+.timelineLabels span:first-child {
+  color: var(--ink-soft);
+}
+
+.timelineStart {
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.6rem;
+}
+
+.timelineEnd {
+  border-radius: 999px;
+  font-size: 0.66rem;
+  font-weight: 800;
+  padding: 0.1rem 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.timelineEnd[data-variant="valid"] {
+  background: var(--forest-wash);
+  color: var(--forest);
+}
+
+.timelineEnd[data-variant="soon"] {
+  animation: softPulse 1.8s ease-in-out infinite;
+  background: var(--amber-wash);
+  color: var(--amber);
+}
+
+.timelineEnd[data-variant="closed"] {
+  background: var(--rust-wash);
+  color: var(--rust);
+}
+
+.timelineEnd[data-variant="neutral"] {
+  background: var(--status-wash);
+  color: var(--ink-soft);
+}
+
+@keyframes softPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+
+.timelineTrack {
+  background: var(--brass-wash);
+  border-radius: 999px;
+  height: 0.32rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.timelineFill {
+  animation: fillTrack 0.9s 0.15s cubic-bezier(0.22, 1, 0.36, 1) both;
+  background: linear-gradient(90deg, var(--brass) 0%, var(--brass-strong) 100%);
+  border-radius: 999px;
+  height: 100%;
+  width: var(--fill, 0%);
+}
+
+@keyframes fillTrack {
+  from {
+    width: 0%;
+  }
+}
+
+.timelinePlain {
+  color: var(--ink-soft);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.7rem;
+  font-weight: 600;
+  gap: 0.3rem 0.7rem;
+}
+
+/* ---- footer ---- */
+
+.footer {
+  align-items: center;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 0.8rem;
+  justify-content: space-between;
+  margin-top: 0.9rem;
+  padding: 0.75rem 1.05rem;
+}
+
+.meta {
+  align-items: center;
+  color: var(--ink-soft);
+  display: inline-flex;
+  flex-wrap: wrap;
+  font-size: 0.64rem;
+  font-weight: 500;
+  gap: 0.4rem;
+  letter-spacing: 0.01em;
+}
+
+.metaDivider {
+  color: var(--line);
+}
+
+.actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.actionDivider {
+  align-self: stretch;
+  background: var(--line);
+  margin: 0 0.15rem;
+  width: 1px;
+}
+
+.statButton,
+.iconButton {
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink-soft);
+  cursor: pointer;
+  display: inline-flex;
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: 700;
+  gap: 0.35rem;
+  padding: 0.42rem 0.7rem;
+  transition:
+    transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+    background 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease,
+    box-shadow 0.18s ease;
+  white-space: nowrap;
+}
+
+.statButton svg,
+.iconButton svg {
+  flex-shrink: 0;
+}
+
+.statButton:hover,
+.iconButton:hover {
+  transform: translateY(-1.5px);
+}
+
+.statButton:active,
+.iconButton:active {
+  transform: translateY(0) scale(0.97);
+}
+
+.statButton:hover {
+  background: var(--brass-wash);
+  border-color: color-mix(in srgb, var(--brass) 35%, var(--line));
+  color: var(--brass-strong);
+}
+
+.editButton {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+
+.editButton:hover {
+  background: var(--brass-strong);
+  border-color: var(--brass-strong);
+  box-shadow: 0 8px 18px rgba(122, 82, 34, 0.28);
+  color: #fff;
+}
+
+.deleteButton {
+  color: var(--rust);
+}
+
+.deleteButton:hover {
+  background: var(--rust-wash);
+  border-color: var(--rust-line);
+  color: var(--rust);
+}
+
+.deleteButton:focus-visible svg,
+.deleteButton:hover svg {
+  animation: trashJiggle 0.4s ease;
+}
+
+@keyframes trashJiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-8deg);
+  }
+  75% {
+    transform: rotate(8deg);
+  }
+}
+
+.statButton:focus-visible,
+.iconButton:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 2px;
+}
+
+@media (max-width: 520px) {
+  .ownerHeader {
+    align-items: start;
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .statusBadge {
+    grid-column: 1 / -1;
+    justify-self: start;
+  }
+
+  .footer {
+    justify-content: flex-start;
+  }
+
+  .actions {
+    width: 100%;
+  }
+
+  .statButton,
+  .iconButton {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .timelineFill,
+  .statusDot::after,
+  .timelineEnd[data-variant="soon"],
+  .deleteButton svg {
+    animation: none !important;
+  }
+
+  .card,
+  .ownerImageShell,
+  .statButton,
+  .iconButton {
+    transition: none !important;
+  }
+}
