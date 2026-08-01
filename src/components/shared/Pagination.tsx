@@ -1,6 +1,4 @@
-"use client";
-
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 import styles from "./Pagination.module.css";
 
 interface PaginationProps {
@@ -16,29 +14,36 @@ export function Pagination({
   label = "Pagination",
   totalPages,
 }: PaginationProps) {
-  const router = useRouter();
   if (totalPages <= 1) return null;
   return (
     <footer className={styles.pagination} aria-label={label}>
-      <button
-        className={styles.pageButton}
-        disabled={currentPage <= 1}
-        onClick={() => router.push(getPageHref(currentPage - 1))}
-        type="button"
-      >
-        Previous
-      </button>
+      {currentPage <= 1 ? (
+        <span aria-disabled="true" className={styles.pageButton}>
+          Previous
+        </span>
+      ) : (
+        <Link
+          className={styles.pageButton}
+          href={getPageHref(currentPage - 1)}
+        >
+          Previous
+        </Link>
+      )}
       <span className={styles.pageStatus}>
         Page {currentPage} of {totalPages}
       </span>
-      <button
-        className={styles.pageButton}
-        disabled={currentPage >= totalPages}
-        onClick={() => router.push(getPageHref(currentPage + 1))}
-        type="button"
-      >
-        Next
-      </button>
+      {currentPage >= totalPages ? (
+        <span aria-disabled="true" className={styles.pageButton}>
+          Next
+        </span>
+      ) : (
+        <Link
+          className={styles.pageButton}
+          href={getPageHref(currentPage + 1)}
+        >
+          Next
+        </Link>
+      )}
     </footer>
   );
 }
