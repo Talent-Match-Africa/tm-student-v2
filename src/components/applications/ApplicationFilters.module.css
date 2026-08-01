@@ -1,0 +1,29 @@
+.searchField {
+  flex: 1 1 24rem;
+  min-width: min(100%, 18rem);
+}
+
+.dateField {
+  min-width: 10.5rem;
+  width: 10.5rem;
+}
+
+.utilityButton {
+  min-width: 6.8rem;
+  width: auto;
+}
+
+@media (max-width: 820px) {
+  .searchField,
+  .dateField {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+@media (max-width: 680px) {
+  .utilityButton {
+    min-width: 0;
+    width: 100%;
+  }
+}
