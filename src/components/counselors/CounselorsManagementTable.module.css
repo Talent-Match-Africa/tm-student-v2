@@ -1,0 +1,262 @@
+.workspace {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.header {
+  align-items: end;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.eyebrow {
+  color: #9c6b2e;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.3rem;
+  text-transform: uppercase;
+}
+
+.header h1 {
+  color: #2b2023;
+  font-size: 1.45rem;
+  font-weight: 750;
+  line-height: 1.15;
+  margin: 0;
+}
+
+.description {
+  color: #75686b;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  margin: 0.35rem 0 0;
+  max-width: 43rem;
+}
+
+.headerActions {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 0.65rem;
+}
+
+.resultBadge {
+  align-items: baseline;
+  background: #fff;
+  border: 1px solid rgba(73, 21, 26, 0.11);
+  border-radius: 999px;
+  display: inline-flex;
+  flex: 0 0 auto;
+  gap: 0.48rem;
+  padding: 0.48rem 0.8rem;
+}
+
+.resultBadge strong {
+  color: var(--brand-primary);
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.resultBadge span {
+  color: #75686b;
+  font-size: 0.68rem;
+  font-weight: 700;
+}
+
+.addButton {
+  min-width: 0;
+  width: auto;
+}
+
+.alert {
+  background: #fff1f2;
+  border: 1px solid #fecdd3;
+  border-radius: 0.65rem;
+  color: #be123c;
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 0.75rem;
+}
+
+.tablePanel {
+  background: #fff;
+  border: 1px solid rgba(73, 21, 26, 0.09);
+  border-radius: 0.75rem;
+  box-shadow: 0 16px 36px rgba(31, 21, 25, 0.05);
+  overflow: hidden;
+}
+
+.tableHeader {
+  align-items: center;
+  border-bottom: 1px solid rgba(73, 21, 26, 0.08);
+  display: flex;
+  justify-content: space-between;
+  min-height: 3.2rem;
+  padding: 0 0.9rem;
+}
+
+.tableHeader strong {
+  color: #2f2529;
+  font-size: 0.8rem;
+}
+
+.tableHeader span {
+  color: #83777b;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.scroller {
+  overflow: hidden;
+}
+
+.table {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.table th:nth-child(1) {
+  width: 18%;
+}
+
+.table th:nth-child(2) {
+  width: 18%;
+}
+
+.table th:nth-child(3) {
+  width: 18%;
+}
+
+.table th:nth-child(4) {
+  width: 18%;
+}
+
+.table th:nth-child(5) {
+  width: 11%;
+}
+
+.table th:nth-child(6) {
+  width: 17%;
+}
+
+.table th {
+  background: #fbf8f9;
+  color: #817479;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  padding: 0.7rem 0.85rem;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.table td {
+  border-top: 1px solid rgba(73, 21, 26, 0.065);
+  color: #453b3f;
+  font-size: 0.74rem;
+  padding: 0.7rem 0.85rem;
+  vertical-align: middle;
+}
+
+.table tbody tr:hover {
+  background: #fffbfc;
+}
+
+.emptyCell {
+  padding: 2rem !important;
+}
+
+@media (max-width: 1100px) {
+  .scroller {
+    overflow: visible;
+  }
+
+  .table,
+  .table tbody {
+    display: block;
+  }
+
+  .table thead {
+    display: none;
+  }
+
+  .table tbody {
+    display: grid;
+    gap: 0.75rem;
+    padding: 0.75rem;
+  }
+
+  .table tbody tr {
+    background: #fff;
+    border: 1px solid rgba(73, 21, 26, 0.09);
+    border-radius: 0.75rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    overflow: hidden;
+  }
+
+  .table tbody tr:has(.emptyCell) {
+    display: block;
+  }
+
+  .table td {
+    border: 0;
+    display: grid;
+    gap: 0.38rem;
+    min-width: 0;
+    padding: 0.72rem;
+  }
+
+  .table td::before {
+    color: #8b7d82;
+    content: attr(data-label);
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .table td:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .table td + td {
+    border-top: 1px solid rgba(73, 21, 26, 0.055);
+  }
+
+  .table .emptyCell::before {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .headerActions {
+    align-items: stretch;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .addButton {
+    flex: 1 1 11rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .table tbody tr {
+    grid-template-columns: 1fr;
+  }
+
+  .table td,
+  .table td:last-child {
+    grid-column: 1;
+  }
+}
