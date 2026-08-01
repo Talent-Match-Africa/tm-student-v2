@@ -1,0 +1,113 @@
+.page {
+  display: grid;
+  gap: 1rem;
+  margin-inline: auto;
+  max-width: 58rem;
+  padding-block: 1rem;
+  width: 100%;
+}
+
+.header {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.header span,
+.icon,
+.copy span,
+.action {
+  animation: email-confirmation-skeleton 1.4s ease-in-out infinite;
+  background: linear-gradient(90deg, #eee5e2 25%, #faf5f2 45%, #eee5e2 65%);
+  background-size: 240% 100%;
+  border-radius: 0.38rem;
+  display: block;
+}
+
+.header span:nth-child(1) {
+  height: 0.65rem;
+  width: 8rem;
+}
+
+.header span:nth-child(2) {
+  height: 1.65rem;
+  width: min(75%, 19rem);
+}
+
+.header span:nth-child(3) {
+  height: 0.75rem;
+  width: min(90%, 28rem);
+}
+
+.panel {
+  align-items: center;
+  background: #fff;
+  border: 1px solid rgba(73, 21, 26, 0.1);
+  border-radius: 0.9rem;
+  box-shadow: 0 16px 38px rgba(24, 24, 27, 0.06);
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  min-height: 13rem;
+  padding: 1.25rem;
+}
+
+.icon {
+  border-radius: 999px;
+  height: 4rem;
+  width: 4rem;
+}
+
+.copy {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.copy span:nth-child(1) {
+  height: 0.6rem;
+  width: 7rem;
+}
+
+.copy span:nth-child(2) {
+  height: 1rem;
+  width: 13rem;
+}
+
+.copy span:nth-child(3) {
+  height: 0.7rem;
+  width: min(100%, 25rem);
+}
+
+.action {
+  border-radius: 999px;
+  height: 2.8rem;
+  width: 10.5rem;
+}
+
+@keyframes email-confirmation-skeleton {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+@media (max-width: 720px) {
+  .panel {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .action {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header span,
+  .icon,
+  .copy span,
+  .action {
+    animation: none;
+  }
+}
