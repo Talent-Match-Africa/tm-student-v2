@@ -1,6 +1,6 @@
 .workspace {
   display: grid;
-  gap: 1.25rem;
+  gap: clamp(1.15rem, 2.6vw, 1.8rem);
   margin: 0 auto;
   max-width: 1440px;
   width: 100%;
@@ -36,56 +36,182 @@
   max-width: 44rem;
 }
 
-.phaseBadge {
-  background: #eef4ee;
-  border: 1px solid #bfdac8;
-  border-radius: 999px;
-  color: #2b5233;
-  flex: 0 0 auto;
-  font-size: 0.72rem;
-  font-weight: 800;
-  padding: 0.55rem 0.85rem;
-  text-transform: uppercase;
-}
-
-.foundation {
+.completion {
   align-items: center;
   background: #fff;
   border: 1px solid rgba(73, 21, 26, 0.1);
-  border-radius: 1.1rem;
-  box-shadow: 0 18px 44px rgba(35, 20, 23, 0.06);
-  display: grid;
-  gap: 1rem;
-  grid-template-columns: auto minmax(0, 1fr);
-  padding: clamp(1.15rem, 3vw, 1.65rem);
+  border-radius: 999px;
+  box-shadow: 0 14px 34px rgba(35, 20, 23, 0.06);
+  display: flex;
+  flex: 0 0 auto;
+  gap: 0.75rem;
+  padding: 0.45rem 1rem 0.45rem 0.48rem;
 }
 
-.foundationMark {
+.completion > span {
   align-items: center;
   background: var(--brand-primary);
   border-radius: 999px;
   color: #fff;
-  display: inline-flex;
-  font-size: 0.78rem;
+  display: flex;
+  font-size: 0.82rem;
   font-weight: 900;
-  height: 3.25rem;
+  height: 2.8rem;
   justify-content: center;
-  width: 3.25rem;
+  width: 2.8rem;
 }
 
-.foundation strong {
+.completion div {
+  display: grid;
+}
+
+.completion strong {
   color: #211719;
+  font-size: 0.78rem;
 }
 
-.foundation p {
+.completion small {
+  color: #7b5f64;
+  font-size: 0.68rem;
+}
+
+.commandGrid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: minmax(18rem, 2.4fr) repeat(3, minmax(9rem, 1fr));
+}
+
+.primaryCommand,
+.command {
+  align-items: center;
+  border: 1px solid rgba(73, 21, 26, 0.11);
+  border-radius: 1rem;
+  display: flex;
+  gap: 0.75rem;
+  min-height: 5.5rem;
+  padding: 0.85rem 1rem;
+  text-decoration: none;
+  transition:
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.primaryCommand {
+  background: var(--brand-primary);
+  box-shadow: 0 20px 44px rgba(73, 21, 26, 0.2);
+  color: #fff;
+}
+
+.primaryCommand > div {
+  flex: 1;
+}
+
+.primaryCommand strong {
+  display: block;
+  font-size: 0.94rem;
+}
+
+.primaryCommand p {
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 0.72rem;
+  margin: 0.2rem 0 0;
+}
+
+.commandIcon {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.13);
+  border-radius: 999px;
+  display: flex;
+  height: 2.8rem;
+  justify-content: center;
+  width: 2.8rem;
+}
+
+.command {
+  background: #fff;
+  color: var(--brand-primary);
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+
+.command span {
+  color: #3b3034;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.primaryCommand:hover,
+.command:hover {
+  box-shadow: 0 22px 46px rgba(35, 20, 23, 0.13);
+  transform: translateY(-2px);
+}
+
+.dashboardGrid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1.15fr 1fr 0.85fr;
+}
+
+.errorState {
+  background: #fff;
+  border: 1px solid rgba(73, 21, 26, 0.12);
+  border-radius: 1.25rem;
+  box-shadow: 0 18px 44px rgba(35, 20, 23, 0.07);
+  display: grid;
+  gap: 0.65rem;
+  padding: 2rem;
+}
+
+.errorState span {
+  color: #9a3038;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.errorState h2,
+.errorState p {
+  margin: 0;
+}
+
+.errorState p {
   color: #756a6f;
-  line-height: 1.55;
-  margin: 0.3rem 0 0;
 }
 
-@media (max-width: 640px) {
+.errorState a {
+  color: var(--brand-primary);
+  font-weight: 800;
+  width: fit-content;
+}
+
+@media (max-width: 1180px) {
+  .commandGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .primaryCommand {
+    grid-column: 1 / -1;
+  }
+
+  .dashboardGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 720px) {
   .header {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .commandGrid,
+  .dashboardGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .primaryCommand {
+    grid-column: auto;
   }
 }
