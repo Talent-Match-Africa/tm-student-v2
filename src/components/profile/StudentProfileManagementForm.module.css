@@ -1,0 +1,16 @@
+.formError {
+  background: #fff2f2;
+  border: 1px solid rgba(185, 28, 28, 0.16);
+  border-radius: 0.72rem;
+  color: #a3313b;
+  font-size: 0.72rem;
+  font-weight: 680;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0.72rem 0.8rem;
+}
+
+.formError:focus-visible {
+  box-shadow: 0 0 0 4px rgba(173, 62, 72, 0.13);
+  outline: 0;
+}
