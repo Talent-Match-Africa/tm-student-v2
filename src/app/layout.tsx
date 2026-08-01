@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import type { ReactNode } from "react";
 import { StudentWorkspaceShell } from "@/components/layout/StudentWorkspaceShell";
+import { ToastProvider } from "@/components/shared/ToastProvider";
 import { requireStudentSession } from "@/lib/student-session";
 import "./globals.css";
 
@@ -25,9 +26,11 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body suppressHydrationWarning>
-        <StudentWorkspaceShell profile={profile}>
-          {children}
-        </StudentWorkspaceShell>
+        <ToastProvider>
+          <StudentWorkspaceShell profile={profile}>
+            {children}
+          </StudentWorkspaceShell>
+        </ToastProvider>
       </body>
     </html>
   );
