@@ -1,90 +1,27 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useTransition } from "react";
+import { SentIcon } from "@hugeicons/core-free-icons";
+import { AuthButton } from "@/components/shared/AuthButton";
+import type { OpportunityFilters as FilterValues, OpportunityListResponse, OpportunityRouteType } from "@/types/opportunities";
+import { OpportunityFeed } from "./OpportunityFeed";
 import { OpportunityFilters } from "./OpportunityFilters";
+import { OpportunitySidebarFilters } from "./OpportunitySidebarFilters";
 import { OpportunityTypeTabs } from "./OpportunityTypeTabs";
-import { StudentOpportunityCard } from "./StudentOpportunityCard";
-import { Pagination } from "@/components/shared/Pagination";
-import { buildOpportunityHref } from "@/endpoints/student/opportunity-query";
-import type {
-  OpportunityFilters as FilterValues,
-  OpportunityListResponse,
-  OpportunityRouteType,
-} from "@/types/opportunities";
 import styles from "./OpportunityWorkspace.module.css";
 
-interface OpportunityWorkspaceProps {
-  data: OpportunityListResponse | null;
-  errorMessage: string | null;
-  filters: FilterValues;
-  type: OpportunityRouteType;
-}
+interface Props { data: OpportunityListResponse | null; errorMessage: string | null; filters: FilterValues; type: OpportunityRouteType }
 
-export function OpportunityWorkspace({
-  data,
-  errorMessage,
-  filters,
-  type,
-}: OpportunityWorkspaceProps) {
+export function OpportunityWorkspace({ data, errorMessage, filters, type }: Props) {
+  const router = useRouter(); const [isPending, startTransition] = useTransition();
   const label = type === "job-listings" ? "Job listings" : "Internships";
+  function navigate(href: string) { startTransition(() => router.replace(href, { scroll: false })); }
   return (
-    <section className={styles.workspace}>
-      <header className={styles.header}>
-        <div>
-          <p>Student opportunities</p>
-          <h2>{label}</h2>
-          <span>
-            Discover opportunities available to you and your university.
-          </span>
-        </div>
-        <div className={styles.resultBadge}>
-          <strong>{(data?.count ?? 0).toLocaleString()}</strong>
-          <span>Matched opportunities</span>
-        </div>
-      </header>
-
-      <OpportunityFilters filters={filters} type={type} />
-
-      <div className={styles.content}>
-        <aside>
-          <OpportunityTypeTabs activeType={type} />
-        </aside>
-        <main>
-          {errorMessage ? (
-            <div className={styles.empty} role="alert">
-              <span>Unable to load opportunities</span>
-              <h3>Discovery is temporarily unavailable.</h3>
-              <p>{errorMessage}</p>
-            </div>
-          ) : data?.results.length ? (
-            <>
-              <div className={styles.grid}>
-                {data.results.map((opportunity) => (
-                  <StudentOpportunityCard
-                    key={opportunity.id}
-                    opportunity={opportunity}
-                    type={type}
-                  />
-                ))}
-              </div>
-              <Pagination
-                currentPage={data.page}
-                getPageHref={(page) =>
-                  buildOpportunityHref(type, { ...filters, page })
-                }
-                label={`${label} pagination`}
-                totalPages={data.total_pages}
-              />
-            </>
-          ) : (
-            <div className={styles.empty}>
-              <span>No matching records</span>
-              <h3>Try widening your search.</h3>
-              <p>
-                Reset one or more filters to see opportunities available to
-                your university.
-              </p>
-            </div>
-          )}
-        </main>
-      </div>
-    </section>
+    <div className={styles.workspace} aria-busy={isPending}>
+      <header className={styles.header}><div><p className={styles.eyebrow}>Student opportunities</p><h1>{label}</h1><p className={styles.description}>Discover opportunities available to you and your university across Talent Match.</p></div><div className={styles.headerActions}><div className={styles.resultBadge}><strong>{(data?.count ?? 0).toLocaleString()}</strong><span>Matched records</span></div><AuthButton className={styles.addButton} icon={SentIcon} onClick={() => router.push(`/applications/${type}`)}>My applications</AuthButton></div></header>
+      <OpportunityFilters filters={filters} isPending={isPending} onNavigate={navigate} type={type} />
+      <div className={styles.contentLayout}><div className={styles.categoryRail}><OpportunityTypeTabs activeType={type} /><div aria-label="Opportunity filter controls" className={styles.sidebarScroll} role="region" tabIndex={0}><OpportunitySidebarFilters filters={filters} isPending={isPending} onNavigate={navigate} type={type} /></div></div><main className={styles.results}><OpportunityFeed errorMessage={errorMessage} filters={filters} initialData={data} onReset={() => navigate(`/opportunities/${type}`)} type={type} /></main></div>
+    </div>
   );
 }
