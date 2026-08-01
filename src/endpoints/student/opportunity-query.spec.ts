@@ -27,6 +27,8 @@ describe("student opportunity query", () => {
   it("builds only supported API query fields", () => {
     const query = buildOpportunityQuery({
       page: 2,
+      createdFrom: "2026-07-01",
+      createdTo: "2026-07-31",
       search: "engineering",
       status: "OPEN",
       ordering: "deadline",
@@ -37,6 +39,8 @@ describe("student opportunity query", () => {
     expect(query).toContain("page=2");
     expect(query).toContain("page_size=24");
     expect(query).toContain("search=engineering");
+    expect(query).toContain("created_from=2026-07-01");
+    expect(query).toContain("created_to=2026-07-31");
     expect(query).not.toContain("owner_id");
   });
 
@@ -44,6 +48,8 @@ describe("student opportunity query", () => {
     expect(
       buildOpportunityApiHref("internships", {
         page: 3,
+        createdFrom: null,
+        createdTo: null,
         search: null,
         status: "ACTIVE",
         ordering: "-created_at",
