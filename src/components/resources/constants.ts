@@ -1,0 +1,3 @@
+export const RESOURCE_TYPE_OPTIONS = [{ label: "All resource types", value: "" }, { label: "Documents", value: "DOCUMENT" }, { label: "Videos", value: "VIDEO" }];
+export const RESOURCE_VISIBILITY_OPTIONS = [{ label: "All available audiences", value: "" }, { label: "Everyone signed in", value: "GLOBAL" }, { label: "My university", value: "UNIVERSITY_ONLY" }];
+export const RESOURCE_ORDERING_OPTIONS = [{ label: "Recently published", value: "-published_at" }, { label: "Oldest published", value: "published_at" }, { label: "Recently updated", value: "-updated_at" }, { label: "Name A-Z", value: "name" }, { label: "Name Z-A", value: "-name" }, { label: "Documents before videos", value: "type" }];
