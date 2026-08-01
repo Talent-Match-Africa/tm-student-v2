@@ -15,6 +15,13 @@ documents. Files remain private, are limited to API-approved document formats
 and sizes, and are never represented by public storage paths. Email and password
 changes continue to use their dedicated verified API workflows.
 
+Documents are ordered newest-first. The newest upload is presented as the
+primary CV and may be replaced without nesting another form inside the profile
+management form. Application submission selects that CV by default, but the
+student may choose a different local file. The API revalidates ownership and
+copies a saved CV into application storage so later profile changes cannot
+invalidate an already submitted application.
+
 The profile workspace mirrors the administrator four-section management form:
 identity, education, verified email, and security. University reassignment uses
 a dedicated API contract; faculties are reloaded for the selected university
