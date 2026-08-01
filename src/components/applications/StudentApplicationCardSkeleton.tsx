@@ -1,0 +1,5 @@
+import styles from "./StudentApplicationCardSkeleton.module.css";
+
+export function StudentApplicationCardSkeleton() {
+  return <article aria-hidden="true" className={styles.card}><header className={styles.header}><span className={styles.avatar} /><div className={styles.heading}><div className={styles.headingMeta}><span className={styles.typeLabel} /><span className={styles.statusBadge} /></div><span className={styles.studentName} /><span className={styles.submittedAt} /></div></header><section className={styles.opportunityContext}><span className={styles.opportunityIcon} /><div><span className={styles.opportunityLabel} /><span className={styles.opportunityTitle} /><span className={styles.opportunityOwner} /></div><span className={styles.opportunityLink} /></section><section className={styles.statusEditor}><div className={styles.decisionHeader}><div><span className={styles.decisionLabel} /><span className={styles.decisionHelp} /></div></div></section><footer className={styles.actions}><span /><span /></footer></article>;
+}
