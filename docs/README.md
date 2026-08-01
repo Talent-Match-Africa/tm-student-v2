@@ -16,6 +16,9 @@
 - `student-dashboard.md`: student command-center aggregate.
 - `student-opportunities.md`: discovery, filters, cards, details, and pagination.
 - `student-applications.md`: secure opportunity application workflow.
+- `student-application-tracking.md`: application history, filters, details, and secure files.
+- `student-guidance.md`: counselor discovery and appointment management.
+- `student-profile-resources.md`: resource access, profile editing, and private documents.
 - `deploy.md`: staging build, activation, validation, and rollback.
 - `git.md`: mandatory one-file-per-commit workflow.
 
