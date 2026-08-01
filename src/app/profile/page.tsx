@@ -1,53 +1,35 @@
-import { ProfileForm } from "@/components/profile/ProfileForm";
-import { StudentDocumentsPanel } from "@/components/profile/StudentDocumentsPanel";
-import styles from "@/components/shared/SelfService.module.css";
+import type { Metadata } from "next";
+import { StudentProfileManagementForm } from "@/components/profile/StudentProfileManagementForm";
 import { getProfile } from "@/endpoints/student/get-profile";
+import { listProfileFaculties } from "@/endpoints/student/list-profile-faculties";
+import { listProfileUniversities } from "@/endpoints/student/list-profile-universities";
 import { listDocuments } from "@/endpoints/student/list-documents";
 import { requireStudentSession } from "@/lib/student-session";
 
+export const metadata: Metadata = {
+  title: "My Profile",
+  description: "Manage your Talent Match student profile and account security.",
+};
+
 export default async function ProfilePage() {
   const { accessToken } = await requireStudentSession("/profile");
-  const [profileResult, documentsResult] = await Promise.all([
+  const [profileResult, universitiesResult, documentsResult] = await Promise.all([
     getProfile(accessToken),
+    listProfileUniversities(),
     listDocuments(accessToken),
   ]);
-  if (!profileResult.ok)
-    return (
-      <div className={styles.empty}>
-        Your profile is temporarily unavailable. Please try again.
-      </div>
-    );
+  if (!profileResult.ok) throw new Error("Student profile could not be loaded.");
   const profile = profileResult.payload.data;
-  const documents = documentsResult.ok ? documentsResult.payload.results : [];
+  const facultiesResult = profile.university.id
+    ? await listProfileFaculties(profile.university.id)
+    : null;
 
   return (
-    <section className={styles.workspace}>
-      <header className={styles.header}>
-        <div>
-          <p>Student identity</p>
-          <h2>My profile</h2>
-          <span>Keep your details and application documents ready.</span>
-        </div>
-        <span className={styles.badge}>
-          {profile.email_verified ? "Verified" : "Verification pending"}
-        </span>
-      </header>
-      <div className={styles.details}>
-        <article className={styles.panel}>
-          <span>Personal details</span>
-          <h3>{profile.full_name}</h3>
-          <ProfileForm profile={profile} />
-        </article>
-        <aside className={styles.panel}>
-          <span>Private files</span>
-          <h3>My documents</h3>
-          <p>
-            Documents are private and accessed only through short-lived secure
-            links.
-          </p>
-          <StudentDocumentsPanel documents={documents} />
-        </aside>
-      </div>
-    </section>
+    <StudentProfileManagementForm
+      documents={documentsResult.ok ? documentsResult.payload.results : []}
+      faculties={facultiesResult?.ok ? facultiesResult.payload.data : []}
+      profile={profile}
+      universities={universitiesResult.ok ? universitiesResult.payload.data : []}
+    />
   );
 }
