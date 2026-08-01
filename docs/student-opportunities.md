@@ -11,6 +11,8 @@ loading, back-to-top control, empty states, and full page skeleton. Student
 cards retain the admin geometry while replacing administrative controls with
 View details and Apply now.
 
-Supported URL state is page, search, work flexibility, industry sector,
-location, lifecycle status, and ordering. Unsupported or unbounded URL values
-are discarded before API requests.
+Supported URL state is page, search, created-from and created-to dates, work
+flexibility, industry sector, location, lifecycle status, and ordering. Date
+ranges are normalized in the browser and validated again by the API before the
+database applies an inclusive calendar-day window. Unsupported or unbounded
+URL values are discarded before API requests.
