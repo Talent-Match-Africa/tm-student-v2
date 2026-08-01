@@ -1,13 +1,9 @@
-import { backendJson, type BackendResult } from "@/lib/api-client";
-import type { StudentProfile } from "@/types/student-self-service";
+import { backendFormData, type BackendResult } from "@/lib/api-client";
+import type { StudentProfileMutationResponse } from "@/types/student-profile";
 
 export function updateProfile(
   accessToken: string,
-  input: Record<string, unknown>,
-): Promise<BackendResult<StudentProfile>> {
-  return backendJson("/student/profile", {
-    accessToken,
-    body: input,
-    method: "PATCH",
-  });
+  input: FormData,
+): Promise<BackendResult<StudentProfileMutationResponse>> {
+  return backendFormData("/student/profile", input, accessToken, "PATCH");
 }
