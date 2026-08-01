@@ -1,0 +1,2 @@
+import{backendJson,type BackendResult}from"@/lib/api-client";import type{PageResponse,Resource}from"@/types/student-self-service";
+export function listResources(token:string,page:number,search:string|null,type:string|null):Promise<BackendResult<PageResponse<Resource>>>{const q=new URLSearchParams({page:String(page),page_size:"24",ordering:"-published_at"});if(search)q.set("search",search);if(type)q.set("type",type);return backendJson(`/student/resources?${q}`,{accessToken:token,method:"GET"})}
