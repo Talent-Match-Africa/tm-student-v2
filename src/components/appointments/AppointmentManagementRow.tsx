@@ -1,0 +1,12 @@
+import { Calendar03Icon, Mail01Icon, Time02Icon, UserIcon } from "@hugeicons/core-free-icons";
+import { HugeIcon } from "@/components/shared/HugeIcon";
+import type { Appointment } from "@/types/student-self-service";
+import { CancelAppointmentButton } from "./CancelAppointmentButton";
+import { formatAppointmentDate, formatAppointmentTime } from "./utils";
+import styles from "./AppointmentManagementRow.module.css";
+
+export function AppointmentManagementRow({ appointment }: { appointment: Appointment }) {
+  const canCancel = appointment.status !== "CANCELLED" && appointment.status !== "COMPLETED";
+  return <tr className={styles.row}><td data-label="Appointment"><div className={styles.appointmentIdentity}><span className={styles.scheduleIcon} aria-hidden="true"><HugeIcon icon={Calendar03Icon} size={17} /></span><div><strong>{appointment.subject}</strong><span>Created {formatAppointmentDate(appointment.createdAt)}</span></div></div></td><td data-label="Student"><div className={styles.person}><span className={styles.scheduleIcon} aria-hidden="true"><HugeIcon icon={UserIcon} size={15} /></span><div><strong>Your appointment</strong><span>Private guidance session</span></div></div></td><td data-label="Counselor"><div className={styles.person}><span className={styles.scheduleIcon} aria-hidden="true"><HugeIcon icon={UserIcon} size={15} /></span><div><strong>{appointment.counselor.name ?? "Counselor"}</strong><span><HugeIcon icon={Mail01Icon} size={12} /> {appointment.counselor.email ?? "Email unavailable"}</span></div></div></td><td data-label="University"><div className={styles.university}><strong>{appointment.university.name ?? "Career guidance"}</strong><span data-active={Boolean(appointment.university.id)}><i aria-hidden="true" />{appointment.university.id ? "Your university" : "University unavailable"}</span></div></td><td data-label="Schedule"><div className={styles.schedule}><strong>{formatAppointmentDate(appointment.date)}</strong><span><HugeIcon icon={Time02Icon} size={13} />{formatAppointmentTime(appointment.date)} CAT</span></div></td><td data-label="Status"><span className={styles.status} data-status={appointment.status.toLowerCase()}><i aria-hidden="true" />{titleCase(appointment.status)}</span></td><td data-label="Actions"><div className={styles.actions}>{canCancel ? <CancelAppointmentButton appointmentId={appointment.id} /> : <span>Closed</span>}</div></td></tr>;
+}
+function titleCase(value: string) { return `${value.charAt(0)}${value.slice(1).toLowerCase()}`; }
