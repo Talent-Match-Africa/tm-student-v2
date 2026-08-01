@@ -1,0 +1,115 @@
+.metric {
+  color: inherit;
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  min-height: 10rem;
+  padding: 1rem;
+  position: relative;
+  text-decoration: none;
+  transition:
+    background-color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.metric + .metric {
+  border-left: 1px solid rgba(73, 21, 26, 0.08);
+}
+
+.metric:hover {
+  background: #fffafb;
+  box-shadow: inset 0 -3px 0 rgba(73, 21, 26, 0.64);
+}
+
+.metric:focus-visible {
+  box-shadow: inset 0 0 0 3px rgba(73, 21, 26, 0.2);
+  outline: 0;
+}
+
+.icon {
+  align-items: center;
+  background: #f4edef;
+  border-radius: 0.55rem;
+  color: var(--brand-primary);
+  display: inline-flex;
+  height: 2.25rem;
+  justify-content: center;
+  width: 2.25rem;
+}
+
+.copy {
+  display: grid;
+  min-width: 0;
+}
+
+.copy > span {
+  color: #6e6267;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.copy strong {
+  color: #241b1e;
+  font-size: 1.35rem;
+  line-height: 1.15;
+  margin-top: 0.1rem;
+}
+
+.copy small {
+  color: #91858a;
+  font-size: 0.65rem;
+  line-height: 1.35;
+  margin-top: 0.2rem;
+}
+
+.access {
+  align-items: flex-start;
+  display: flex;
+  gap: 0.35rem;
+  grid-column: 1 / -1;
+}
+
+.access span {
+  background: #f7f4f5;
+  border: 1px solid rgba(73, 21, 26, 0.08);
+  border-radius: 999px;
+  color: #786b70;
+  font-size: 0.61rem;
+  font-weight: 700;
+  padding: 0.3rem 0.45rem;
+  white-space: nowrap;
+}
+
+.access span[data-status="active"] {
+  background: #effbf5;
+  border-color: #b8ebd0;
+  color: #08734b;
+}
+
+.arrow {
+  color: #aa9da2;
+  opacity: 0;
+  transform: translate(-3px, 3px);
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease;
+}
+
+.metric:hover .arrow,
+.metric:focus-visible .arrow {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+@media (max-width: 680px) {
+  .metric {
+    min-height: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .metric,
+  .arrow {
+    transition: none;
+  }
+}
