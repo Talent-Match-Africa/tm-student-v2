@@ -1,0 +1,235 @@
+.field {
+  --input-height: clamp(2.76rem, 4vw, 3.2rem);
+  --input-radius: 999px;
+  --input-bg: #fff;
+  --input-border: rgba(73, 21, 26, 0.14);
+  --input-text: #18181b;
+  --input-muted: #9f8f92;
+
+  display: grid;
+  gap: 0.5rem;
+  width: 100%;
+  text-transform: capitalize;
+}
+
+.preserveCase {
+  text-transform: none;
+}
+
+.label {
+  color: #27272a;
+  font-size: var(--control-font-size);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
+  padding-inline: 0.25rem;
+}
+
+.control {
+  align-items: center;
+  background-color: var(--input-bg);
+  border: 1px solid var(--input-border);
+  border-radius: var(--input-radius);
+  box-shadow:
+    0 12px 28px rgba(24, 24, 27, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  color: var(--input-text);
+  display: flex;
+  height: var(--input-height);
+  min-width: 0;
+  overflow: hidden;
+  position: relative;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.control::after {
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: inherit;
+  content: '';
+  inset: 1px;
+  pointer-events: none;
+  position: absolute;
+}
+
+.control:hover {
+  background-color: #fffafa;
+  border-color: rgba(73, 21, 26, 0.26);
+  box-shadow:
+    0 16px 36px rgba(73, 21, 26, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  transform: translateY(-1px);
+}
+
+.control:focus-within {
+  background-color: #fff;
+  border-color: rgba(73, 21, 26, 0.72);
+  box-shadow:
+    0 0 0 5px rgba(73, 21, 26, 0.1),
+    0 18px 42px rgba(73, 21, 26, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.98);
+  transform: translateY(-2px);
+}
+
+.controlError {
+  border-color: rgba(185, 28, 28, 0.58);
+  box-shadow:
+    0 0 0 5px rgba(185, 28, 28, 0.08),
+    0 14px 32px rgba(185, 28, 28, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+}
+
+.controlError:focus-within {
+  border-color: rgba(185, 28, 28, 0.78);
+  box-shadow:
+    0 0 0 5px rgba(185, 28, 28, 0.12),
+    0 18px 42px rgba(185, 28, 28, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.98);
+}
+
+.leadingIcon {
+  align-items: center;
+  background-color: rgba(73, 21, 26, 0.07);
+  border: 1px solid rgba(73, 21, 26, 0.08);
+  border-radius: 999px;
+  color: var(--brand-primary);
+  display: flex;
+  height: 2.15rem;
+  justify-content: center;
+  left: 0.5rem;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+  width: 2.15rem;
+  z-index: 1;
+}
+
+.control:focus-within .leadingIcon {
+  background-color: var(--brand-primary);
+  border-color: var(--brand-primary);
+  box-shadow: 0 8px 20px rgba(73, 21, 26, 0.22);
+  color: #fff;
+}
+
+.input {
+  background: transparent;
+  border: 0;
+  border-radius: var(--input-radius);
+  color: var(--input-text);
+  font-size: var(--control-font-size);
+  font-weight: 500;
+  height: 100%;
+  min-width: 0;
+  outline: 0;
+  padding: 0 1.15rem 0 3.25rem;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+
+.inputWithRightElement {
+  padding-right: 3.75rem;
+}
+
+.input::placeholder {
+  color: var(--input-muted);
+  font-size: var(--control-font-size);
+  font-weight: 400;
+}
+
+.input:disabled {
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.control:has(.input:disabled) {
+  background-color: #f7f7f8;
+  border-color: #ececef;
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 0.78;
+  transform: none;
+}
+
+.rightElement {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  min-height: 2.2rem;
+  min-width: 2.2rem;
+  position: absolute;
+  right: 0.45rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+.rightElement button {
+  align-items: center;
+  background-color: rgba(73, 21, 26, 0.07);
+  border: 1px solid rgba(73, 21, 26, 0.08);
+  border-radius: 999px;
+  color: var(--brand-primary);
+  cursor: pointer;
+  display: inline-flex;
+  height: 2.15rem;
+  justify-content: center;
+  transition:
+    background-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+  width: 2.15rem;
+}
+
+.rightElement button:hover {
+  background-color: rgba(73, 21, 26, 0.12);
+  box-shadow: 0 8px 18px rgba(73, 21, 26, 0.12);
+  transform: translateY(-1px);
+}
+
+.rightElement button:focus-visible {
+  box-shadow:
+    0 0 0 3px rgba(73, 21, 26, 0.14),
+    0 8px 18px rgba(73, 21, 26, 0.12);
+  outline: 0;
+}
+
+@media (max-width: 480px) {
+  .field {
+    --input-height: 3rem;
+  }
+
+  .label {
+    font-size: 0.82rem;
+  }
+
+  .leadingIcon {
+    height: 2rem;
+    left: 0.42rem;
+    width: 2rem;
+  }
+
+  .input {
+    font-size: 0.9rem;
+    padding-left: 3rem;
+    padding-right: 0.9rem;
+  }
+
+  .inputWithRightElement {
+    padding-right: 3.35rem;
+  }
+
+  .rightElement {
+    right: 0.38rem;
+  }
+}
