@@ -1,0 +1,2 @@
+import{backendJson,type BackendResult}from"@/lib/api-client";import type{Counselor,PageResponse}from"@/types/student-self-service";
+export function listCounselors(token:string,page:number,search:string|null):Promise<BackendResult<PageResponse<Counselor>>>{const q=new URLSearchParams({page:String(page),page_size:"20"});if(search)q.set("search",search);return backendJson(`/student/counselors?${q}`,{accessToken:token,method:"GET"})}
