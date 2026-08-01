@@ -7,6 +7,7 @@ import {
   toApiType,
 } from "@/endpoints/student/opportunity-query";
 import { requireStudentSession } from "@/lib/student-session";
+import { listDocuments } from "@/endpoints/student/list-documents";
 
 interface OpportunityDetailPageProps {
   params: Promise<{ type: string; opportunityId: string }>;
@@ -37,10 +38,12 @@ export default async function OpportunityDetailPage({
     opportunityId,
   );
   if (!result.ok) notFound();
+  const documentsResult = await listDocuments(accessToken);
   const query = await searchParams;
   return (
     <OpportunityDetails
       autoOpenApplication={query.apply === "true"}
+      latestDocument={documentsResult.ok ? documentsResult.payload.results[0] ?? null : null}
       opportunity={result.payload.data}
       type={type}
     />
