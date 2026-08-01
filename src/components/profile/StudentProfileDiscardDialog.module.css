@@ -1,0 +1,115 @@
+.backdrop {
+  background: rgba(45, 31, 32, 0.42);
+  inset: 0;
+  position: fixed;
+  z-index: 70;
+}
+
+.dialog {
+  background: #fffdfb;
+  border: 1px solid rgba(73, 21, 26, 0.16);
+  border-radius: 0.8rem;
+  box-shadow: 0 26px 80px rgba(45, 31, 32, 0.24);
+  left: 50%;
+  max-width: 30rem;
+  padding: 1.2rem;
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 2rem);
+  z-index: 71;
+}
+
+.header {
+  align-items: center;
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+.icon,
+.closeButton {
+  align-items: center;
+  border-radius: 999px;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.icon {
+  background: #fff4e6;
+  color: #9a5d0b;
+  height: 2.65rem;
+  width: 2.65rem;
+}
+
+.header > div {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.header > div > span {
+  color: #9a5d0b;
+  font-size: 0.65rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.header h2 {
+  color: #2d1f20;
+  font-size: 1.08rem;
+  font-weight: 850;
+  margin: 0;
+}
+
+.closeButton {
+  background: #f7efec;
+  border: 1px solid rgba(73, 21, 26, 0.1);
+  color: #49151a;
+  cursor: pointer;
+  height: 2rem;
+  width: 2rem;
+}
+
+.closeButton:focus-visible {
+  box-shadow: 0 0 0 4px rgba(73, 21, 26, 0.14);
+  outline: 0;
+}
+
+.dialog > p {
+  color: #705f63;
+  font-size: 0.78rem;
+  font-weight: 620;
+  line-height: 1.6;
+  margin: 0.9rem 0 0;
+  overflow-wrap: anywhere;
+}
+
+.actions {
+  display: flex;
+  gap: 0.55rem;
+  justify-content: flex-end;
+  margin-top: 1.1rem;
+}
+
+.actions button {
+  width: auto;
+}
+
+@media (max-width: 520px) {
+  .actions {
+    align-items: stretch;
+    flex-direction: column-reverse;
+  }
+
+  .actions button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dialog,
+  .backdrop {
+    animation: none;
+  }
+}
