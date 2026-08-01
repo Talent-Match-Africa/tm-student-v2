@@ -1,0 +1,107 @@
+.header {
+  align-items: end;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: space-between;
+}
+
+.copy > span {
+  color: #8e2630;
+  display: block;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.3rem;
+  text-transform: uppercase;
+}
+
+.copy h1 {
+  color: #21191d;
+  font-size: 1.45rem;
+  letter-spacing: 0;
+  margin: 0;
+}
+
+.copy > p {
+  color: #74696d;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  margin: 0.25rem 0 0;
+  max-width: 47rem;
+}
+
+.context {
+  align-items: stretch;
+  background: #fff;
+  border: 1px solid rgba(73, 21, 26, 0.1);
+  border-radius: 0.75rem;
+  display: flex;
+  flex: 0 0 auto;
+  overflow: hidden;
+}
+
+.context > div {
+  align-items: center;
+  display: flex;
+  gap: 0.55rem;
+  min-width: 12rem;
+  padding: 0.65rem 0.75rem;
+}
+
+.context > div + div {
+  border-left: 1px solid rgba(73, 21, 26, 0.08);
+}
+
+.contextIcon {
+  align-items: center;
+  background: #f6eff0;
+  border-radius: 0.5rem;
+  color: var(--brand-primary);
+  display: inline-flex;
+  flex: 0 0 2rem;
+  height: 2rem;
+  justify-content: center;
+}
+
+.context p {
+  display: grid;
+  gap: 0.12rem;
+  margin: 0;
+}
+
+.context p span {
+  color: #8b7d82;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.context p strong {
+  color: #352a2e;
+  font-size: 0.72rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+@media (max-width: 1050px) {
+  .header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .context {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 600px) {
+  .context {
+    display: grid;
+    width: 100%;
+  }
+
+  .context > div + div {
+    border-left: 0;
+    border-top: 1px solid rgba(73, 21, 26, 0.08);
+  }
+}
