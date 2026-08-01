@@ -1,0 +1,206 @@
+.workspace {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.header {
+  align-items: end;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header > div {
+  display: grid;
+  gap: 0.42rem;
+}
+
+.eyebrow,
+.title,
+.description,
+.resultBadge,
+.lineShort,
+.lineMedium,
+.identityLine,
+.personLine,
+.universityLine,
+.scheduleLine,
+.statusLine,
+.actionLine {
+  animation: appointment-skeleton-pulse 1.35s ease-in-out infinite;
+  background: linear-gradient(90deg, #f1ebed, #faf7f8, #f1ebed);
+  background-size: 200% 100%;
+  border-radius: 999px;
+  display: block;
+}
+
+.eyebrow {
+  height: 0.55rem;
+  width: 7.5rem;
+}
+
+.title {
+  height: 1.35rem;
+  width: 10rem;
+}
+
+.description {
+  height: 0.65rem;
+  width: min(60vw, 39rem);
+}
+
+.resultBadge {
+  height: 2.15rem;
+  width: 8.5rem;
+}
+
+.tablePanel {
+  background: #fff;
+  border: 1px solid rgba(73, 21, 26, 0.09);
+  border-radius: 0.75rem;
+  box-shadow: 0 16px 36px rgba(31, 21, 25, 0.05);
+  overflow: hidden;
+}
+
+.tableHeader {
+  align-items: center;
+  border-bottom: 1px solid rgba(73, 21, 26, 0.08);
+  display: flex;
+  justify-content: space-between;
+  min-height: 3.2rem;
+  padding: 0 0.9rem;
+}
+
+.lineShort {
+  height: 0.65rem;
+  width: 8rem;
+}
+
+.lineMedium {
+  height: 0.65rem;
+  width: 11rem;
+}
+
+.scroller {
+  overflow: hidden;
+}
+
+.table {
+  border-collapse: collapse;
+  min-width: 82rem;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.table th:nth-child(1) {
+  width: 17%;
+}
+.table th:nth-child(2) {
+  width: 17%;
+}
+.table th:nth-child(3) {
+  width: 16%;
+}
+.table th:nth-child(4) {
+  width: 17%;
+}
+.table th:nth-child(5) {
+  width: 14%;
+}
+.table th:nth-child(6) {
+  width: 11%;
+}
+.table th:nth-child(7) {
+  width: 8%;
+}
+
+.table th {
+  background: #fbf8f9;
+  color: #817479;
+  font-size: 0.66rem;
+  font-weight: 700;
+  padding: 0.7rem 0.85rem;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+.table td {
+  border-top: 1px solid rgba(73, 21, 26, 0.065);
+  padding: 0.9rem 0.85rem;
+}
+
+.identityLine,
+.personLine,
+.universityLine,
+.scheduleLine {
+  height: 1.8rem;
+}
+
+.identityLine {
+  width: 88%;
+}
+.personLine {
+  width: 84%;
+}
+.universityLine {
+  width: 90%;
+}
+.scheduleLine {
+  width: 78%;
+}
+.statusLine {
+  height: 1.8rem;
+  width: 5.6rem;
+}
+.actionLine {
+  height: 2.1rem;
+  width: 4rem;
+}
+
+@keyframes appointment-skeleton-pulse {
+  0%,
+  100% {
+    background-position: 100% 0;
+  }
+  50% {
+    background-position: 0 0;
+  }
+}
+
+@media (max-width: 1100px) {
+  .table {
+    min-width: 72rem;
+  }
+  .scroller {
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 720px) {
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .description {
+    width: min(82vw, 28rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eyebrow,
+  .title,
+  .description,
+  .resultBadge,
+  .lineShort,
+  .lineMedium,
+  .identityLine,
+  .personLine,
+  .universityLine,
+  .scheduleLine,
+  .statusLine,
+  .actionLine {
+    animation: none;
+  }
+}
