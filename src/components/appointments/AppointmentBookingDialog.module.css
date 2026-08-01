@@ -1,0 +1,165 @@
+.backdrop {
+  background: rgba(45, 31, 32, 0.42);
+  inset: 0;
+  position: fixed;
+  z-index: 80;
+}
+
+.dialog {
+  background: #fffdfb;
+  border: 1px solid rgba(73, 21, 26, 0.16);
+  border-radius: 0.8rem;
+  box-shadow: 0 26px 80px rgba(45, 31, 32, 0.24);
+  display: grid;
+  gap: 0.9rem;
+  left: 50%;
+  max-height: calc(100vh - 2rem);
+  max-width: 32rem;
+  overflow-y: auto;
+  padding: 1.25rem;
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 2rem);
+  z-index: 81;
+}
+
+.header {
+  align-items: center;
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+}
+
+.icon,
+.closeButton {
+  align-items: center;
+  border-radius: 999px;
+  display: inline-flex;
+  justify-content: center;
+}
+
+.icon {
+  background: #f4edef;
+  color: var(--brand-primary);
+  height: 2.65rem;
+  width: 2.65rem;
+}
+
+.closeButton {
+  background: #f7efec;
+  border: 1px solid rgba(73, 21, 26, 0.1);
+  color: #49151a;
+  cursor: pointer;
+  height: 2rem;
+  width: 2rem;
+}
+
+.eyebrow {
+  color: #a9782f;
+  font-size: 0.64rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.dialog h2 {
+  color: #2d1f20;
+  font-size: 1.08rem;
+  margin: 0.15rem 0 0;
+}
+
+.dialog > p,
+.dialog > [data-radix-dialog-description] {
+  color: #705b5a;
+  font-size: 0.76rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.dialog > p strong {
+  color: #49151a;
+}
+
+.currentState {
+  align-items: center;
+  background: #faf6f3;
+  border: 1px solid rgba(73, 21, 26, 0.09);
+  border-radius: 0.65rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.65rem 0.75rem;
+}
+
+.currentState span {
+  color: #7f7075;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.currentState strong {
+  background: #f4f4f5;
+  border-radius: 999px;
+  color: #52525b;
+  font-size: 0.66rem;
+  padding: 0.35rem 0.6rem;
+}
+
+.currentState strong[data-status="pending"] {
+  background: #fff7ed;
+  color: #9a3412;
+}
+
+.currentState strong[data-status="confirmed"] {
+  background: #eff6ff;
+  color: #1d4ed8;
+}
+
+.currentState strong[data-status="completed"] {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+.currentState strong[data-status="cancelled"] {
+  background: #fff1f2;
+  color: #be123c;
+}
+
+.policy {
+  background: #f8f4f5;
+  border-left: 3px solid #a9782f;
+  border-radius: 0.45rem;
+  padding: 0.65rem 0.75rem;
+}
+
+.correction {
+  border: 1px solid rgba(73, 21, 26, 0.1);
+  border-radius: 0.65rem;
+  overflow: hidden;
+}
+
+.error {
+  background: #fff4f3;
+  border: 1px solid rgba(179, 63, 70, 0.2);
+  border-radius: 0.55rem;
+  color: #9e3039;
+  font-size: 0.75rem;
+  line-height: 1.45;
+  padding: 0.7rem 0.85rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.55rem;
+  justify-content: flex-end;
+}
+
+@media (max-width: 520px) {
+  .actions {
+    align-items: stretch;
+    flex-direction: column-reverse;
+  }
+
+  .actions button {
+    width: 100%;
+  }
+}
