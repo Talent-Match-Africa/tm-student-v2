@@ -1,0 +1,138 @@
+.panel {
+  background: #fff;
+  border: 1px solid rgba(73, 21, 26, 0.1);
+  border-radius: 1.1rem;
+  box-shadow: 0 18px 44px rgba(35, 20, 23, 0.055);
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+  padding: clamp(1rem, 2vw, 1.3rem);
+}
+
+.panelHeader {
+  align-items: center;
+  display: flex;
+  gap: 0.7rem;
+  justify-content: space-between;
+}
+
+.panelHeader span {
+  color: #9c6b2e;
+  font-size: 0.64rem;
+  font-weight: 850;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.panelHeader h3 {
+  color: #211719;
+  font-size: 1rem;
+  margin: 0.2rem 0 0;
+}
+
+.panelHeader > a {
+  align-items: center;
+  background: rgba(73, 21, 26, 0.07);
+  border-radius: 999px;
+  color: var(--brand-primary);
+  display: flex;
+  height: 2.3rem;
+  justify-content: center;
+  width: 2.3rem;
+}
+
+.statusList,
+.timeline,
+.resourceList {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.statusRow {
+  align-items: center;
+  background: #fbf8f6;
+  border-radius: 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.7rem 0.8rem;
+}
+
+.statusRow span {
+  color: #6b615c;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.statusRow strong {
+  color: var(--brand-primary);
+  font-size: 0.82rem;
+}
+
+.timeline a,
+.resourceList a {
+  align-items: center;
+  border-bottom: 1px solid rgba(73, 21, 26, 0.08);
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  padding: 0.7rem 0;
+  text-decoration: none;
+}
+
+.timelineIcon,
+.resourceList a > span {
+  align-items: center;
+  background: rgba(156, 107, 46, 0.09);
+  border-radius: 999px;
+  color: #9c6b2e;
+  display: flex;
+  height: 2.25rem;
+  justify-content: center;
+  width: 2.25rem;
+}
+
+.timeline div,
+.resourceList div {
+  display: grid;
+  min-width: 0;
+}
+
+.timeline strong,
+.resourceList strong {
+  color: #2d2426;
+  font-size: 0.77rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.timeline div span,
+.timeline small,
+.resourceList small {
+  color: #7b7174;
+  font-size: 0.65rem;
+}
+
+.timeline small {
+  color: #2b5233;
+  font-weight: 800;
+}
+
+.empty {
+  color: #756a6f;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+@media (max-width: 1180px) {
+  .applicationPanel {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 720px) {
+  .applicationPanel {
+    grid-column: auto;
+  }
+}
