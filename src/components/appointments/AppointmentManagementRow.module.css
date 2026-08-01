@@ -1,0 +1,206 @@
+.row:hover {
+  background: #fffafb;
+}
+
+.appointmentIdentity,
+.person {
+  align-items: center;
+  display: flex;
+  gap: 0.65rem;
+  min-width: 0;
+}
+
+.scheduleIcon {
+  align-items: center;
+  border-radius: 999px;
+  display: inline-flex;
+  flex: 0 0 auto;
+  justify-content: center;
+}
+
+.scheduleIcon {
+  background: #f6edef;
+  color: var(--brand-primary);
+  height: 2.35rem;
+  width: 2.35rem;
+}
+
+.appointmentIdentity > div,
+.person > div,
+.university,
+.schedule {
+  display: grid;
+  gap: 0.22rem;
+  min-width: 0;
+}
+
+.appointmentIdentity strong,
+.person a,
+.person strong,
+.university a,
+.university strong,
+.schedule strong {
+  color: #2b2024;
+  font-size: 0.75rem;
+  font-weight: 800;
+  line-height: 1.35;
+  overflow: hidden;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.person a:hover,
+.university a:hover {
+  color: var(--brand-primary);
+  text-decoration: underline;
+}
+
+.appointmentIdentity span,
+.person span,
+.university span,
+.schedule span {
+  align-items: center;
+  color: #83777b;
+  display: inline-flex;
+  font-size: 0.66rem;
+  font-weight: 650;
+  gap: 0.28rem;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.university span i,
+.status i {
+  background: #a1a1aa;
+  border-radius: 999px;
+  display: inline-block;
+  flex: 0 0 auto;
+  height: 0.38rem;
+  width: 0.38rem;
+}
+
+.university span[data-active="true"] i {
+  background: #059669;
+}
+
+.status {
+  align-items: center;
+  background: #f4f4f5;
+  border: 1px solid #e4e4e7;
+  border-radius: 999px;
+  color: #52525b;
+  display: inline-flex;
+  font-size: 0.68rem;
+  font-weight: 800;
+  gap: 0.4rem;
+  min-height: 1.85rem;
+  padding: 0 0.65rem;
+  white-space: nowrap;
+}
+
+.status[data-status="pending"] {
+  background: #fff7ed;
+  border-color: #fed7aa;
+  color: #9a3412;
+}
+
+.status[data-status="pending"] i {
+  background: #f97316;
+}
+
+.status[data-status="confirmed"] {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #1d4ed8;
+}
+
+.status[data-status="confirmed"] i {
+  background: #2563eb;
+}
+
+.status[data-status="completed"] {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #047857;
+}
+
+.status[data-status="completed"] i {
+  background: #059669;
+}
+
+.status[data-status="cancelled"] {
+  background: #fff1f2;
+  border-color: #fecdd3;
+  color: #be123c;
+}
+
+.status[data-status="cancelled"] i {
+  background: #e11d48;
+}
+
+.actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.4rem;
+}
+
+.actions a,
+.actions button {
+  align-items: center;
+  background: #fff;
+  border: 1px solid rgba(73, 21, 26, 0.16);
+  border-radius: 999px;
+  color: var(--brand-primary);
+  display: inline-flex;
+  font-size: 0.68rem;
+  font-weight: 750;
+  justify-content: center;
+  min-height: 2.1rem;
+  min-width: 4rem;
+  padding: 0.35rem 0.7rem;
+  text-decoration: none;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.actions a:hover,
+.actions button:hover {
+  background: #fff8f8;
+  border-color: rgba(73, 21, 26, 0.32);
+}
+
+.actions a:focus-visible,
+.actions button:focus-visible {
+  box-shadow: 0 0 0 4px rgba(73, 21, 26, 0.13);
+  outline: 0;
+}
+
+.actions button:disabled { cursor: not-allowed; opacity: 0.62; }
+.actions button[data-danger="true"] { border-color: #fecdd3; color: #be123c; }
+
+@media (max-width: 1100px) {
+  .appointmentIdentity strong,
+  .person a,
+  .person strong,
+  .university a,
+  .university strong,
+  .schedule strong,
+  .appointmentIdentity span,
+  .person span,
+  .university span,
+  .schedule span {
+    white-space: normal;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .actions a {
+    transition: none;
+  }
+}
