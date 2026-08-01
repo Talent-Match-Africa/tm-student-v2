@@ -54,6 +54,8 @@ export interface OpportunityDetailResponse {
 }
 
 export interface OpportunityFilters {
+  createdFrom: string | null;
+  createdTo: string | null;
   page: number;
   search: string | null;
   workFlexibility: string | null;
