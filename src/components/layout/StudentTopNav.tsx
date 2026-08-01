@@ -15,6 +15,7 @@ import {
   STUDENT_PROFILE_LINK,
   STUDENT_SIDEBAR_LINKS,
 } from "@/constants/student-sidebar";
+import { AuthButton } from "@/components/shared/AuthButton";
 import { HugeIcon } from "@/components/shared/HugeIcon";
 import type { PublicAuthProfile } from "@/types/auth";
 import { isStudentSidebarLinkActive } from "./student-sidebar-utils";
@@ -111,8 +112,9 @@ export function StudentTopNav({ onOpenSidebar, profile }: StudentTopNavProps) {
         </div>
       </div>
 
-      <div className={styles.profileMenu} ref={menuRef}>
-        <button
+      <div className={styles.rightCluster}>
+        <div className={styles.profileMenu} ref={menuRef}>
+          <button
           aria-expanded={menuOpen}
           aria-haspopup="menu"
           className={styles.profileCard}
@@ -127,10 +129,10 @@ export function StudentTopNav({ onOpenSidebar, profile }: StudentTopNavProps) {
           <span className={styles.profileChevron} aria-hidden="true">
             <HugeIcon icon={ArrowDown01Icon} size={15} />
           </span>
-        </button>
+          </button>
 
-        {menuOpen ? (
-          <div className={styles.dropdown} role="menu">
+          {menuOpen ? (
+            <div className={styles.dropdown} role="menu">
             <div className={styles.dropdownHeader}>
               <StudentAvatar image={profile.image} name={displayName} />
               <div>
@@ -144,7 +146,9 @@ export function StudentTopNav({ onOpenSidebar, profile }: StudentTopNavProps) {
               onClick={() => setMenuOpen(false)}
               role="menuitem"
             >
-              <HugeIcon icon={UserEdit01Icon} size={17} />
+              <span aria-hidden="true">
+                <HugeIcon icon={UserEdit01Icon} size={17} />
+              </span>
               Manage profile
             </Link>
             <button
@@ -156,11 +160,14 @@ export function StudentTopNav({ onOpenSidebar, profile }: StudentTopNavProps) {
               role="menuitem"
               type="button"
             >
-              <HugeIcon icon={Logout03Icon} size={17} />
+              <span aria-hidden="true">
+                <HugeIcon icon={Logout03Icon} size={17} />
+              </span>
               Sign out
             </button>
-          </div>
-        ) : null}
+            </div>
+          ) : null}
+        </div>
       </div>
 
       {logoutOpen ? (
@@ -171,16 +178,16 @@ export function StudentTopNav({ onOpenSidebar, profile }: StudentTopNavProps) {
             className={styles.dialog}
             role="dialog"
           >
-            <div className={styles.dialogIcon}>
+            <div className={styles.dialogIcon} aria-hidden="true">
               <HugeIcon icon={Logout03Icon} size={28} />
             </div>
             <div className={styles.dialogCopy}>
-              <p>End student session</p>
+              <p className={styles.dialogEyebrow}>End student session</p>
               <h2 id="student-logout-title">Sign out of Talent Match?</h2>
-              <span>
+              <p>
                 Your current session will be revoked and secure cookies removed
                 from this browser.
-              </span>
+              </p>
             </div>
             {logoutError ? (
               <p className={styles.dialogError} role="alert">
@@ -188,24 +195,26 @@ export function StudentTopNav({ onOpenSidebar, profile }: StudentTopNavProps) {
               </p>
             ) : null}
             <div className={styles.dialogActions}>
-              <button
-                className={styles.secondaryAction}
+              <AuthButton
+                className={styles.dialogActionButton}
                 disabled={signingOut}
+                icon={Cancel01Icon}
                 onClick={() => setLogoutOpen(false)}
                 type="button"
+                variant="secondary"
               >
-                <HugeIcon icon={Cancel01Icon} size={17} />
                 Keep me signed in
-              </button>
-              <button
-                className={styles.primaryAction}
-                disabled={signingOut}
+              </AuthButton>
+              <AuthButton
+                className={styles.dialogActionButton}
+                icon={Logout03Icon}
+                isLoading={signingOut}
+                loadingLabel="Signing out"
                 onClick={() => void signOut()}
                 type="button"
               >
-                <HugeIcon icon={Logout03Icon} size={17} />
-                {signingOut ? "Signing out…" : "Sign out securely"}
-              </button>
+                Sign out securely
+              </AuthButton>
             </div>
           </section>
         </div>
@@ -224,12 +233,12 @@ function StudentAvatar({
   if (image) {
     return (
       <Image
-        alt=""
+        alt={`${name} profile`}
         className={styles.avatar}
-        height={43}
+        height={44}
         src={image}
         unoptimized
-        width={43}
+        width={44}
       />
     );
   }
@@ -239,7 +248,11 @@ function StudentAvatar({
     .slice(0, 2)
     .map((part) => part[0]?.toUpperCase())
     .join("");
-  return <span className={styles.avatarFallback}>{initials || "TM"}</span>;
+  return (
+    <span className={styles.avatarFallback} aria-label={`${name} profile`}>
+      {initials || "TM"}
+    </span>
+  );
 }
 
 function signedOutUrl() {
