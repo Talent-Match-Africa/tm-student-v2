@@ -52,6 +52,13 @@ export function buildOpportunityHref(
   return `/opportunities/${type}?${buildOpportunityQuery(filters)}`;
 }
 
+export function buildOpportunityApiHref(
+  type: OpportunityRouteType,
+  filters: OpportunityFilters,
+): string {
+  return `/api/student/opportunities/${type}?${buildOpportunityQuery(filters)}`;
+}
+
 export function toApiType(type: OpportunityRouteType): OpportunityApiType {
   return type === "job-listings" ? "jobs" : "internships";
 }
