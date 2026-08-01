@@ -45,7 +45,7 @@ export function StudentSidebar({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function toggle() {
+  function handleToggleCollapsed() {
     const nextCollapsed = !collapsed;
     onToggleCollapsed();
     try {
@@ -76,13 +76,15 @@ export function StudentSidebar({
             onClick={onCloseMobile}
           >
             <span className={styles.brandMark}>TM</span>
-            <span className={styles.brandName}>Talent Match</span>
+            <span className={styles.brandCopy}>
+              <span className={styles.brandName}>Talent Match</span>
+            </span>
           </Link>
           <button
             aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
             aria-pressed={collapsed}
             className={styles.toggleButton}
-            onClick={toggle}
+            onClick={handleToggleCollapsed}
             type="button"
           >
             <HugeIcon
@@ -105,7 +107,9 @@ export function StudentSidebar({
             ))}
           </ul>
         </nav>
-        <p className={styles.copyright}>© {currentYear} Talent Match</p>
+        <div className={styles.footer}>
+          <p className={styles.copyright}>© {currentYear} Talent Match</p>
+        </div>
       </div>
     </aside>
   );
