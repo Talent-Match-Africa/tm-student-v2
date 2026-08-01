@@ -5,9 +5,11 @@ The opportunity workspace uses `/opportunities/job-listings` and
 segments. Initial data is server rendered and audience authorization remains an
 API responsibility.
 
-The workspace reproduces the admin header, result badge, filter shell, type
-rail, three-column card grid, responsive reductions, and pagination. Student
-cards replace administrative controls with View details and Apply now.
+The workspace reproduces the admin header, result badge, filter shell, sticky
+type and filter rail, two-column card feed, responsive reductions, progressive
+loading, back-to-top control, empty states, and full page skeleton. Student
+cards retain the admin geometry while replacing administrative controls with
+View details and Apply now.
 
 Supported URL state is page, search, work flexibility, industry sector,
 location, lifecycle status, and ordering. Unsupported or unbounded URL values
