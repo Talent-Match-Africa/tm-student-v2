@@ -1,0 +1,326 @@
+.workspace {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.screenReaderOnly {
+  clip: rect(0, 0, 0, 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
+.header {
+  align-items: end;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: space-between;
+}
+
+.headerCopy {
+  display: grid;
+  gap: 0.35rem;
+  width: min(100%, 34rem);
+}
+
+.context {
+  background: #fff;
+  border: 1px solid rgba(73, 21, 26, 0.1);
+  border-radius: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(2, 12rem);
+  overflow: hidden;
+}
+
+.context span {
+  height: 3.4rem;
+}
+
+.context span + span {
+  border-left: 1px solid rgba(73, 21, 26, 0.08);
+}
+
+.eyebrow,
+.title,
+.description,
+.context span,
+.sectionHeading span,
+.icon,
+.label,
+.number,
+.shortLine,
+.badges,
+.activityMetric,
+.countMetric {
+  animation: dashboard-skeleton-pulse 1.35s ease-in-out infinite;
+  background: linear-gradient(90deg, #f1ebed, #faf7f8, #f1ebed);
+  background-size: 200% 100%;
+  border-radius: 999px;
+  display: block;
+}
+
+.eyebrow {
+  height: 0.58rem;
+  width: 8rem;
+}
+
+.title {
+  height: 1.45rem;
+  width: 8.8rem;
+}
+
+.description {
+  height: 0.7rem;
+  width: min(100%, 32rem);
+}
+
+.totals,
+.activityPanel,
+.attentionPanel,
+.outcomes {
+  background: #fff;
+  border: 1px solid rgba(73, 21, 26, 0.09);
+  border-radius: 0.75rem;
+  box-shadow: 0 16px 36px rgba(31, 21, 25, 0.05);
+  overflow: hidden;
+}
+
+.sectionHeading {
+  align-items: center;
+  border-bottom: 1px solid rgba(73, 21, 26, 0.08);
+  display: flex;
+  justify-content: space-between;
+  min-height: 4.2rem;
+  padding: 1rem;
+}
+
+.sectionHeading span:first-child {
+  height: 0.8rem;
+  width: 8rem;
+}
+
+.sectionHeading span:last-child {
+  height: 0.65rem;
+  width: 13rem;
+}
+
+.totalGrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.totalMetric {
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: auto minmax(0, 1fr);
+  min-height: 10rem;
+  padding: 1rem;
+}
+
+.totalMetric + .totalMetric {
+  border-left: 1px solid rgba(73, 21, 26, 0.08);
+}
+
+.totalMetric > div {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.icon {
+  border-radius: 0.55rem;
+  height: 2.25rem;
+  width: 2.25rem;
+}
+
+.label {
+  height: 0.58rem;
+  width: 65%;
+}
+
+.number {
+  height: 1.3rem;
+  width: 45%;
+}
+
+.shortLine {
+  height: 0.55rem;
+  width: 85%;
+}
+
+.badges {
+  grid-column: 1 / -1;
+  height: 1.55rem;
+  width: 78%;
+}
+
+.operationalGrid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(0, 1.65fr) minmax(18rem, 0.85fr);
+}
+
+.activityPanel,
+.attentionPanel,
+.outcomes {
+  padding: 1rem;
+}
+
+.activityPanel .sectionHeading,
+.attentionPanel .sectionHeading,
+.outcomes .sectionHeading {
+  border: 0;
+  min-height: 2.5rem;
+  padding: 0 0 0.85rem;
+}
+
+.activityGrid,
+.outcomeGrid {
+  border-left: 1px solid rgba(73, 21, 26, 0.08);
+  border-top: 1px solid rgba(73, 21, 26, 0.08);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.activityMetric {
+  border-bottom: 1px solid rgba(73, 21, 26, 0.08);
+  border-radius: 0;
+  border-right: 1px solid rgba(73, 21, 26, 0.08);
+  height: 4.8rem;
+}
+
+.attentionList {
+  border-top: 1px solid rgba(73, 21, 26, 0.08);
+  display: grid;
+}
+
+.countMetric {
+  border-bottom: 1px solid rgba(73, 21, 26, 0.08);
+  border-radius: 0;
+  height: 4rem;
+}
+
+.outcomeGrid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.outcomeGrid .countMetric {
+  border-right: 1px solid rgba(73, 21, 26, 0.08);
+}
+
+@keyframes dashboard-skeleton-pulse {
+  0%,
+  100% {
+    background-position: 100% 0;
+  }
+
+  50% {
+    background-position: 0 0;
+  }
+}
+
+@media (max-width: 1260px) {
+  .totalGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .totalMetric:nth-child(4),
+  .totalMetric:nth-child(5) {
+    border-top: 1px solid rgba(73, 21, 26, 0.08);
+  }
+
+  .totalMetric:nth-child(4) {
+    border-left: 0;
+  }
+}
+
+@media (max-width: 1120px) {
+  .operationalGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .outcomeGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1050px) {
+  .header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .context {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 760px) {
+  .totalGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .totalMetric:nth-child(3),
+  .totalMetric:nth-child(5) {
+    border-left: 0;
+  }
+
+  .totalMetric:nth-child(3) {
+    border-top: 1px solid rgba(73, 21, 26, 0.08);
+  }
+
+  .totalMetric:nth-child(4) {
+    border-left: 1px solid rgba(73, 21, 26, 0.08);
+  }
+}
+
+@media (max-width: 680px) {
+  .activityGrid,
+  .outcomeGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .context {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .context span + span {
+    border-left: 0;
+    border-top: 1px solid rgba(73, 21, 26, 0.08);
+  }
+}
+
+@media (max-width: 480px) {
+  .totalGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .totalMetric + .totalMetric {
+    border-left: 0;
+    border-top: 1px solid rgba(73, 21, 26, 0.08);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eyebrow,
+  .title,
+  .description,
+  .context span,
+  .sectionHeading span,
+  .icon,
+  .label,
+  .number,
+  .shortLine,
+  .badges,
+  .activityMetric,
+  .countMetric {
+    animation: none;
+  }
+}
