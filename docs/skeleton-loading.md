@@ -12,3 +12,7 @@ one accessible loading announcement, and disable animation for reduced motion.
 Counselor loading reproduces the administrator counselor header, filter shell,
 responsive table structure, 24-row density, and pagination position. Student
 labels and actions replace management controls only after real data loads.
+
+Appointment loading reproduces the administrator header, shared filter shell,
+seven-column table, eight-row density, and responsive table breakpoint without
+rendering fake participant details or mutation controls.
