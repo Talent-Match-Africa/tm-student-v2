@@ -13,17 +13,20 @@ import type {
   OpportunityRecord,
   OpportunityRouteType,
 } from "@/types/opportunities";
+import type { StudentDocument } from "@/types/student-self-service";
 import { ApplicationWizard } from "../application/ApplicationWizard";
 import styles from "./OpportunityDetails.module.css";
 
 interface OpportunityDetailsProps {
   autoOpenApplication: boolean;
   opportunity: OpportunityRecord;
+  latestDocument: StudentDocument | null;
   type: OpportunityRouteType;
 }
 
 export function OpportunityDetails({
   autoOpenApplication,
+  latestDocument,
   opportunity,
   type,
 }: OpportunityDetailsProps) {
@@ -136,6 +139,7 @@ export function OpportunityDetails({
 
         <ApplicationWizard
           autoOpen={autoOpenApplication}
+          latestDocument={latestDocument}
           opportunity={opportunity}
           type={type}
         />
