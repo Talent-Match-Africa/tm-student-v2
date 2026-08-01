@@ -1,0 +1,83 @@
+.workspace {
+  display: grid;
+  gap: 1rem;
+}
+
+.header > span {
+  color: #8e2630;
+  display: block;
+  font-size: 0.66rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.3rem;
+  text-transform: uppercase;
+}
+
+.header h1 {
+  color: #21191d;
+  font-size: 1.45rem;
+  letter-spacing: 0;
+  margin: 0;
+}
+
+.header p {
+  color: #74696d;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  margin: 0.25rem 0 0;
+}
+
+.alert {
+  align-items: center;
+  background: #fff;
+  border: 1px solid #efc5ca;
+  border-left: 4px solid #a72834;
+  border-radius: 0.75rem;
+  box-shadow: 0 16px 36px rgba(31, 21, 25, 0.05);
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  min-height: 8rem;
+  padding: 1rem;
+}
+
+.icon {
+  align-items: center;
+  background: #fff1f2;
+  border-radius: 0.6rem;
+  color: #a72834;
+  display: inline-flex;
+  height: 2.7rem;
+  justify-content: center;
+  width: 2.7rem;
+}
+
+.alert h2 {
+  color: #382b30;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.alert p {
+  color: #75686d;
+  font-size: 0.73rem;
+  line-height: 1.5;
+  margin: 0.22rem 0 0;
+}
+
+.retryButton {
+  min-width: 8rem;
+  width: auto;
+}
+
+@media (max-width: 680px) {
+  .alert {
+    align-items: start;
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .retryButton {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+}
