@@ -1,0 +1,95 @@
+.workspace {
+  display: grid;
+  gap: 1rem;
+  margin: 0 auto;
+  max-width: 1440px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header span:first-child {
+  height: 4.5rem;
+  width: min(28rem, 60%);
+}
+
+.header span:last-child {
+  border-radius: 999px;
+  height: 3.4rem;
+  width: 11rem;
+}
+
+.filter {
+  border-radius: 1rem;
+  height: 5rem;
+}
+
+.content {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 14rem 1fr;
+}
+
+.rail {
+  border-radius: 1rem;
+  height: 10rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.card {
+  border-radius: 0.9rem;
+  height: 21rem;
+}
+
+.header span,
+.filter,
+.rail,
+.card {
+  animation: pulse 1.5s ease-in-out infinite;
+  background: #eee8e9;
+}
+
+.srOnly {
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  width: 1px;
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 820px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header span,
+  .filter,
+  .rail,
+  .card {
+    animation: none;
+  }
+}
