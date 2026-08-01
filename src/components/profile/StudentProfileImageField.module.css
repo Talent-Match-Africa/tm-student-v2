@@ -1,0 +1,150 @@
+.field {
+  align-content: start;
+  background: #fbf8f9;
+  border: 1px solid rgba(73, 21, 26, 0.09);
+  border-radius: 0.85rem;
+  display: grid;
+  gap: 0.65rem;
+  min-width: 0;
+  padding: 0.85rem;
+}
+
+.labelRow {
+  align-items: center;
+  color: #2f2529;
+  display: flex;
+  font-size: 0.8rem;
+  font-weight: 820;
+  justify-content: space-between;
+}
+
+.labelRow span:last-child {
+  color: #8d7774;
+  font-size: 0.66rem;
+  font-weight: 700;
+}
+
+.dropzone {
+  aspect-ratio: 1 / 1;
+  background: #fff;
+  border: 1px dashed rgba(73, 21, 26, 0.25);
+  border-radius: 0.75rem;
+  cursor: pointer;
+  display: block;
+  min-height: 12rem;
+  overflow: hidden;
+  position: relative;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 160ms ease;
+}
+
+.dropzone:hover,
+.dropzone:focus-within,
+.dropzone[data-dragging="true"] {
+  border-color: rgba(73, 21, 26, 0.55);
+  box-shadow: 0 12px 28px rgba(73, 21, 26, 0.1);
+  transform: translateY(-1px);
+}
+
+.dropzone[data-dragging="true"] {
+  background: #fff8f8;
+}
+
+.input {
+  height: 1px;
+  opacity: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.preview {
+  object-fit: cover;
+}
+
+.placeholder {
+  align-items: center;
+  color: #8d7774;
+  display: flex;
+  flex-direction: column;
+  gap: 0.28rem;
+  inset: 0;
+  justify-content: center;
+  padding: 1rem;
+  position: absolute;
+  text-align: center;
+}
+
+.placeholder svg {
+  color: #a9782f;
+}
+
+.placeholder strong {
+  color: #49151a;
+  font-size: 0.8rem;
+  font-weight: 820;
+}
+
+.placeholder small {
+  font-size: 0.67rem;
+}
+
+.overlay {
+  align-items: center;
+  background: rgba(45, 31, 32, 0.62);
+  color: #fff;
+  display: flex;
+  font-size: 0.72rem;
+  font-weight: 800;
+  inset: 0;
+  justify-content: center;
+  opacity: 0;
+  position: absolute;
+  transition: opacity 160ms ease;
+}
+
+.dropzone:hover .overlay,
+.dropzone:focus-within .overlay,
+.dropzone[data-dragging="true"] .overlay {
+  opacity: 1;
+}
+
+.removeButton {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: #ad3e48;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 0.72rem;
+  font-weight: 800;
+  gap: 0.3rem;
+  justify-self: start;
+  padding: 0;
+}
+
+.removeButton:focus-visible {
+  border-radius: 0.25rem;
+  box-shadow: 0 0 0 4px rgba(173, 62, 72, 0.12);
+  outline: 0;
+}
+
+.field > p {
+  color: #a3313b;
+  font-size: 0.72rem;
+  margin: 0;
+}
+
+@media (max-width: 980px) {
+  .dropzone {
+    aspect-ratio: 2.4 / 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dropzone,
+  .overlay {
+    transition: none;
+  }
+}
