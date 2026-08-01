@@ -9,6 +9,6 @@ export async function GET(request: Request, { params }: { params: Promise<{ type
   }
   const filters = parseApplicationFilters(Object.fromEntries(new URL(request.url).searchParams.entries()));
   return createAuthenticatedBackendResponse((token) =>
-    listApplications(token, toApplicationApiType(type), filters.page, filters.status, filters.search),
+    listApplications(token, toApplicationApiType(type), filters),
   );
 }
