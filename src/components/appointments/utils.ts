@@ -1,0 +1,8 @@
+export interface AppointmentFilters { page: number; status: string | null; upcoming: boolean }
+const STATUSES = new Set(["PENDING", "CONFIRMED", "COMPLETED", "CANCELLED"]);
+export function parseAppointmentFilters(query: Record<string, string | string[] | undefined>): AppointmentFilters { const pageValue = read(query.page); const page = Number(pageValue); const status = read(query.status)?.toUpperCase() ?? null; const upcoming = ["true", "1"].includes(read(query.upcoming)?.toLowerCase() ?? ""); return { page: Number.isSafeInteger(page) && page > 0 && page <= 100_000 ? page : 1, status: status && STATUSES.has(status) ? status : null, upcoming }; }
+export function buildAppointmentsHref(filters: AppointmentFilters) { const query = new URLSearchParams({ page: String(filters.page) }); if (filters.status) query.set("status", filters.status); if (filters.upcoming) query.set("upcoming", "true"); return `/appointments?${query}`; }
+export function formatAppointmentDate(value: string) { return new Intl.DateTimeFormat("en-RW", { day: "numeric", month: "short", year: "numeric" }).format(new Date(value)); }
+export function formatAppointmentTime(value: string) { return new Intl.DateTimeFormat("en-RW", { hour: "2-digit", minute: "2-digit", hour12: false }).format(new Date(value)); }
+export function readAppointmentError(payload: unknown) { return typeof payload === "object" && payload !== null && "message" in payload && typeof payload.message === "string" ? payload.message : "Appointments could not be loaded right now."; }
+function read(value: string | string[] | undefined) { const result = Array.isArray(value) ? value[0] : value; return result?.trim() || null; }
