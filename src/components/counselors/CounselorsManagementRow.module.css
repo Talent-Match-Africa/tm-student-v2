@@ -1,0 +1,309 @@
+.row {
+  transition: background-color 160ms ease;
+}
+
+.identity {
+  align-items: center;
+  display: flex;
+  gap: 0.7rem;
+  min-width: 0;
+}
+
+.avatar {
+  align-items: center;
+  background: #f5edef;
+  border: 1px solid rgba(73, 21, 26, 0.13);
+  border-radius: 999px;
+  color: var(--brand-primary);
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-size: 0.7rem;
+  font-weight: 900;
+  height: 2.6rem;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  width: 2.6rem;
+}
+
+.avatar img {
+  object-fit: cover;
+}
+
+.identity a {
+  color: #251c20;
+  text-decoration: none;
+}
+
+.identity a {
+  display: block;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.identity a:hover {
+  color: var(--brand-primary);
+}
+
+.identity small,
+.contact span {
+  color: #82767b;
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  margin-top: 0.18rem;
+}
+
+.contact {
+  min-width: 0;
+}
+
+.contact strong {
+  color: #453a3e;
+  display: block;
+  font-size: 0.74rem;
+  overflow-wrap: anywhere;
+}
+
+.appointmentCounts {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.35rem;
+  min-width: 0;
+}
+
+.appointmentCount {
+  align-items: center;
+  background: #fbf8f9;
+  border: 1px solid rgba(73, 21, 26, 0.09);
+  border-radius: 999px;
+  color: #3c3035;
+  display: grid;
+  flex: 1 1 0;
+  gap: 0.42rem;
+  grid-template-columns: auto minmax(0, 1fr);
+  min-height: 2rem;
+  padding: 0.25rem 0.48rem;
+}
+
+.appointmentIcon {
+  align-items: center;
+  background: #ede3e5;
+  border-radius: 999px;
+  color: var(--brand-primary);
+  display: inline-flex;
+  height: 1.45rem;
+  justify-content: center;
+  width: 1.45rem;
+}
+
+.appointmentCount > span:last-child {
+  align-items: baseline;
+  display: flex;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.appointmentCount strong {
+  color: inherit;
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.appointmentCount small {
+  color: #796d72;
+  font-size: 0.61rem;
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.statusToggle {
+  align-items: center;
+  appearance: none;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 0.7rem;
+  font-weight: 600;
+  gap: 0.45rem;
+  justify-content: center;
+  min-height: 1.9rem;
+  padding: 0 0.68rem;
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    color 160ms ease,
+    transform 160ms ease;
+  white-space: nowrap;
+}
+
+.statusToggle[data-active="true"] {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #047857;
+}
+
+.statusToggle[data-active="false"] {
+  background: #f4f4f5;
+  border-color: #e4e4e7;
+  color: #6b7280;
+}
+
+.statusToggle[data-invited="true"] {
+  background: #fff7ed;
+  border-color: #fed7aa;
+  color: #c2410c;
+}
+
+.statusToggle[data-draft="true"] {
+  background: #fff8e8;
+  border-color: #ead39f;
+  color: #8a5a12;
+}
+
+.statusToggle > span {
+  background-color: currentColor;
+  border-radius: 999px;
+  display: inline-flex;
+  flex: 0 0 auto;
+  height: 0.55rem;
+  position: relative;
+  width: 0.55rem;
+}
+
+.statusToggle > span::after {
+  animation: counselor-status-pulse 1.8s ease-out infinite;
+  border: 1px solid currentColor;
+  border-radius: inherit;
+  content: "";
+  inset: -0.2rem;
+  position: absolute;
+}
+
+.statusToggle:not(:disabled):hover {
+  box-shadow: 0 7px 18px rgba(36, 27, 30, 0.1);
+  transform: translateY(-1px);
+}
+
+.statusToggle:focus-visible {
+  box-shadow: 0 0 0 4px rgba(73, 21, 26, 0.12);
+  outline: 0;
+}
+
+.statusToggle:disabled {
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
+.statusToggle[data-loading="true"] > span {
+  animation: counselor-status-loading 760ms linear infinite;
+  background: transparent;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+}
+
+.statusToggle[data-loading="true"] > span::after {
+  display: none;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.38rem;
+  min-width: 0;
+  width: 100%;
+}
+
+.actions a,
+.actions button {
+  align-items: center;
+  background: #fff;
+  border: 1px solid rgba(73, 21, 26, 0.14);
+  border-radius: 999px;
+  color: #403438;
+  display: inline-flex;
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  justify-content: center;
+  min-height: 2.1rem;
+  min-width: 0;
+  padding: 0 0.5rem;
+  text-decoration: none;
+}
+
+.actions > * {
+  flex: 1 1 0;
+}
+
+.actions a:hover,
+.actions button:hover {
+  border-color: rgba(73, 21, 26, 0.35);
+  color: var(--brand-primary);
+}
+
+.actions a:focus-visible,
+.actions button:focus-visible,
+.identity a:focus-visible {
+  box-shadow: 0 0 0 4px rgba(73, 21, 26, 0.12);
+  outline: 0;
+}
+
+.actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.actions button[data-danger="true"] {
+  border-color: #fecaca;
+  color: #b91c1c;
+}
+
+@keyframes counselor-status-pulse {
+  0% {
+    opacity: 0.7;
+    transform: scale(0.75);
+  }
+
+  75%,
+  100% {
+    opacity: 0;
+    transform: scale(1.65);
+  }
+}
+
+@keyframes counselor-status-loading {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 1100px) {
+  .appointmentCount {
+    max-width: 10rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .row {
+    transition: none;
+  }
+
+  .statusToggle > span::after {
+    animation: none;
+    opacity: 0.5;
+    transform: none;
+  }
+
+  .statusToggle:not(:disabled):hover {
+    transform: none;
+  }
+
+  .statusToggle[data-loading="true"] > span {
+    animation: none;
+  }
+}
