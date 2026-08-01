@@ -1,0 +1,196 @@
+.page {
+  display: grid;
+  gap: 1rem;
+  padding-inline: 15%;
+}
+
+.pageHeader {
+  align-items: end;
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.headerCopy {
+  display: grid;
+  gap: 0.45rem;
+  width: min(100%, 36rem);
+}
+
+.eyebrow,
+.title,
+.description,
+.headerAction,
+.progress,
+.steps span,
+.formHeader span,
+.fields span,
+.actions span {
+  animation: management-form-skeleton-shimmer 1.4s ease-in-out infinite;
+  background: linear-gradient(90deg, #eee5e2 25%, #faf5f2 45%, #eee5e2 65%);
+  background-size: 240% 100%;
+  border-radius: 0.38rem;
+  display: block;
+}
+
+.eyebrow {
+  height: 0.65rem;
+  width: 6.5rem;
+}
+.title {
+  height: 1.85rem;
+  width: min(70%, 18rem);
+}
+.description {
+  height: 0.78rem;
+  width: min(100%, 34rem);
+}
+.headerAction {
+  height: 2.75rem;
+  width: 8rem;
+}
+.progress {
+  border-radius: 999px;
+  height: 0.4rem;
+  width: 100%;
+}
+
+.shell {
+  align-items: start;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: minmax(14rem, 18rem) minmax(0, 1fr);
+}
+
+.steps {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.steps span {
+  height: 3.35rem;
+}
+
+.formPanel {
+  background: #fff;
+  border: 1px solid rgba(73, 21, 26, 0.1);
+  border-radius: 1.15rem;
+  box-shadow: 0 14px 34px rgba(24, 24, 27, 0.055);
+  display: grid;
+  gap: 1rem;
+  min-height: 28rem;
+  padding: 1rem;
+}
+
+.formHeader {
+  border-bottom: 1px solid rgba(73, 21, 26, 0.08);
+  display: grid;
+  gap: 0.35rem;
+  padding-bottom: 0.85rem;
+}
+
+.stepLabel {
+  height: 0.6rem;
+  width: 4.5rem;
+}
+.stepTitle {
+  height: 1.05rem;
+  width: 13rem;
+}
+.stepDescription {
+  height: 0.68rem;
+  width: min(70%, 25rem);
+}
+
+.fields {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.fields span {
+  height: 4.25rem;
+}
+
+.actions {
+  align-items: center;
+  border-top: 1px solid rgba(73, 21, 26, 0.08);
+  display: flex;
+  gap: 0.65rem;
+  justify-content: flex-end;
+  margin-top: auto;
+  padding-top: 0.95rem;
+}
+
+.actions span {
+  height: 2.75rem;
+  width: 8rem;
+}
+
+@keyframes management-form-skeleton-shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+@media (max-width: 1100px) {
+  .page {
+    padding-inline: 0;
+  }
+}
+
+@media (max-width: 980px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+  .steps {
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+
+  .steps span {
+    flex: 0 0 12rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .pageHeader {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .headerAction {
+    width: 7rem;
+  }
+  .formPanel {
+    border-radius: 1rem;
+    padding: 0.85rem;
+  }
+  .actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .actions span {
+    width: 100%;
+  }
+
+  .actions span:last-child {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eyebrow,
+  .title,
+  .description,
+  .headerAction,
+  .progress,
+  .steps span,
+  .formHeader span,
+  .fields span,
+  .actions span {
+    animation: none;
+  }
+}
