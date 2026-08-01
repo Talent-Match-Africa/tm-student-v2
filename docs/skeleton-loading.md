@@ -20,3 +20,7 @@ rendering fake participant details or mutation controls.
 Resource loading reproduces the administrator header metrics, advanced filter
 shell, responsive six-column table, 24-row density, and pagination position
 without rendering fake owners, filenames, or access links.
+
+Dashboard loading reproduces the administrator context header, action-shell
+position, five overview metrics, operational split, attention list, and outcome
+grid without presenting invented counts, identities, or activity.
