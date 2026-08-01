@@ -19,15 +19,16 @@
   min-height: 2.45rem;
   min-width: 5.7rem;
   padding: 0 0.85rem;
+  text-decoration: none;
   transition: 160ms ease;
 }
 
-.pageButton:hover:not(:disabled) {
+.pageButton:hover:not([aria-disabled="true"]) {
   border-color: rgba(73, 21, 26, 0.32);
   color: var(--brand-primary);
 }
 
-.pageButton:disabled {
+.pageButton[aria-disabled="true"] {
   color: #a1a1aa;
   cursor: not-allowed;
   opacity: 0.74;
