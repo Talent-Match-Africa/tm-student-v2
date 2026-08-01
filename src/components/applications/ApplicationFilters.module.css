@@ -1,6 +1,6 @@
 .searchField {
-  flex: 1 1 24rem;
-  min-width: min(100%, 18rem);
+  min-width: 16rem;
+  width: min(100%, 28rem);
 }
 
 .dateField {
