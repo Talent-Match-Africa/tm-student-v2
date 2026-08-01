@@ -13,3 +13,10 @@ booking actions. The browser receives no account-management capability.
 
 All mutations pass through authenticated same-origin handlers. Buttons disable
 while requests are pending and server-safe feedback remains visible.
+
+The appointments workspace reproduces the administrator appointments header,
+filter shell, responsive seven-column table, row density, lifecycle badges,
+pagination, empty state, booking dialog, and route skeleton. Filters expose only
+the student API's supported status and upcoming parameters. Students may book
+with counselors from their university and cancel only their own eligible
+appointments; administrator lifecycle and ownership controls are not exposed.
