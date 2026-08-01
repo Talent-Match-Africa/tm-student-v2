@@ -1,0 +1,233 @@
+.identity {
+  align-items: center;
+  display: flex;
+  gap: 0.7rem;
+  min-width: 0;
+}
+
+.cover {
+  align-items: center;
+  background: #f4ecee;
+  border: 1px solid rgba(73, 21, 26, 0.11);
+  border-radius: 0.55rem;
+  color: var(--brand-primary);
+  display: inline-flex;
+  flex: 0 0 2.75rem;
+  height: 2.75rem;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  width: 2.75rem;
+}
+
+.cover img,
+.ownerAvatar img {
+  object-fit: cover;
+}
+
+.identityCopy,
+.contentCell,
+.metaCell {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.identityCopy strong {
+  color: #302529;
+  font-size: 0.76rem;
+  font-weight: 750;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.identityCopy > span {
+  color: #817479;
+  display: -webkit-box;
+  font-size: 0.67rem;
+  line-height: 1.35;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.typeBadge {
+  border: 1px solid rgba(73, 21, 26, 0.1);
+  border-radius: 999px;
+  color: #695b60;
+  font-size: 0.64rem;
+  font-weight: 800;
+  padding: 0.25rem 0.48rem;
+  width: fit-content;
+}
+
+.typeBadge[data-type="VIDEO"] {
+  background: #eef6ff;
+  border-color: #cfe3fa;
+  color: #275e91;
+}
+
+.typeBadge[data-type="DOCUMENT"] {
+  background: #fff8e8;
+  border-color: #ead9ad;
+  color: #8a5a12;
+}
+
+.contentCell small,
+.owner small,
+.metaCell span {
+  color: #82757a;
+  font-size: 0.65rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.owner {
+  align-items: center;
+  display: flex;
+  gap: 0.55rem;
+  min-width: 0;
+}
+
+.ownerAvatar {
+  align-items: center;
+  background: #f3edef;
+  border-radius: 999px;
+  color: var(--brand-primary);
+  display: inline-flex;
+  flex: 0 0 2rem;
+  font-size: 0.62rem;
+  font-weight: 850;
+  height: 2rem;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+  width: 2rem;
+}
+
+.owner > span:last-child {
+  display: grid;
+  gap: 0.16rem;
+  min-width: 0;
+}
+
+.owner strong,
+.metaCell strong {
+  color: #4a3d42;
+  font-size: 0.7rem;
+  font-weight: 750;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.owner small {
+  text-transform: capitalize;
+}
+
+.statusControl {
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  display: inline-flex;
+  gap: 0.32rem;
+  min-height: 1.95rem;
+  padding: 0 0.3rem 0 0.58rem;
+  width: fit-content;
+}
+
+.statusControl > span:first-child {
+  background: currentColor;
+  border-radius: 999px;
+  height: 0.48rem;
+  width: 0.48rem;
+}
+
+.statusControl[data-status="PUBLISHED"] {
+  background: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #047857;
+}
+
+.statusControl[data-status="DRAFT"] {
+  background: #fff8e8;
+  border-color: #ead39f;
+  color: #8a5a12;
+}
+
+.statusControl[data-status="ARCHIVED"] {
+  background: #f4f4f5;
+  border-color: #e4e4e7;
+  color: #6b7280;
+}
+
+.statusControl select {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.68rem;
+  font-weight: 750;
+  outline: 0;
+  padding: 0 0.2rem 0 0;
+  text-transform: capitalize;
+}
+
+.statusControl:focus-within {
+  box-shadow: 0 0 0 4px rgba(73, 21, 26, 0.12);
+}
+
+.statusControl:has(select:disabled) {
+  opacity: 0.62;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.38rem;
+}
+
+.actions a,
+.actions button {
+  align-items: center;
+  background: #fff;
+  border: 1px solid rgba(73, 21, 26, 0.14);
+  border-radius: 999px;
+  color: #403438;
+  cursor: pointer;
+  display: inline-flex;
+  flex: 1 1 0;
+  font: inherit;
+  font-size: 0.66rem;
+  font-weight: 650;
+  gap: 0.28rem;
+  justify-content: center;
+  min-height: 2.1rem;
+  min-width: 3.45rem;
+  padding: 0 0.46rem;
+  text-decoration: none;
+}
+
+.actions a:hover,
+.actions button:not(:disabled):hover {
+  border-color: rgba(73, 21, 26, 0.34);
+  color: var(--brand-primary);
+}
+
+.actions button[data-danger="true"] {
+  border-color: #fecaca;
+  color: #b91c1c;
+}
+
+.actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.52;
+}
+
+.actions a:focus-visible,
+.actions button:focus-visible {
+  box-shadow: 0 0 0 3px rgba(73, 21, 26, 0.13);
+  outline: 0;
+}
