@@ -1,0 +1,61 @@
+.feed {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.gridItem {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 24rem;
+  min-width: 0;
+}
+
+.sentinel {
+  height: 1px;
+}
+
+.loadError {
+  align-items: center;
+  background: #fff5f4;
+  border: 1px solid #efc5c1;
+  border-radius: 0.65rem;
+  color: #843731;
+  display: flex;
+  font-size: 0.78rem;
+  font-weight: 650;
+  gap: 1rem;
+  justify-content: space-between;
+  padding: 0.75rem 0.9rem;
+}
+
+.loadError button {
+  background: transparent;
+  border: 0;
+  color: #49151a;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.76rem;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.endMessage {
+  color: #7b6d71;
+  font-size: 0.72rem;
+  font-weight: 650;
+  margin: 0;
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
