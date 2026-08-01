@@ -16,3 +16,7 @@ labels and actions replace management controls only after real data loads.
 Appointment loading reproduces the administrator header, shared filter shell,
 seven-column table, eight-row density, and responsive table breakpoint without
 rendering fake participant details or mutation controls.
+
+Resource loading reproduces the administrator header metrics, advanced filter
+shell, responsive six-column table, 24-row density, and pagination position
+without rendering fake owners, filenames, or access links.
