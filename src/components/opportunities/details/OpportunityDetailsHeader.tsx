@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import {
   ArrowLeft01Icon,
   SentIcon,
-  UserGroupIcon,
 } from "@hugeicons/core-free-icons";
 import { AuthButton } from "@/components/shared/AuthButton";
 import type {
