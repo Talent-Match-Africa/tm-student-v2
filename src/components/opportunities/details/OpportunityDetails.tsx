@@ -123,7 +123,9 @@ export function OpportunityDetails({
         <aside className={styles.sidebar}>
           <ApplicationWizard
             autoOpen={autoOpenApplication}
-            key={autoOpenApplication ? "application-open" : "application-closed"}
+            key={
+              autoOpenApplication ? "application-open" : "application-closed"
+            }
             latestDocument={latestDocument}
             opportunity={opportunity}
             type={type}

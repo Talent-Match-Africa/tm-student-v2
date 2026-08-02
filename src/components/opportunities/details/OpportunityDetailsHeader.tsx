@@ -85,14 +85,6 @@ export function OpportunityDetailsHeader({
         </AuthButton>
         <AuthButton
           className={styles.action}
-          icon={UserGroupIcon}
-          onClick={() => router.push(`/applications/${type}`)}
-          variant="secondary"
-        >
-          My applications
-        </AuthButton>
-        <AuthButton
-          className={styles.action}
           disabled={!opportunity.is_open}
           icon={SentIcon}
           onClick={() =>

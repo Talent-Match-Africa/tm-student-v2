@@ -9,7 +9,7 @@ Every changed file must have its own commit. Commit messages must be
 imperative, specific, and describe the single file being committed.
 
 ```bash
-git add src/app/page.tsx
+git add "src/app/page.tsx"
 git commit -m "Build the student workspace entry page"
 ```
 
