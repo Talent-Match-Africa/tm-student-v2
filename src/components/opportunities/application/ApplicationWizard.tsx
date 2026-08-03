@@ -99,7 +99,11 @@ export function ApplicationWizard({
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (pending) return;
+    const submitter = (event.nativeEvent as SubmitEvent).submitter;
+    const isExplicitSubmission =
+      submitter instanceof HTMLButtonElement &&
+      submitter.dataset.applicationSubmit === "true";
+    if (pending || step !== 3 || !isExplicitSubmission) return;
     setError(null);
     const invalidFile = [selectedDocument, coverDocument].find(
       (file) => file && !applicationFileIsValid(file),
@@ -385,15 +389,19 @@ export function ApplicationWizard({
                         <AuthButton
                           className={styles.footerButton}
                           icon={ArrowRight01Icon}
+                          key="application-continue"
                           onClick={() => setStep((value) => Math.min(3, value + 1))}
+                          type="button"
                         >
                           Continue
                         </AuthButton>
                       ) : (
                         <AuthButton
                           className={styles.footerButton}
+                          data-application-submit="true"
                           icon={SentIcon}
                           isLoading={pending}
+                          key="application-submit"
                           loadingLabel="Submitting securely"
                           type="submit"
                         >
