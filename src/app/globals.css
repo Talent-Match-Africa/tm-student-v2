@@ -74,6 +74,63 @@ a {
   color: inherit;
 }
 
+.tm-field-label-row {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  justify-content: flex-start;
+}
+
+.tm-field-label-text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.tm-field-requirement {
+  align-items: center;
+  border: 0;
+  border-radius: 999px;
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-size: 10px;
+  font-weight: 800;
+  gap: 0.28rem;
+  letter-spacing: 0;
+  line-height: 1;
+  min-height: 1.2rem;
+  padding: 0.2rem 0.48rem;
+  text-transform: none;
+}
+
+.tm-field-requirement::before {
+  border-radius: 999px;
+  content: "";
+  display: inline-flex;
+  height: 0.34rem;
+  width: 0.34rem;
+}
+
+.tm-field-requirement-required,
+.tm-field-requirement-conditional {
+  background-color: rgba(73, 21, 26, 0.07);
+  color: var(--brand-primary);
+}
+
+.tm-field-requirement-required::before,
+.tm-field-requirement-conditional::before {
+  background-color: var(--brand-primary);
+}
+
+.tm-field-requirement-optional {
+  background-color: rgba(113, 113, 122, 0.07);
+  color: #7b7174;
+}
+
+.tm-field-requirement-optional::before {
+  background-color: #a8a0a3;
+}
+
 :focus-visible {
   box-shadow: 0 0 0 4px rgba(73, 21, 26, 0.16);
   outline: 0;
