@@ -35,6 +35,18 @@
   max-width: 46rem;
 }
 
+.headerActions {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  gap: 0.65rem;
+}
+
+.bookButton {
+  min-width: 0;
+  width: auto;
+}
+
 .resultBadge {
   align-items: baseline;
   background: #fff;
@@ -217,6 +229,16 @@
 
   .resultBadge {
     align-self: flex-start;
+  }
+
+  .headerActions {
+    align-items: stretch;
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .bookButton {
+    flex: 1 1 11rem;
   }
 
   .tableHeader {
