@@ -1,7 +1,13 @@
 "use client";
+
 import { useCallback, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { Calendar03Icon } from "@hugeicons/core-free-icons";
+import {
+  Calendar03Icon,
+  CalendarAdd01Icon,
+  Cancel01Icon,
+} from "@hugeicons/core-free-icons";
+import { AuthButton } from "@/components/shared/AuthButton";
 import { EmptyState } from "@/components/shared/EmptyState";
 import { Pagination } from "@/components/shared/Pagination";
 import type {
@@ -12,8 +18,20 @@ import type {
 import { AppointmentBookingDialog } from "./AppointmentBookingDialog";
 import { AppointmentManagementRow } from "./AppointmentManagementRow";
 import { AppointmentsManagementFilters } from "./AppointmentsManagementFilters";
-import { buildAppointmentsHref, type AppointmentFilters } from "./utils";
+import {
+  buildAppointmentsHref,
+  hasAppointmentFilters,
+  type AppointmentFilters,
+} from "./utils";
 import styles from "./AppointmentsManagementTable.module.css";
+
+interface AppointmentsManagementTableProps {
+  counselors: Counselor[];
+  errorMessage: string | null;
+  filters: AppointmentFilters;
+  initialCounselorId?: string;
+  result: PageResponse<Appointment> | null;
+}
 
 export function AppointmentsManagementTable({
   counselors,
@@ -21,13 +39,7 @@ export function AppointmentsManagementTable({
   filters,
   initialCounselorId,
   result,
-}: {
-  counselors: Counselor[];
-  errorMessage: string | null;
-  filters: AppointmentFilters;
-  initialCounselorId?: string;
-  result: PageResponse<Appointment> | null;
-}) {
+}: AppointmentsManagementTableProps) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [bookingOpen, setBookingOpen] = useState(Boolean(initialCounselorId));
@@ -37,6 +49,7 @@ export function AppointmentsManagementTable({
     (href: string) => startTransition(() => router.push(href)),
     [router],
   );
+
   return (
     <div className={styles.workspace} aria-busy={isPending}>
       <header className={styles.header}>
@@ -48,24 +61,37 @@ export function AppointmentsManagementTable({
             counselors from your university.
           </p>
         </div>
-        <div
-          className={styles.resultBadge}
-          aria-label="Appointment result count"
-        >
-          <strong>{count.toLocaleString()}</strong>
-          <span>appointments</span>
+        <div className={styles.headerActions}>
+          <div
+            className={styles.resultBadge}
+            aria-label="Appointment result count"
+          >
+            <strong>{count.toLocaleString()}</strong>
+            <span>appointments</span>
+          </div>
+          <AuthButton
+            className={styles.bookButton}
+            icon={CalendarAdd01Icon}
+            onClick={() => setBookingOpen(true)}
+            type="button"
+          >
+            Book appointment
+          </AuthButton>
         </div>
       </header>
+
       {errorMessage ? (
         <div className={styles.alert} role="alert">
           {errorMessage}
         </div>
       ) : null}
+
       <AppointmentsManagementFilters
         filters={filters}
         isPending={isPending}
         onNavigate={navigate}
       />
+
       <section className={styles.tablePanel}>
         <div className={styles.tableHeader}>
           <strong>{count.toLocaleString()} appointments</strong>
@@ -105,13 +131,23 @@ export function AppointmentsManagementTable({
                           label: "Book appointment",
                           onClick: () => setBookingOpen(true),
                           variant: "primary",
-                        }
+                        },
+                        ...(hasAppointmentFilters(filters)
+                          ? [
+                              {
+                                icon: Cancel01Icon,
+                                label: "Reset filters",
+                                onClick: () => navigate("/appointments"),
+                                variant: "secondary" as const,
+                              },
+                            ]
+                          : []),
                       ]}
                       icon={Calendar03Icon}
                       message={
                         errorMessage
                           ? "The appointment directory is unavailable right now. Reload the page to try again."
-                          : "No appointments match the current status and schedule filters."
+                          : "No appointments match the current search and filters."
                       }
                       title={
                         errorMessage
@@ -126,12 +162,14 @@ export function AppointmentsManagementTable({
           </table>
         </div>
       </section>
+
       <Pagination
         currentPage={result?.page ?? filters.page}
         getPageHref={(page) => buildAppointmentsHref({ ...filters, page })}
         label="Appointments pagination"
         totalPages={totalPages}
       />
+
       <AppointmentBookingDialog
         counselors={counselors}
         initialCounselorId={initialCounselorId}
