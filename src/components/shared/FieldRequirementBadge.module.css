@@ -1,0 +1,44 @@
+.badge {
+  align-items: center;
+  border: 0;
+  border-radius: 999px;
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-size: 10px;
+  font-weight: 800;
+  gap: 0.28rem;
+  letter-spacing: 0;
+  line-height: 1;
+  margin-inline-start: 0.35rem;
+  min-height: 1.2rem;
+  padding: 0.2rem 0.48rem;
+  text-transform: none;
+}
+
+.badge::before {
+  border-radius: 999px;
+  content: "";
+  display: inline-flex;
+  height: 0.34rem;
+  width: 0.34rem;
+}
+
+.required,
+.conditional {
+  background-color: rgba(73, 21, 26, 0.07);
+  color: var(--brand-primary);
+}
+
+.required::before,
+.conditional::before {
+  background-color: var(--brand-primary);
+}
+
+.optional {
+  background-color: rgba(113, 113, 122, 0.07);
+  color: #7b7174;
+}
+
+.optional::before {
+  background-color: #a8a0a3;
+}
