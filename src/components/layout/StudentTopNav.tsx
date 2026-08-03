@@ -236,6 +236,7 @@ function StudentAvatar({
         alt={`${name} profile`}
         className={styles.avatar}
         height={44}
+        loading="eager"
         src={image}
         unoptimized
         width={44}
