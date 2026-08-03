@@ -78,6 +78,7 @@ export function StudentProfileImageField({
             alt="Student profile preview"
             className={styles.preview}
             fill
+            loading="eager"
             sizes="(max-width: 980px) 100vw, 280px"
             src={previewUrl}
             unoptimized
