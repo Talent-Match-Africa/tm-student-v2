@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
 import clsx from 'clsx';
+import styles from './FieldRequirementBadge.module.css';
 
 export type FieldRequirement = 'required' | 'optional' | 'conditional';
 
@@ -25,6 +26,8 @@ export function FieldRequirementBadge({
   return (
     <span
       className={clsx(
+        styles.badge,
+        styles[requirement],
         'tm-field-requirement',
         `tm-field-requirement-${requirement}`,
       )}
