@@ -16,7 +16,9 @@ while requests are pending and server-safe feedback remains visible.
 
 The appointments workspace reproduces the administrator appointments header,
 filter shell, responsive seven-column table, row density, lifecycle badges,
-pagination, empty state, booking dialog, and route skeleton. Filters expose only
-the student API's supported status and upcoming parameters. Students may book
-with counselors from their university and cancel only their own eligible
-appointments; administrator lifecycle and ownership controls are not exposed.
+pagination, empty state, booking dialog, and route skeleton. The visible filter
+bar exposes student-safe search and scheduled from/to dates. The Filter dialog
+adds lifecycle, schedule scope, and ordering without exposing the administrator
+university or cross-user controls. Students may book with counselors from their
+university and cancel only their own eligible appointments; administrator
+lifecycle and ownership controls are not exposed.
