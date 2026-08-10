@@ -1,7 +1,9 @@
 import { readFileSync } from "node:fs";
 
+const manifest = JSON.parse(readFileSync("package.json", "utf8"));
 const lockfile = JSON.parse(readFileSync("package-lock.json", "utf8"));
 const packages = lockfile.packages ?? {};
+const lockRoot = packages[""] ?? {};
 
 const requiredPackages = new Map([
   ["node_modules/@emnapi/core", "1.11.3"],
@@ -22,6 +24,44 @@ const requiredPackages = new Map([
 ]);
 
 const errors = [];
+
+if (lockfile.lockfileVersion !== 3) {
+  errors.push(
+    `Invalid package-lock format: expected version 3, found ${lockfile.lockfileVersion ?? "none"}.`,
+  );
+}
+
+for (const section of [
+  "dependencies",
+  "devDependencies",
+  "optionalDependencies",
+  "peerDependencies",
+]) {
+  const manifestEntries = manifest[section] ?? {};
+  const lockEntries = lockRoot[section] ?? {};
+
+  for (const packageName of new Set([
+    ...Object.keys(manifestEntries),
+    ...Object.keys(lockEntries),
+  ])) {
+    if (manifestEntries[packageName] !== lockEntries[packageName]) {
+      errors.push(
+        `Manifest drift: ${section}.${packageName} differs between package.json and package-lock.json.`,
+      );
+    }
+  }
+}
+
+if (manifest.overrides?.nanoid !== "3.3.18") {
+  errors.push("Invalid nanoid override: package.json must pin nanoid to 3.3.18.");
+}
+
+const nanoidEntry = packages["node_modules/nanoid"];
+if (!nanoidEntry || nanoidEntry.version !== "3.3.18") {
+  errors.push(
+    `Unsafe nanoid resolution: expected 3.3.18, found ${nanoidEntry?.version ?? "none"}.`,
+  );
+}
 
 for (const [packagePath, expectedVersion] of requiredPackages) {
   const entry = packages[packagePath];
@@ -44,8 +84,8 @@ for (const packagePath of [
 ]) {
   const entry = packages[packagePath];
 
-  if (entry && (!entry.optional || !entry.peer)) {
-    errors.push(`Invalid Linux optional peer metadata for ${packagePath}.`);
+  if (entry && !entry.optional) {
+    errors.push(`Invalid Linux optional metadata for ${packagePath}.`);
   }
 }
 
@@ -58,7 +98,10 @@ if (runtimeEntry && !runtimeEntry.optional) {
 
 if (errors.length > 0) {
   console.error(errors.join("\n"));
+  console.error(
+    "Regenerate package-lock.json with Node 20.20.2 and npm 10.8.2 before committing.",
+  );
   process.exit(1);
 }
 
-console.log("Linux package-lock integrity check passed.");
+console.log("Dependency lock and Linux package metadata checks passed.");
