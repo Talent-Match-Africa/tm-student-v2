@@ -43,8 +43,11 @@ jobs:
           test "$(node --version)" = "v$(cat .nvmrc)"
           test "$(npm --version)" = "10.8.2"
 
+      - name: Validate dependency lock policy
+        run: npm run lockfile:validate
+
       - name: Install dependencies
-        run: npm ci --include=dev --no-audit --no-fund
+        run: npm ci --include=dev --include=optional --no-audit --no-fund
 
       - name: Audit student portal runtime dependencies
         run: npm audit --omit=dev --audit-level=high
