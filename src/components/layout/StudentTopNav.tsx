@@ -45,6 +45,8 @@ export function StudentTopNav({ onOpenSidebar, profile }: StudentTopNavProps) {
     profile.name?.trim() ||
     profile.email?.trim() ||
     "Talent Match Student";
+  const role = normalizeRole(profile.role);
+  const email = profile.email?.trim() || "No email available";
 
   useEffect(() => {
     if (!menuOpen) return;
@@ -124,7 +126,7 @@ export function StudentTopNav({ onOpenSidebar, profile }: StudentTopNavProps) {
           <StudentAvatar image={profile.image} name={displayName} />
           <span className={styles.profileCopy}>
             <span className={styles.profileName}>{displayName}</span>
-            <span className={styles.profileRole}>Student</span>
+            <span className={styles.profileRole}>{role}</span>
           </span>
           <span className={styles.profileChevron} aria-hidden="true">
             <HugeIcon icon={ArrowDown01Icon} size={15} />
@@ -137,7 +139,7 @@ export function StudentTopNav({ onOpenSidebar, profile }: StudentTopNavProps) {
               <StudentAvatar image={profile.image} name={displayName} />
               <div>
                 <strong>{displayName}</strong>
-                <span>{profile.email ?? "No email available"}</span>
+                <span>{role} · {email}</span>
               </div>
             </div>
             <Link
@@ -262,4 +264,13 @@ function signedOutUrl() {
   const url = new URL("/login", authUrl);
   url.searchParams.set("reason", "signed_out");
   return url.toString();
+}
+
+function normalizeRole(role: string): string {
+  return role
+    .toLowerCase()
+    .split(/[_\s-]+/)
+    .filter(Boolean)
+    .map((part) => `${part.charAt(0).toUpperCase()}${part.slice(1)}`)
+    .join(" ");
 }
