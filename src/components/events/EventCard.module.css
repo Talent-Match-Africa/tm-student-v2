@@ -1,0 +1,361 @@
+.card {
+  background: transparent;
+  border: 1px solid var(--control-border);
+  border-radius: 20px;
+  box-shadow:
+    0 1px 2px rgba(23, 17, 20, 0.04),
+    0 16px 28px -20px rgba(73, 21, 26, 0.4);
+  display: flex;
+  flex-direction: column;
+  max-width: 380px;
+  overflow: visible;
+  transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+  width: 100%;
+}
+
+.card:hover {
+  border-color: rgba(73, 21, 26, 0.22);
+  box-shadow:
+    0 4px 10px rgba(23, 17, 20, 0.06),
+    0 28px 44px -22px rgba(73, 21, 26, 0.5);
+  transform: translateY(-4px);
+}
+
+/* ---------------------------- media / photo ---------------------------- */
+
+.media {
+  aspect-ratio: 16 / 10;
+  background: var(--brand-soft);
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.mediaImage {
+  display: block;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+  width: 100%;
+}
+
+.card:hover .mediaImage {
+  transform: scale(1.06);
+}
+
+.media[data-status="past"] .mediaImage {
+  filter: grayscale(0.4) brightness(0.94);
+}
+
+.mediaPlaceholder {
+  align-items: center;
+  background: repeating-linear-gradient(
+    135deg,
+    var(--brand-soft) 0 14px,
+    #f2e1e4 14px 28px
+  );
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  width: 100%;
+}
+
+.placeholderIcon {
+  color: var(--brand-primary);
+  height: 40px;
+  opacity: 0.45;
+  width: 40px;
+}
+
+.mediaOverlay {
+  background: linear-gradient(180deg, rgba(23, 17, 20, 0) 45%, rgba(23, 17, 20, 0.55) 100%);
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+/* ---------------------------- badges / chips ---------------------------- */
+
+.statusBadge {
+  align-items: center;
+  backdrop-filter: blur(6px);
+  border-radius: 999px;
+  display: inline-flex;
+  font-size: 10px;
+  font-weight: 800;
+  gap: 0.35rem;
+  left: 0.85rem;
+  letter-spacing: 0.02em;
+  padding: 0.32rem 0.65rem 0.32rem 0.55rem;
+  position: absolute;
+  text-transform: uppercase;
+  top: 0.85rem;
+}
+
+.statusDot {
+  background: currentColor;
+  border-radius: 50%;
+  height: 6px;
+  width: 6px;
+}
+
+.status-upcoming {
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--brand-primary);
+}
+
+.status-live {
+  background: #1e7d32;
+  color: #ffffff;
+}
+
+.status-live .statusDot {
+  animation: tm-pulse 1.6s ease-in-out infinite;
+}
+
+.status-past {
+  background: rgba(23, 17, 20, 0.55);
+  color: #ffffff;
+}
+
+@keyframes tm-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.categoryChip {
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 999px;
+  bottom: 0.85rem;
+  color: var(--brand-primary);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  padding: 0.32rem 0.65rem;
+  position: absolute;
+  right: 0.85rem;
+  text-transform: uppercase;
+}
+
+/* ---------------------------- edit / delete ---------------------------- */
+
+.actions {
+  display: flex;
+  gap: 0.4rem;
+  opacity: 0;
+  position: absolute;
+  right: 0.85rem;
+  top: 0.85rem;
+  transform: translateY(-4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.card:hover .actions,
+.card:focus-within .actions {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.actionButton {
+  align-items: center;
+  background: rgba(23, 17, 20, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--control-radius);
+  color: #ffffff;
+  display: flex;
+  height: 30px;
+  justify-content: center;
+  transition: background 0.2s ease, transform 0.15s ease;
+  width: 30px;
+}
+
+.actionButton svg {
+  height: 14px;
+  width: 14px;
+}
+
+.actionButton:hover {
+  background: var(--brand-primary);
+  transform: translateY(-1px);
+}
+
+.actionButtonDanger:hover {
+  background: #b91c1c;
+}
+
+/* ---------------------------- ticket-stub seam --------------------------- */
+
+.ticketDivider {
+  height: 0;
+  position: relative;
+}
+
+.perforation {
+  border-top: 1.5px dashed var(--control-border);
+  left: 14px;
+  position: absolute;
+  right: 14px;
+  top: 0;
+}
+
+.notch {
+  background: var(--background);
+  border: 1px solid var(--control-border);
+  border-radius: 50%;
+  height: 14px;
+  position: absolute;
+  top: -7px;
+  width: 14px;
+}
+
+.notch[data-side="left"] {
+  left: -7px;
+}
+
+.notch[data-side="right"] {
+  right: -7px;
+}
+
+/* ---------------------------------- body --------------------------------- */
+
+.body {
+  background: #ffffff;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 1.15rem 1.15rem 1.2rem;
+}
+
+.title {
+  color: var(--foreground);
+  font-size: 1.05rem;
+  line-height: 1.3;
+  margin: 0;
+}
+
+.metaList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.metaItem {
+  align-items: center;
+  color: #5c5155;
+  display: flex;
+  font-size: 12px;
+  font-weight: 600;
+  gap: 0.45rem;
+}
+
+.metaIcon {
+  color: var(--brand-primary);
+  flex: 0 0 auto;
+  height: 15px;
+  width: 15px;
+}
+
+.metaTruncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.footer {
+  align-items: center;
+  border-top: 1px solid var(--control-border);
+  display: flex;
+  justify-content: space-between;
+  padding-top: 0.75rem;
+}
+
+.attendees {
+  align-items: center;
+  display: flex;
+  gap: 0.55rem;
+}
+
+.avatarStack {
+  display: flex;
+}
+
+.avatar {
+  align-items: center;
+  background: var(--brand-soft);
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--control-border);
+  display: flex;
+  height: 26px;
+  justify-content: center;
+  margin-left: -8px;
+  overflow: hidden;
+  width: 26px;
+}
+
+.avatarStack .avatar:first-child {
+  margin-left: 0;
+}
+
+.avatar img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.avatarInitial {
+  color: var(--brand-primary);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.avatarMore {
+  background: var(--brand-primary);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.attendeesLabel {
+  align-items: center;
+  color: #74676a;
+  display: flex;
+  font-size: 11px;
+  font-weight: 700;
+  gap: 0.3rem;
+}
+
+.attendeesLabel .metaIcon {
+  color: #a8a0a3;
+  height: 13px;
+  width: 13px;
+}
+
+/* ---------------------------------- a11y --------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .mediaImage,
+  .actions,
+  .actionButton,
+  .statusDot {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .card:hover {
+    transform: none;
+  }
+
+  .card:hover .mediaImage {
+    transform: none;
+  }
+}
