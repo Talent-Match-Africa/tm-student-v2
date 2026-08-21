@@ -1,13 +1,13 @@
+import EventsWorkspace from "@/components/events/EventsWorkspace";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "My Profile",
-  description: "Manage your Talent Match student profile and account security.",
+  title: "My Events",
+  description: "See all events of talent match",
 };
 
 export default async function ProfilePage() {
-
-  return (
-    <StudentProfileManagementForm />
-  );
+    return (
+        <EventsWorkspace />
+    );
 }
