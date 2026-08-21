@@ -1,0 +1,172 @@
+.card {
+  background: #fff;
+  border: 1px solid rgba(28, 25, 23, 0.1);
+  border-radius: 0.9rem;
+  box-shadow:
+    0 1px 2px rgba(28, 25, 23, 0.04),
+    0 14px 30px rgba(28, 25, 23, 0.05);
+  display: grid;
+  min-width: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.card::before {
+  background: #c9bfc1;
+  content: "";
+  inset: 0 auto 0 0;
+  position: absolute;
+  width: 0.2rem;
+}
+
+.placeholder {
+  animation: opportunity-card-skeleton-pulse 1.35s ease-in-out infinite;
+  background: linear-gradient(90deg, #eee7e9, #faf7f8, #eee7e9);
+  background-size: 200% 100%;
+  border-radius: 999px;
+  display: block;
+}
+
+.ownerHeader {
+  align-items: center;
+  border-bottom: 1px solid rgba(28, 25, 23, 0.1);
+  display: grid;
+  gap: 0.7rem;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  min-width: 0;
+  padding: 0.95rem 1.05rem;
+}
+
+.ownerImage {
+  height: 2.6rem;
+  width: 2.6rem;
+}
+
+.ownerCopy,
+.titleBlock {
+  display: grid;
+  gap: 0.38rem;
+  min-width: 0;
+}
+
+.ownerName {
+  height: 0.72rem;
+  width: min(78%, 9rem);
+}
+
+.ownerType {
+  height: 0.48rem;
+  width: min(52%, 5.5rem);
+}
+
+.status {
+  height: 1.75rem;
+  width: 4.5rem;
+}
+
+.body {
+  display: grid;
+  gap: 1rem;
+  min-width: 0;
+  padding: 1rem 1.05rem 0.4rem;
+}
+
+.eyebrow {
+  height: 0.5rem;
+  width: 7.2rem;
+}
+
+.title {
+  height: 1.05rem;
+  width: min(88%, 17rem);
+}
+
+.badges,
+.actions {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.badge,
+.badgeShort {
+  height: 1.8rem;
+  width: 7.2rem;
+}
+
+.badgeShort {
+  width: 5.6rem;
+}
+
+.footer {
+  align-items: center;
+  border-top: 1px solid rgba(28, 25, 23, 0.1);
+  display: flex;
+  margin-top: 0.9rem;
+  min-height: 3.65rem;
+  padding: 0.75rem 1.05rem;
+}
+
+.actions {
+  width: 100%;
+}
+
+.statAction,
+.applicationAction,
+.editAction,
+.deleteAction {
+  height: 2rem;
+  width: 5.6rem;
+}
+
+.applicationAction {
+  width: 7.8rem;
+}
+
+.editAction {
+  width: 4.2rem;
+}
+
+.deleteAction {
+  width: 4.8rem;
+}
+
+.divider {
+  align-self: stretch;
+  background: rgba(28, 25, 23, 0.1);
+  width: 1px;
+}
+
+@keyframes opportunity-card-skeleton-pulse {
+  0%,
+  100% {
+    background-position: 100% 0;
+  }
+
+  50% {
+    background-position: 0 0;
+  }
+}
+
+@media (max-width: 520px) {
+  .ownerHeader {
+    align-items: start;
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .status {
+    grid-column: 1 / -1;
+  }
+
+  .actions > .placeholder {
+    flex: 1 1 7rem;
+    width: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .placeholder {
+    animation: none;
+  }
+}
