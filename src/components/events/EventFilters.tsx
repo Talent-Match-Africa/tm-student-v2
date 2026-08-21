@@ -11,9 +11,7 @@ import { AuthButton } from "@/components/shared/AuthButton";
 import { InputField } from "@/components/shared/InputField";
 import styles from "./EventFilters.module.css";
 
-export function EventFilters({
-}: EventFiltersProps) {
-
+export function EventFilters() {
   return (
     <AdminFilterShell
       actions={
@@ -62,7 +60,7 @@ export function EventFilters({
           </div>
         </>
       }
-      onSubmit={onsubmit}
+      onSubmit={(event) => event.preventDefault()}
     >
       <div className={styles.searchField}>
         <InputField
