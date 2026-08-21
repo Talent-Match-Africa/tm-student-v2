@@ -34,7 +34,7 @@
 .sidebar::after {
   background-color: rgba(255, 255, 255, 0.055);
   border-radius: 999px;
-  content: '';
+  content: "";
   pointer-events: none;
   position: absolute;
 }
@@ -229,11 +229,11 @@
 }
 
 .groupTrigger {
-	background: transparent;
-	cursor: pointer;
-	font-family: inherit;
-	text-align: left;
-	width: 100%;
+  background: transparent;
+  cursor: pointer;
+  font-family: inherit;
+  text-align: left;
+  width: 100%;
 }
 
 .groupTriggerActive:not(.navLinkActive) {
@@ -250,7 +250,7 @@
   transition: transform 170ms ease;
 }
 
-.groupChevron[data-open='true'] {
+.groupChevron[data-open="true"] {
   transform: rotate(180deg);
 }
 
@@ -280,7 +280,7 @@
 .navLink::before {
   border: 1px solid transparent;
   border-radius: 999px;
-  content: '';
+  content: "";
   inset: 0.18rem;
   opacity: 0;
   pointer-events: none;
@@ -293,7 +293,7 @@
 .navLink::after {
   background-color: transparent;
   border-radius: 999px;
-  content: '';
+  content: "";
   height: 0.5rem;
   opacity: 0;
   position: absolute;

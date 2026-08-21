@@ -29,10 +29,7 @@ export function StudentSidebarItem({
       <Link
         aria-current={active ? "page" : undefined}
         aria-label={collapsed ? item.label : undefined}
-        className={clsx(
-          styles.navLink,
-          active && styles.navLinkActive,
-        )}
+        className={clsx(styles.navLink, active && styles.navLinkActive)}
         href={item.href}
         onClick={onClick}
         title={collapsed ? item.label : undefined}
@@ -44,9 +41,7 @@ export function StudentSidebarItem({
         <span className={styles.navLabel}>{item.label}</span>
 
         {showBadge && (
-          <span className={styles.newBadge}>
-            {item.badge.label}
-          </span>
+          <span className={styles.newBadge}>{item.badge.label}</span>
         )}
       </Link>
     </li>
