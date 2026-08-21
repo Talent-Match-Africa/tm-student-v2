@@ -1,26 +1,20 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
 import {
   Briefcase01Icon,
-  Building03Icon,
   Cancel01Icon,
   FilterHorizontalIcon,
   Location01Icon,
   SortByDown02Icon,
-  StatusIcon,
-  UserGroupIcon,
 } from "@hugeicons/core-free-icons";
 import { AuthButton } from "@/components/shared/AuthButton";
 import { HugeIcon } from "@/components/shared/HugeIcon";
 import { InputField } from "@/components/shared/InputField";
-import { SelectionCheckbox } from "@/components/shared/SelectionCheckbox";
 import { SelectField } from "@/components/shared/SelectField";
 import styles from "./EventSidebarFilters.module.css";
 import { OPPORTUNITY_ORDERING_OPTIONS } from "../opportunities/constants";
 
-export function EventSidebarFilters({
-}: EventSidebarFiltersProps) {
+export function EventSidebarFilters() {
   return (
     <section
       className={styles.panel}
