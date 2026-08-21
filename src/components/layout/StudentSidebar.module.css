@@ -621,3 +621,28 @@
     width: 2.05rem;
   }
 }
+
+.newBadge {
+  align-items: center;
+  background-color: #fff;
+  border-radius: 999px;
+  color: var(--brand-primary);
+  display: inline-flex;
+  font-size: 0.58rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  margin-left: auto;
+  padding: 0.32rem 0.52rem;
+  position: relative;
+  text-transform: uppercase;
+  z-index: 1;
+}
+
+.navLink:has(.newBadge) {
+  padding-right: 0.68rem;
+}
+
+.navLinkActive:has(.newBadge) {
+  padding-right: 0.68rem;
+}
