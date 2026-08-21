@@ -1,7 +1,9 @@
 import Link from "next/link";
 import clsx from "clsx";
+
 import type { StudentSidebarLink } from "@/constants/student-sidebar";
 import { HugeIcon } from "@/components/shared/HugeIcon";
+
 import styles from "./StudentSidebar.module.css";
 
 interface StudentSidebarItemProps {
@@ -17,12 +19,20 @@ export function StudentSidebarItem({
   item,
   onClick,
 }: StudentSidebarItemProps) {
+  const showBadge =
+    !collapsed &&
+    item.badge &&
+    new Date(item.badge.expiresAt).getTime() > Date.now();
+
   return (
     <li className={styles.navItem}>
       <Link
         aria-current={active ? "page" : undefined}
         aria-label={collapsed ? item.label : undefined}
-        className={clsx(styles.navLink, active && styles.navLinkActive)}
+        className={clsx(
+          styles.navLink,
+          active && styles.navLinkActive,
+        )}
         href={item.href}
         onClick={onClick}
         title={collapsed ? item.label : undefined}
@@ -30,7 +40,14 @@ export function StudentSidebarItem({
         <span className={styles.navIcon} aria-hidden="true">
           <HugeIcon icon={item.icon} size={19} />
         </span>
+
         <span className={styles.navLabel}>{item.label}</span>
+
+        {showBadge && (
+          <span className={styles.newBadge}>
+            {item.badge.label}
+          </span>
+        )}
       </Link>
     </li>
   );
