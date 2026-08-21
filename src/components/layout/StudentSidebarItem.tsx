@@ -19,10 +19,12 @@ export function StudentSidebarItem({
   item,
   onClick,
 }: StudentSidebarItemProps) {
-  const showBadge =
+  const activeBadge =
     !collapsed &&
     item.badge &&
-    new Date(item.badge.expiresAt).getTime() > Date.now();
+    new Date(item.badge.expiresAt).getTime() > Date.now()
+      ? item.badge
+      : null;
 
   return (
     <li className={styles.navItem}>
@@ -40,8 +42,8 @@ export function StudentSidebarItem({
 
         <span className={styles.navLabel}>{item.label}</span>
 
-        {showBadge && (
-          <span className={styles.newBadge}>{item.badge.label}</span>
+        {activeBadge ? (
+          <span className={styles.newBadge}>{activeBadge.label}</span>
         )}
       </Link>
     </li>
