@@ -1,0 +1,199 @@
+.formError {
+  background: #fff2f2;
+  border: 1px solid rgba(185, 28, 28, 0.16);
+  border-radius: 0.72rem;
+  color: #a3313b;
+  font-size: 0.72rem;
+  font-weight: 680;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0.72rem 0.8rem;
+}
+
+.formError:focus-visible {
+  box-shadow: 0 0 0 4px rgba(173, 62, 72, 0.13);
+  outline: 0;
+}
+
+.fields {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.fields > :nth-child(3) {
+  grid-column: 1 / -1;
+}
+
+.fieldHint {
+  color: #7b6f74;
+  font-size: 0.7rem;
+  font-weight: 620;
+  grid-column: 1 / -1;
+  line-height: 1.45;
+  margin: -0.58rem 0 0;
+}
+
+.fields > :last-child {
+  grid-column: 1 / -1;
+}
+
+.rail {
+  background: #fff;
+  border: 1px solid rgba(73, 21, 26, 0.1);
+  border-radius: 1.05rem;
+  box-shadow: 0 14px 34px rgba(24, 24, 27, 0.05);
+  display: grid;
+  gap: 0.8rem;
+  padding: 0.65rem;
+  position: sticky;
+  top: 5.8rem;
+}
+
+.railHeader {
+  display: grid;
+  gap: 0.18rem;
+  padding: 0.45rem 0.55rem 0.15rem;
+}
+
+.railHeader span {
+  color: var(--brand-primary);
+  font-size: 0.62rem;
+  font-weight: 850;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.railHeader strong {
+  color: #21191d;
+  font-size: 0.9rem;
+  font-weight: 850;
+}
+
+.railStep {
+  align-items: center;
+  background: var(--brand-primary);
+  border-radius: 999px;
+  box-shadow: 0 14px 28px rgba(73, 21, 26, 0.2);
+  color: #fff;
+  display: grid;
+  gap: 0.65rem;
+  grid-template-columns: auto minmax(0, 1fr);
+  min-height: 4rem;
+  padding: 0.65rem;
+}
+
+.railMarker {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  display: inline-flex;
+  height: 2.2rem;
+  justify-content: center;
+  width: 2.2rem;
+}
+
+.railStepCopy {
+  display: grid;
+  gap: 0.14rem;
+  min-width: 0;
+}
+
+.railStepCopy strong {
+  font-size: 0.78rem;
+  font-weight: 820;
+}
+
+.railStepCopy small {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.65rem;
+  font-weight: 620;
+  line-height: 1.3;
+}
+
+.railNote {
+  background: #fbf8f9;
+  border-radius: 0.72rem;
+  color: #796d72;
+  font-size: 0.65rem;
+  font-weight: 620;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0.7rem;
+}
+
+.summary {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.summaryIntro {
+  background: #f3faf5;
+  border: 1px solid rgba(22, 101, 52, 0.13);
+  border-radius: 0.82rem;
+  color: #2d6540;
+  font-size: 0.76rem;
+  font-weight: 660;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0.8rem;
+}
+
+.summaryList {
+  border-bottom: 1px solid rgba(73, 21, 26, 0.08);
+  border-top: 1px solid rgba(73, 21, 26, 0.08);
+  display: grid;
+  margin: 0;
+}
+
+.summaryRow {
+  align-items: center;
+  display: grid;
+  gap: 0.5rem 1rem;
+  grid-template-columns: minmax(8rem, 0.7fr) minmax(0, 1.3fr);
+  padding: 0.78rem 0;
+}
+
+.summaryRow + .summaryRow {
+  border-top: 1px solid rgba(73, 21, 26, 0.08);
+}
+
+.summaryRow dt {
+  color: #796d72;
+  font-size: 0.7rem;
+  font-weight: 720;
+}
+
+.summaryRow dd {
+  color: #281e22;
+  font-size: 0.78rem;
+  font-weight: 760;
+  line-height: 1.4;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 980px) {
+  .rail {
+    position: static;
+  }
+}
+
+@media (max-width: 620px) {
+  .fields {
+    grid-template-columns: 1fr;
+  }
+
+  .fields > :nth-child(3) {
+    grid-column: auto;
+  }
+
+  .fields > :last-child,
+  .fieldHint {
+    grid-column: auto;
+  }
+
+  .summaryRow {
+    grid-template-columns: 1fr;
+  }
+}
