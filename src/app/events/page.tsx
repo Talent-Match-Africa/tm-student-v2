@@ -1,13 +1,15 @@
-import EventsWorkspace from "@/components/events/EventsWorkspace";
+import { EventsWorkspace } from "@/components/events/EventsWorkspace";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "My Events",
-  description: "See all events of talent match",
+	title: "Events | Talent Match Admin",
+	description:
+		"Manage Talent Match events and schedules.",
 };
 
-export default async function ProfilePage() {
-    return (
-        <EventsWorkspace />
-    );
+export default async function EventsPage() {
+
+	return (
+		<EventsWorkspace />
+	);
 }

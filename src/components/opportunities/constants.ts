@@ -26,3 +26,12 @@ export const STUDENT_ORDERING_OPTIONS = [
   { label: "Deadline", value: "deadline" },
   { label: "Title", value: "title" },
 ];
+
+export const OPPORTUNITY_ORDERING_OPTIONS = [
+  { label: "Newest first", value: "-created_at" },
+  { label: "Oldest first", value: "created_at" },
+  { label: "Deadline soonest", value: "deadline" },
+  { label: "Deadline latest", value: "-deadline" },
+  { label: "Title A-Z", value: "title" },
+  { label: "Title Z-A", value: "-title" },
+];
