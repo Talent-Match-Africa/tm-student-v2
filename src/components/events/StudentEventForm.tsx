@@ -23,6 +23,7 @@ import {
   type StudentProfileFieldErrors,
 } from "@/components/profile/utils";
 import { HugeIcon } from "@/components/shared/HugeIcon";
+import { NOT_EMPLOYED_WORKING_PLACE } from "@/constants/student-event-form";
 import type {
   StudentEventForm as StudentEventFormRecord,
   StudentEventFormMutationResponse,
@@ -52,6 +53,14 @@ export function StudentEventForm({ initialForm }: StudentEventFormProps) {
   const [formError, setFormError] = useState<string | null>(null);
   const [isSaving, setIsSaving] = useState(false);
 
+  // Answering "No" to employment fixes the working place, so the input is
+  // disabled and the recorded value comes from the constant instead of state.
+  // The student's own text is kept so switching back to "Yes" restores it.
+  const isNotEmployed = employed === "false";
+  const submittedWorkingPlace = isNotEmployed
+    ? NOT_EMPLOYED_WORKING_PLACE
+    : workingPlace.trim();
+
   useEffect(() => {
     if (formError) formErrorRef.current?.focus();
   }, [formError]);
@@ -70,7 +79,10 @@ export function StudentEventForm({ initialForm }: StudentEventFormProps) {
     if (employed !== "true" && employed !== "false") {
       next.employed = "Choose your current employment status.";
     }
-    if (!workingPlace.trim() || workingPlace.trim().length > 255) {
+    if (
+      !isNotEmployed &&
+      (!workingPlace.trim() || workingPlace.trim().length > 255)
+    ) {
       next.working_place = "Enter a working place of up to 255 characters.";
     }
     if (!whichCohort.trim() || whichCohort.trim().length > 100) {
@@ -100,7 +112,7 @@ export function StudentEventForm({ initialForm }: StudentEventFormProps) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             employed: employed === "true",
-            working_place: workingPlace.trim(),
+            working_place: submittedWorkingPlace,
             which_cohort: whichCohort.trim(),
             attend: attend === "true",
           }),
@@ -208,12 +220,14 @@ export function StudentEventForm({ initialForm }: StudentEventFormProps) {
             onChange={(event) => {
               setEmployed(event.target.value);
               clearError("employed");
+              if (event.target.value === "false") clearError("working_place");
             }}
             options={BOOLEAN_OPTIONS}
             requirement="required"
             value={employed}
           />
           <InputField
+            disabled={isNotEmployed}
             error={errors.working_place}
             icon={Briefcase01Icon}
             label="Where are you working?"
@@ -223,12 +237,14 @@ export function StudentEventForm({ initialForm }: StudentEventFormProps) {
               setWorkingPlace(event.target.value);
               clearError("working_place");
             }}
-            placeholder="Organisation, company, or Not currently employed"
+            placeholder="Organisation or company"
             requirement="required"
-            value={workingPlace}
+            value={isNotEmployed ? NOT_EMPLOYED_WORKING_PLACE : workingPlace}
           />
           <p className={styles.fieldHint}>
-            Enter “Not currently employed” when that is your current situation.
+            {isNotEmployed
+              ? `Because you are not currently employed, your working place is recorded as “${NOT_EMPLOYED_WORKING_PLACE}”.`
+              : "Name the organisation or company you currently work for."}
           </p>
           <InputField
             error={errors.which_cohort}
