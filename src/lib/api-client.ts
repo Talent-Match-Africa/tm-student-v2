@@ -1,11 +1,21 @@
-import { createErrorPayload, mapApiError } from "./api-error";
+import {
+  createErrorPayload,
+  mapApiError,
+  type ApiErrorPayload,
+} from "./api-error";
 import { getApiInternalUrl } from "./env";
 
-export interface BackendResult<T = unknown> {
-  ok: boolean;
-  status: number;
-  payload: T;
-}
+export type BackendResult<T = unknown> =
+  | {
+      ok: true;
+      status: number;
+      payload: T;
+    }
+  | {
+      ok: false;
+      status: number;
+      payload: ApiErrorPayload;
+    };
 
 interface BackendJsonOptions {
   accessToken?: string | null;
@@ -39,7 +49,7 @@ export async function backendJson<T = unknown>(
     return {
       ok: false,
       status: 503,
-      payload: createErrorPayload(error) as T,
+      payload: createErrorPayload(error),
     };
   }
 }
@@ -65,7 +75,7 @@ export async function backendFormData<T = unknown>(
     return {
       ok: false,
       status: 503,
-      payload: createErrorPayload(error) as T,
+      payload: createErrorPayload(error),
     };
   }
 }
@@ -79,7 +89,7 @@ async function normalizeResponse<T>(
     return {
       ok: false,
       status: response.status,
-      payload: createErrorPayload(error) as T,
+      payload: createErrorPayload(error),
     };
   }
   return { ok: true, status: response.status, payload: payload as T };

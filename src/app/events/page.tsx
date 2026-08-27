@@ -15,7 +15,7 @@ export default async function EventsPage() {
 	if (!result.ok) {
 		console.error("getEventForm failed:", result);
 		throw new Error(
-			`Your event response could not be loaded: ${result.error ?? "Unknown error"}`
+			`Your event response could not be loaded: ${result.payload.message}`
 		);
 	}
 
