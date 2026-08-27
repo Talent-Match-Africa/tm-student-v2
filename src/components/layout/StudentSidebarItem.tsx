@@ -20,30 +20,37 @@ export function StudentSidebarItem({
   item,
   onClick,
 }: StudentSidebarItemProps) {
-  const [activeBadge, setActiveBadge] = useState(
-    !collapsed && item.badge ? item.badge : null,
-  );
+  const [now, setNow] = useState(() => Date.now());
+
+  const expiresAt = item.badge
+    ? new Date(item.badge.expiresAt).getTime()
+    : null;
 
   useEffect(() => {
-    if (collapsed || !item.badge) {
-      setActiveBadge(null);
+    if (collapsed || expiresAt === null) {
       return;
     }
 
-    const expiresAt = new Date(item.badge.expiresAt).getTime();
+    const remaining = expiresAt - Date.now();
 
-    const updateBadge = () => {
-      setActiveBadge(Date.now() < expiresAt ? item.badge! : null);
-    };
-
-    updateBadge();
+    if (remaining <= 0) {
+      return;
+    }
 
     const timeout = setTimeout(() => {
-      setActiveBadge(null);
-    }, Math.max(0, expiresAt - Date.now()));
+      setNow(Date.now());
+    }, remaining);
 
     return () => clearTimeout(timeout);
-  }, [collapsed, item.badge]);
+  }, [collapsed, expiresAt]);
+
+  const activeBadge =
+    !collapsed &&
+    item.badge &&
+    expiresAt !== null &&
+    expiresAt > now
+      ? item.badge
+      : null;
 
   return (
     <li className={styles.navItem}>
