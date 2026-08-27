@@ -1,9 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { Add01Icon } from "@hugeicons/core-free-icons";
-import { AuthButton } from "@/components/shared/AuthButton";
 import styles from "./EventsWorkspace.module.css";
 import { EventFilters } from "./EventFilters";
 import { EventSidebarFilters } from "./EventSidebarFilters";
@@ -18,8 +15,6 @@ interface EventsWorkspaceProps {
 export function EventsWorkspace({
   errorMessage,
 }: EventsWorkspaceProps) {
-  const router = useRouter();
-
   const [events, setEvents] = useState<EventCardRecord[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
