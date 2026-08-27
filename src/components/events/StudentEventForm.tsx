@@ -92,22 +92,26 @@ export function StudentEventForm({ initialForm }: StudentEventFormProps) {
     if (Object.keys(validationErrors).length) return;
 
     setIsSaving(true);
-    const result = await requestStudentProfile<StudentEventFormMutationResponse>(
-      "/api/student/event-form",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          employed: employed === "true",
-          working_place: workingPlace.trim(),
-          which_cohort: whichCohort.trim(),
-          attend: attend === "true",
-        }),
-      },
-    );
+    const result =
+      await requestStudentProfile<StudentEventFormMutationResponse>(
+        "/api/student/event-form",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            employed: employed === "true",
+            working_place: workingPlace.trim(),
+            which_cohort: whichCohort.trim(),
+            attend: attend === "true",
+          }),
+        },
+      );
     setIsSaving(false);
 
-    if (!result.ok || !isSuccessfulMutation<StudentEventFormMutationResponse>(result.payload)) {
+    if (
+      !result.ok ||
+      !isSuccessfulMutation<StudentEventFormMutationResponse>(result.payload)
+    ) {
       setErrors(readFieldErrors(result.payload));
       setFormError(
         readStudentProfileError(result.payload) ??
@@ -156,7 +160,12 @@ export function StudentEventForm({ initialForm }: StudentEventFormProps) {
       eyebrow="Student event"
       formError={
         formError ? (
-          <p className={styles.formError} ref={formErrorRef} role="alert" tabIndex={-1}>
+          <p
+            className={styles.formError}
+            ref={formErrorRef}
+            role="alert"
+            tabIndex={-1}
+          >
             {formError}
           </p>
         ) : undefined
@@ -204,23 +213,10 @@ export function StudentEventForm({ initialForm }: StudentEventFormProps) {
             requirement="required"
             value={employed}
           />
-          <SelectField
-            error={errors.attend}
-            icon={Calendar03Icon}
-            label="Will you attend the event?"
-            name="attend"
-            onChange={(event) => {
-              setAttend(event.target.value);
-              clearError("attend");
-            }}
-            options={BOOLEAN_OPTIONS}
-            requirement="required"
-            value={attend}
-          />
           <InputField
             error={errors.working_place}
             icon={Briefcase01Icon}
-            label="Working place"
+            label="Where are you working?"
             maxLength={255}
             name="working_place"
             onChange={(event) => {
@@ -237,7 +233,7 @@ export function StudentEventForm({ initialForm }: StudentEventFormProps) {
           <InputField
             error={errors.which_cohort}
             icon={GraduationCapIcon}
-            label="Which cohort are you in?"
+            label="Which cohort were you in?"
             maxLength={100}
             name="which_cohort"
             onChange={(event) => {
@@ -247,6 +243,19 @@ export function StudentEventForm({ initialForm }: StudentEventFormProps) {
             placeholder="For example, Class of 2026"
             requirement="required"
             value={whichCohort}
+          />
+          <SelectField
+            error={errors.attend}
+            icon={Calendar03Icon}
+            label="Will you attend the event?"
+            name="attend"
+            onChange={(event) => {
+              setAttend(event.target.value);
+              clearError("attend");
+            }}
+            options={BOOLEAN_OPTIONS}
+            requirement="required"
+            value={attend}
           />
         </div>
       )}
@@ -263,7 +272,10 @@ function EventFormRail({ submitted }: { submitted: boolean }) {
       </header>
       <div className={styles.railStep}>
         <span className={styles.railMarker} aria-hidden="true">
-          <HugeIcon icon={submitted ? CheckmarkCircle02Icon : Calendar03Icon} size={17} />
+          <HugeIcon
+            icon={submitted ? CheckmarkCircle02Icon : Calendar03Icon}
+            size={17}
+          />
         </span>
         <span className={styles.railStepCopy}>
           <strong>{submitted ? "Response received" : "Event response"}</strong>
@@ -290,7 +302,9 @@ function EventFormSummary({ form }: { form: StudentEventFormRecord }) {
       <dl className={styles.summaryList}>
         <div className={styles.summaryRow}>
           <dt>Employment</dt>
-          <dd>{form.employed ? "Currently employed" : "Not currently employed"}</dd>
+          <dd>
+            {form.employed ? "Currently employed" : "Not currently employed"}
+          </dd>
         </div>
         <div className={styles.summaryRow}>
           <dt>Working place</dt>
