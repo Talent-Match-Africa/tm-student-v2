@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import clsx from "clsx";
 
@@ -19,12 +20,30 @@ export function StudentSidebarItem({
   item,
   onClick,
 }: StudentSidebarItemProps) {
-  const activeBadge =
-    !collapsed &&
-    item.badge &&
-    new Date(item.badge.expiresAt).getTime() > Date.now()
-      ? item.badge
-      : null;
+  const [activeBadge, setActiveBadge] = useState(
+    !collapsed && item.badge ? item.badge : null,
+  );
+
+  useEffect(() => {
+    if (collapsed || !item.badge) {
+      setActiveBadge(null);
+      return;
+    }
+
+    const expiresAt = new Date(item.badge.expiresAt).getTime();
+
+    const updateBadge = () => {
+      setActiveBadge(Date.now() < expiresAt ? item.badge! : null);
+    };
+
+    updateBadge();
+
+    const timeout = setTimeout(() => {
+      setActiveBadge(null);
+    }, Math.max(0, expiresAt - Date.now()));
+
+    return () => clearTimeout(timeout);
+  }, [collapsed, item.badge]);
 
   return (
     <li className={styles.navItem}>
@@ -42,7 +61,7 @@ export function StudentSidebarItem({
 
         <span className={styles.navLabel}>{item.label}</span>
 
-        {activeBadge ? (
+        {activeBadge && (
           <span className={styles.newBadge}>{activeBadge.label}</span>
         )}
       </Link>
