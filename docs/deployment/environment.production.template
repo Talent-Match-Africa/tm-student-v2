@@ -7,7 +7,7 @@ PORT=4102
 HOSTNAME=127.0.0.1
 
 NEXT_PUBLIC_STUDENT_APP_URL=https://student.talentmatch.rw
-NEXT_PUBLIC_AUTH_APP_URL=https://my-v2.talentmatch.rw
+NEXT_PUBLIC_AUTH_APP_URL=https://my.talentmatch.rw
 NEXT_PUBLIC_API_SOCKET_URL=https://api-v2.talentmatch.rw
 NEXT_PUBLIC_MEDIA_PUBLIC_BASE_URL=https://res.cloudinary.com/CHANGE_ME/image/upload
 
