@@ -58,6 +58,9 @@
 .fileDrop { cursor: pointer; position: relative; }
 .fileDrop input { height: 1px; opacity: 0; position: absolute; width: 1px; }
 .fileDrop:focus-within { box-shadow: 0 0 0 4px rgba(73,21,26,.12); }
+/* A CV is mandatory, so the drop zone reads as an outstanding field until one is attached. */
+.fileDrop[data-required='true'] { border-color: #f0b7bd; }
+.fileDrop[data-required='true'] small { color: #a52020; font-weight: 700; }
 .error { background: #fff1f2; border: 1px solid #fecdd3; border-radius: .75rem; color: #a52020; font-size: .74rem; margin: 0; padding: .75rem; }
 .footer { align-items: center; background: #fff; border-top: 1px solid rgba(73,21,26,.08); display: flex; gap: .75rem; justify-content: space-between; min-height: 4.5rem; padding: .75rem 1rem; }
 .footer > span { color: #83777b; font-size: .68rem; font-weight: 700; }
