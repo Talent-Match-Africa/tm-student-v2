@@ -3,8 +3,6 @@
 import { useCallback, useEffect, useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
 import {
-  ArrowLeft01Icon,
-  ArrowRight01Icon,
   Briefcase01Icon,
   Cancel01Icon,
   CheckmarkCircle02Icon,
@@ -22,7 +20,6 @@ import type {
 import type { StudentDocument } from "@/types/student-self-service";
 import {
   APPLICATION_FILE_ACCEPT,
-  APPLICATION_WIZARD_STEPS,
   applicationFileIsValid,
   formatApplicationDate,
   formatApplicationFileSize,
@@ -44,35 +41,33 @@ export function ApplicationWizard({
 }: ApplicationWizardProps) {
   const router = useRouter();
   const [open, setOpen] = useState(autoOpen && !opportunity.has_applied);
-  const [step, setStep] = useState(1);
+  const [submitted, setSubmitted] = useState(false);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [coverLetter, setCoverLetter] = useState("");
   const [experience, setExperience] = useState("");
   const [selectedDocument, setSelectedDocument] = useState<File | null>(null);
   const [coverDocument, setCoverDocument] = useState<File | null>(null);
-  // Uploading a CV for this specific application is the default. The saved
-  // profile CV stays available but must be chosen deliberately.
+  // Uploading a CV for this application is the default; the saved profile CV
+  // stays available but has to be chosen deliberately.
   const [useSavedDocument, setUseSavedDocument] = useState(false);
 
-  const complete = step === 4;
-  const attachedCv = selectedDocument
-    ? selectedDocument
-    : useSavedDocument && latestDocument
-      ? latestDocument
-      : null;
-  const hasCv = Boolean(attachedCv);
-  // The cover letter may be written or uploaded, never both, so the reviewer
-  // always has a single canonical version.
+  const isJob = type === "job-listings";
+  const usingSavedCv = useSavedDocument && !selectedDocument && latestDocument;
+  const hasCv = Boolean(selectedDocument || usingSavedCv);
+  // The cover letter is written or uploaded, never both, so a reviewer always
+  // has a single canonical version.
   const coverLetterWritten = Boolean(coverLetter.trim());
   const coverLetterUploaded = Boolean(coverDocument);
-  const displayStep = Math.min(step, 3);
+  const hasUnsavedInput = Boolean(
+    coverLetter || experience || selectedDocument || coverDocument,
+  );
 
   const requestClose = useCallback(() => {
     if (pending) return;
     if (
-      !complete &&
-      (coverLetter || experience || selectedDocument || coverDocument) &&
+      !submitted &&
+      hasUnsavedInput &&
       !window.confirm("Discard this unfinished application?")
     ) {
       return;
@@ -82,14 +77,11 @@ export function ApplicationWizard({
       scroll: false,
     });
   }, [
-    complete,
-    coverDocument,
-    coverLetter,
-    selectedDocument,
-    experience,
+    hasUnsavedInput,
     opportunity.id,
     pending,
     router,
+    submitted,
     type,
   ]);
 
@@ -109,16 +101,13 @@ export function ApplicationWizard({
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    const submitter = (event.nativeEvent as SubmitEvent).submitter;
-    const isExplicitSubmission =
-      submitter instanceof HTMLButtonElement &&
-      submitter.dataset.applicationSubmit === "true";
-    if (pending || step !== 3 || !isExplicitSubmission) return;
+    if (pending) return;
     setError(null);
+
     if (!hasCv) {
       setError(
         latestDocument
-          ? "Attach your CV to submit. Upload a file or choose your profile CV."
+          ? "Attach your CV to submit. Upload a PDF or use your profile CV."
           : "Attach your CV to submit this application.",
       );
       return;
@@ -131,22 +120,22 @@ export function ApplicationWizard({
       (file) => file && !applicationFileIsValid(file),
     );
     if (invalidFile) {
-      setError("Choose PDF, DOC, or DOCX files no larger than 10 MB each.");
+      setError("Choose a PDF no larger than 10 MB.");
       return;
     }
+
     setPending(true);
     const body = new FormData();
-    if (coverLetter.trim()) body.set("cover_letter", coverLetter.trim());
-    if (type === "job-listings" && experience.trim()) {
+    if (coverLetterWritten) body.set("cover_letter", coverLetter.trim());
+    if (isJob && experience.trim()) {
       body.set("experience_summary", experience.trim());
     }
     if (selectedDocument) body.set("document", selectedDocument);
-    else if (useSavedDocument && latestDocument) {
-      body.set("document_id", latestDocument.id);
-    }
-    if (type === "job-listings" && coverDocument) {
+    else if (usingSavedCv) body.set("document_id", latestDocument.id);
+    if (isJob && coverDocument) {
       body.set("cover_letter_document", coverDocument);
     }
+
     try {
       const response = await fetch(
         `/api/student/applications/${toApiType(type)}/${opportunity.id}`,
@@ -157,7 +146,7 @@ export function ApplicationWizard({
         setError(payload.message ?? "Your application could not be submitted.");
         return;
       }
-      setStep(4);
+      setSubmitted(true);
       router.refresh();
     } catch {
       setError("Check your connection and try submitting again.");
@@ -167,7 +156,7 @@ export function ApplicationWizard({
   }
 
   return (
-    <aside className={styles.readiness}>
+    <aside className={styles.launcher}>
       <div className={styles.readinessIcon} aria-hidden="true">
         <HugeIcon icon={SentIcon} size={18} />
       </div>
@@ -184,7 +173,7 @@ export function ApplicationWizard({
           {opportunity.has_applied
             ? "You have already applied. Track progress from your applications."
             : opportunity.is_open
-              ? "Build a focused application in three guided steps."
+              ? "Attach your CV and send your application in one step."
               : "You can still review the complete opportunity details."}
         </p>
       </div>
@@ -224,14 +213,14 @@ export function ApplicationWizard({
             <header className={styles.dialogHeader}>
               <div className={styles.dialogIdentity}>
                 <span className={styles.dialogIcon} aria-hidden="true">
-                  <HugeIcon icon={Briefcase01Icon} size={19} />
+                  <HugeIcon icon={Briefcase01Icon} size={18} />
                 </span>
                 <div>
                   <span>
-                    {complete ? "Submission complete" : "Apply securely"}
+                    {submitted ? "Submission complete" : "Apply securely"}
                   </span>
                   <h2 id="application-title">
-                    {complete
+                    {submitted
                       ? "Application submitted"
                       : (opportunity.title ?? "Opportunity application")}
                   </h2>
@@ -247,361 +236,14 @@ export function ApplicationWizard({
               </button>
             </header>
 
-            {!complete ? (
-              <div className={styles.wizardLayout}>
-                <aside
-                  className={styles.stepRail}
-                  aria-label="Application steps"
-                >
-                  <div className={styles.progressCopy}>
-                    <span>Step {displayStep} of 3</span>
-                    <strong>
-                      {Math.round((displayStep / 3) * 100)}% complete
-                    </strong>
-                  </div>
-                  <div
-                    aria-valuemax={3}
-                    aria-valuemin={1}
-                    aria-valuenow={displayStep}
-                    className={styles.progress}
-                    role="progressbar"
-                  >
-                    <span style={{ transform: `scaleX(${displayStep / 3})` }} />
-                  </div>
-                  <ol>
-                    {APPLICATION_WIZARD_STEPS.map((item, index) => {
-                      const number = index + 1;
-                      return (
-                        <li
-                          data-active={number === displayStep}
-                          data-complete={number < displayStep}
-                          key={item.label}
-                        >
-                          <span aria-hidden="true">
-                            {number < displayStep ? (
-                              <HugeIcon
-                                icon={CheckmarkCircle02Icon}
-                                size={16}
-                              />
-                            ) : (
-                              number
-                            )}
-                          </span>
-                          <div>
-                            <strong>{item.label}</strong>
-                            <small>{item.description}</small>
-                          </div>
-                        </li>
-                      );
-                    })}
-                  </ol>
-                  <p>
-                    Your application is sent through the secure student portal.
-                  </p>
-                </aside>
-
-                <form className={styles.form} onSubmit={submit}>
-                  <div className={styles.stepContent}>
-                    {step === 1 ? (
-                      <>
-                        <div className={styles.stepHeading}>
-                          <span>Opportunity review</span>
-                          <h3>Confirm this opportunity fits your goals</h3>
-                          <p>
-                            Review the essentials before preparing your
-                            response.
-                          </p>
-                        </div>
-                        <dl className={styles.factGrid}>
-                          <div>
-                            <dt>Opportunity owner</dt>
-                            <dd>{opportunity.posted_by.name}</dd>
-                          </div>
-                          <div>
-                            <dt>Work mode</dt>
-                            <dd>
-                              {opportunity.work_flexibility ?? "Not specified"}
-                            </dd>
-                          </div>
-                          <div>
-                            <dt>Location</dt>
-                            <dd>{opportunity.location ?? "Not specified"}</dd>
-                          </div>
-                          <div>
-                            <dt>Application deadline</dt>
-                            <dd>
-                              {formatApplicationDate(opportunity.deadline)}
-                            </dd>
-                          </div>
-                        </dl>
-                        <div className={styles.guidanceNote}>
-                          <HugeIcon icon={CheckmarkCircle02Icon} size={18} />
-                          <p>
-                            <strong>Before you continue</strong>
-                            <span>
-                              Make sure your profile and primary CV reflect your
-                              most recent experience.
-                            </span>
-                          </p>
-                        </div>
-                      </>
-                    ) : null}
-
-                    {step === 2 ? (
-                      <>
-                        <div className={styles.stepHeading}>
-                          <span>Your story</span>
-                          <h3>Show why this opportunity matters to you</h3>
-                          <p>
-                            Keep your response specific, relevant, and easy to
-                            review.
-                          </p>
-                        </div>
-                        <div className={styles.fieldBlock}>
-                          <TextareaField
-                            disabled={coverLetterUploaded}
-                            icon={SentIcon}
-                            label="Cover letter"
-                            maxLength={5000}
-                            onChange={(event) =>
-                              setCoverLetter(event.target.value)
-                            }
-                            placeholder={
-                              coverLetterUploaded
-                                ? "Remove the uploaded cover letter to write one here."
-                                : "Connect your goals and strengths to this opportunity…"
-                            }
-                            requirement="optional"
-                            rows={6}
-                            value={coverLetter}
-                          />
-                          <span className={styles.characterCount}>
-                            {coverLetter.length.toLocaleString()} / 5,000
-                          </span>
-                        </div>
-                        {type === "job-listings" ? (
-                          <div className={styles.fieldBlock}>
-                            <TextareaField
-                              icon={Briefcase01Icon}
-                              label="Experience summary"
-                              maxLength={3000}
-                              onChange={(event) =>
-                                setExperience(event.target.value)
-                              }
-                              placeholder="Highlight the skills and experience most relevant to this role…"
-                              requirement="optional"
-                              rows={5}
-                              value={experience}
-                            />
-                            <span className={styles.characterCount}>
-                              {experience.length.toLocaleString()} / 3,000
-                            </span>
-                          </div>
-                        ) : null}
-                      </>
-                    ) : null}
-
-                    {step === 3 ? (
-                      <>
-                        <div className={styles.stepHeading}>
-                          <span>Documents and confirmation</span>
-                          <h3>Attach your CV</h3>
-                          <p>
-                            A CV is required. Upload the version tailored to
-                            this role
-                            {latestDocument
-                              ? ", or reuse your profile CV."
-                              : "."}
-                          </p>
-                        </div>
-                        <label
-                          className={styles.fileDrop}
-                          data-required={!hasCv}
-                          data-selected={Boolean(selectedDocument)}
-                        >
-                          <span aria-hidden="true">
-                            <HugeIcon icon={File01Icon} size={19} />
-                          </span>
-                          <div>
-                            <strong>
-                              {selectedDocument
-                                ? selectedDocument.name
-                                : "Upload your CV"}
-                            </strong>
-                            <small>
-                              {selectedDocument
-                                ? formatApplicationFileSize(
-                                    selectedDocument.size,
-                                  )
-                                : "Required · PDF only · maximum 10 MB"}
-                            </small>
-                          </div>
-                          <b>{selectedDocument ? "Replace" : "Choose file"}</b>
-                          <input
-                            accept={APPLICATION_FILE_ACCEPT}
-                            onChange={(event) => {
-                              const file = event.target.files?.[0] ?? null;
-                              setSelectedDocument(file);
-                              if (file) setUseSavedDocument(false);
-                            }}
-                            type="file"
-                          />
-                        </label>
-                        {latestDocument ? (
-                          <button
-                            aria-pressed={useSavedDocument && !selectedDocument}
-                            className={styles.savedDocument}
-                            data-selected={
-                              useSavedDocument && !selectedDocument
-                            }
-                            onClick={() => {
-                              setUseSavedDocument((selected) => !selected);
-                              setSelectedDocument(null);
-                            }}
-                            type="button"
-                          >
-                            <span aria-hidden="true">
-                              <HugeIcon icon={File01Icon} size={18} />
-                            </span>
-                            <div>
-                              <strong>{latestDocument.file_name}</strong>
-                              <small>
-                                Profile CV · uploaded{" "}
-                                {formatApplicationDate(
-                                  latestDocument.created_at,
-                                )}
-                              </small>
-                            </div>
-                            <b>
-                              {useSavedDocument && !selectedDocument
-                                ? "Selected"
-                                : "Use instead"}
-                            </b>
-                          </button>
-                        ) : null}
-                        {type === "job-listings" ? (
-                          <>
-                            <label
-                              className={styles.fileDrop}
-                              data-disabled={coverLetterWritten || undefined}
-                              data-selected={coverLetterUploaded}
-                            >
-                              <span aria-hidden="true">
-                                <HugeIcon icon={SentIcon} size={19} />
-                              </span>
-                              <div>
-                                <strong>
-                                  {coverDocument
-                                    ? coverDocument.name
-                                    : "Cover letter document"}
-                                </strong>
-                                <small>
-                                  {coverDocument
-                                    ? formatApplicationFileSize(
-                                        coverDocument.size,
-                                      )
-                                    : coverLetterWritten
-                                      ? "Clear the written cover letter to upload a file instead"
-                                      : "Optional · PDF only · maximum 10 MB"}
-                                </small>
-                              </div>
-                              <b>{coverDocument ? "Replace" : "Choose file"}</b>
-                              <input
-                                accept={APPLICATION_FILE_ACCEPT}
-                                disabled={coverLetterWritten}
-                                onChange={(event) =>
-                                  setCoverDocument(
-                                    event.target.files?.[0] ?? null,
-                                  )
-                                }
-                                type="file"
-                              />
-                            </label>
-                            {coverDocument ? (
-                              <button
-                                className={styles.clearFileButton}
-                                onClick={() => setCoverDocument(null)}
-                                type="button"
-                              >
-                                Remove file and write a cover letter instead
-                              </button>
-                            ) : null}
-                          </>
-                        ) : null}
-                        <div className={styles.confirmation}>
-                          <HugeIcon icon={CheckmarkCircle02Icon} size={18} />
-                          <p>
-                            <strong>Ready for secure submission</strong>
-                            <span>
-                              Your application will be sent to{" "}
-                              {opportunity.posted_by.name}. Duplicate
-                              applications are prevented.
-                            </span>
-                          </p>
-                        </div>
-                        {error ? (
-                          <p className={styles.error} role="alert">
-                            {error}
-                          </p>
-                        ) : null}
-                      </>
-                    ) : null}
-                  </div>
-
-                  <footer className={styles.footer}>
-                    <span>Step {displayStep} of 3</span>
-                    <div>
-                      <AuthButton
-                        className={styles.footerButton}
-                        disabled={step === 1 || pending}
-                        icon={ArrowLeft01Icon}
-                        onClick={() =>
-                          setStep((value) => Math.max(1, value - 1))
-                        }
-                        variant="secondary"
-                      >
-                        Back
-                      </AuthButton>
-                      {step < 3 ? (
-                        <AuthButton
-                          className={styles.footerButton}
-                          icon={ArrowRight01Icon}
-                          key="application-continue"
-                          onClick={() =>
-                            setStep((value) => Math.min(3, value + 1))
-                          }
-                          type="button"
-                        >
-                          Continue
-                        </AuthButton>
-                      ) : (
-                        <AuthButton
-                          className={styles.footerButton}
-                          data-application-submit="true"
-                          disabled={!hasCv}
-                          icon={SentIcon}
-                          isLoading={pending}
-                          key="application-submit"
-                          loadingLabel="Submitting securely"
-                          type="submit"
-                        >
-                          Submit application
-                        </AuthButton>
-                      )}
-                    </div>
-                  </footer>
-                </form>
-              </div>
-            ) : (
+            {submitted ? (
               <div className={styles.success}>
                 <span className={styles.successIcon} aria-hidden="true">
-                  <HugeIcon icon={CheckmarkCircle02Icon} size={38} />
+                  <HugeIcon icon={CheckmarkCircle02Icon} size={34} />
                 </span>
-                <span>Application sent</span>
                 <h3>Your application is on its way.</h3>
                 <p>
-                  Your submission is secure and ready for review by{" "}
-                  {opportunity.posted_by.name}.
+                  {opportunity.posted_by.name} will review your submission.
                 </p>
                 <div className={styles.successActions}>
                   <AuthButton
@@ -612,13 +254,205 @@ export function ApplicationWizard({
                     View my applications
                   </AuthButton>
                   <AuthButton
-                    icon={ArrowRight01Icon}
+                    icon={SentIcon}
                     onClick={() => router.push(`/opportunities/${type}`)}
                   >
-                    Explore more opportunities
+                    Explore more
                   </AuthButton>
                 </div>
               </div>
+            ) : (
+              <form className={styles.form} onSubmit={submit}>
+                <div className={styles.formBody}>
+                  <section className={styles.section}>
+                    <div className={styles.sectionHead}>
+                      <h3>Your CV</h3>
+                      <span className={styles.requiredTag}>Required</span>
+                    </div>
+
+                    <label
+                      className={styles.fileDrop}
+                      data-required={!hasCv || undefined}
+                      data-selected={Boolean(selectedDocument)}
+                    >
+                      <span aria-hidden="true">
+                        <HugeIcon icon={File01Icon} size={18} />
+                      </span>
+                      <div>
+                        <strong>
+                          {selectedDocument
+                            ? selectedDocument.name
+                            : "Upload your CV"}
+                        </strong>
+                        <small>
+                          {selectedDocument
+                            ? formatApplicationFileSize(selectedDocument.size)
+                            : "PDF only · maximum 10 MB"}
+                        </small>
+                      </div>
+                      <b>{selectedDocument ? "Replace" : "Choose file"}</b>
+                      <input
+                        accept={APPLICATION_FILE_ACCEPT}
+                        onChange={(event) => {
+                          const file = event.target.files?.[0] ?? null;
+                          setSelectedDocument(file);
+                          if (file) setUseSavedDocument(false);
+                        }}
+                        type="file"
+                      />
+                    </label>
+
+                    {latestDocument ? (
+                      <button
+                        aria-pressed={Boolean(usingSavedCv)}
+                        className={styles.savedDocument}
+                        data-selected={Boolean(usingSavedCv)}
+                        onClick={() => {
+                          setUseSavedDocument((selected) => !selected);
+                          setSelectedDocument(null);
+                        }}
+                        type="button"
+                      >
+                        <span aria-hidden="true">
+                          <HugeIcon icon={File01Icon} size={16} />
+                        </span>
+                        <div>
+                          <strong>{latestDocument.file_name}</strong>
+                          <small>
+                            Profile CV ·{" "}
+                            {formatApplicationDate(latestDocument.created_at)}
+                          </small>
+                        </div>
+                        <b>{usingSavedCv ? "Selected" : "Use instead"}</b>
+                      </button>
+                    ) : null}
+                  </section>
+
+                  <section className={styles.section}>
+                    <div className={styles.sectionHead}>
+                      <h3>Cover letter</h3>
+                      <span className={styles.optionalTag}>Optional</span>
+                    </div>
+                    <p className={styles.sectionHint}>
+                      Write one or attach a file — whichever you prefer, not
+                      both.
+                    </p>
+
+                    <TextareaField
+                      disabled={coverLetterUploaded}
+                      icon={SentIcon}
+                      label="Write a cover letter"
+                      maxLength={5000}
+                      onChange={(event) => setCoverLetter(event.target.value)}
+                      placeholder={
+                        coverLetterUploaded
+                          ? "Remove the uploaded file to write one here."
+                          : "Connect your goals and strengths to this opportunity…"
+                      }
+                      rows={5}
+                      value={coverLetter}
+                    />
+
+                    {isJob ? (
+                      <>
+                        <label
+                          className={styles.fileDrop}
+                          data-disabled={coverLetterWritten || undefined}
+                          data-selected={coverLetterUploaded}
+                        >
+                          <span aria-hidden="true">
+                            <HugeIcon icon={SentIcon} size={18} />
+                          </span>
+                          <div>
+                            <strong>
+                              {coverDocument
+                                ? coverDocument.name
+                                : "Or upload a cover letter"}
+                            </strong>
+                            <small>
+                              {coverDocument
+                                ? formatApplicationFileSize(coverDocument.size)
+                                : coverLetterWritten
+                                  ? "Clear the written text to upload a file"
+                                  : "PDF only · maximum 10 MB"}
+                            </small>
+                          </div>
+                          <b>{coverDocument ? "Replace" : "Choose file"}</b>
+                          <input
+                            accept={APPLICATION_FILE_ACCEPT}
+                            disabled={coverLetterWritten}
+                            onChange={(event) =>
+                              setCoverDocument(event.target.files?.[0] ?? null)
+                            }
+                            type="file"
+                          />
+                        </label>
+                        {coverDocument ? (
+                          <button
+                            className={styles.clearFileButton}
+                            onClick={() => setCoverDocument(null)}
+                            type="button"
+                          >
+                            Remove file and write instead
+                          </button>
+                        ) : null}
+                      </>
+                    ) : null}
+                  </section>
+
+                  {isJob ? (
+                    <section className={styles.section}>
+                      <div className={styles.sectionHead}>
+                        <h3>Experience</h3>
+                        <span className={styles.optionalTag}>Optional</span>
+                      </div>
+                      <TextareaField
+                        icon={Briefcase01Icon}
+                        label="Experience summary"
+                        maxLength={3000}
+                        onChange={(event) => setExperience(event.target.value)}
+                        placeholder="Highlight the skills most relevant to this role…"
+                        rows={4}
+                        value={experience}
+                      />
+                    </section>
+                  ) : null}
+
+                  {error ? (
+                    <p className={styles.error} role="alert">
+                      {error}
+                    </p>
+                  ) : null}
+                </div>
+
+                <footer className={styles.footer}>
+                  <span className={styles.footerNote}>
+                    Sent securely to {opportunity.posted_by.name}
+                  </span>
+                  <div className={styles.footerActions}>
+                    <AuthButton
+                      className={styles.footerButton}
+                      disabled={pending}
+                      icon={Cancel01Icon}
+                      onClick={requestClose}
+                      type="button"
+                      variant="secondary"
+                    >
+                      Cancel
+                    </AuthButton>
+                    <AuthButton
+                      className={styles.footerButton}
+                      disabled={!hasCv}
+                      icon={SentIcon}
+                      isLoading={pending}
+                      loadingLabel="Submitting"
+                      type="submit"
+                    >
+                      Submit application
+                    </AuthButton>
+                  </div>
+                </footer>
+              </form>
             )}
           </section>
         </div>
