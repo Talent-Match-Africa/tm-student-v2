@@ -1,11 +1,5 @@
 export const APPLICATION_FILE_ACCEPT = ".pdf,application/pdf";
 
-export const APPLICATION_WIZARD_STEPS = [
-  { label: "Review fit", description: "Confirm the opportunity" },
-  { label: "Your story", description: "Add supporting context" },
-  { label: "Documents", description: "Review and submit" },
-] as const;
-
 const SUPPORTED_APPLICATION_FILE_TYPES = new Set(["application/pdf"]);
 
 export function applicationFileIsValid(file: File) {
