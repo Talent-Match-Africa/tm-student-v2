@@ -24,6 +24,8 @@ export interface OpportunityRecord {
   deadline: string | null;
   document_url: string | null;
   is_open: boolean;
+  /** True when this student already has an application on record. */
+  has_applied: boolean;
   status: "OPEN" | "UPCOMING" | "CLOSED";
   posted_by: {
     id: string | null;
