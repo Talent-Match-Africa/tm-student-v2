@@ -51,11 +51,17 @@ export function ApplicationWizard({
   const [experience, setExperience] = useState("");
   const [selectedDocument, setSelectedDocument] = useState<File | null>(null);
   const [coverDocument, setCoverDocument] = useState<File | null>(null);
-  const [useSavedDocument, setUseSavedDocument] = useState(
-    Boolean(latestDocument),
-  );
+  // Uploading a CV for this specific application is the default. The saved
+  // profile CV stays available but must be chosen deliberately.
+  const [useSavedDocument, setUseSavedDocument] = useState(false);
 
   const complete = step === 4;
+  const attachedCv = selectedDocument
+    ? selectedDocument
+    : useSavedDocument && latestDocument
+      ? latestDocument
+      : null;
+  const hasCv = Boolean(attachedCv);
   const displayStep = Math.min(step, 3);
 
   const requestClose = useCallback(() => {
@@ -105,6 +111,14 @@ export function ApplicationWizard({
       submitter.dataset.applicationSubmit === "true";
     if (pending || step !== 3 || !isExplicitSubmission) return;
     setError(null);
+    if (!hasCv) {
+      setError(
+        latestDocument
+          ? "Attach your CV to submit. Upload a file or choose your profile CV."
+          : "Attach your CV to submit this application.",
+      );
+      return;
+    }
     const invalidFile = [selectedDocument, coverDocument].find(
       (file) => file && !applicationFileIsValid(file),
     );
@@ -318,32 +332,21 @@ export function ApplicationWizard({
                       <>
                         <div className={styles.stepHeading}>
                           <span>Documents and confirmation</span>
-                          <h3>Choose what accompanies your application</h3>
-                          <p>Your newest profile CV is selected automatically when available.</p>
+                          <h3>Attach your CV</h3>
+                          <p>
+                            A CV is required. Upload the version tailored to this
+                            role{latestDocument ? ", or reuse your profile CV." : "."}
+                          </p>
                         </div>
-                        {latestDocument ? (
-                          <button
-                            className={styles.savedDocument}
-                            data-selected={useSavedDocument && !selectedDocument}
-                            onClick={() => {
-                              setUseSavedDocument(true);
-                              setSelectedDocument(null);
-                            }}
-                            type="button"
-                          >
-                            <span aria-hidden="true"><HugeIcon icon={File01Icon} size={18} /></span>
-                            <div><strong>{latestDocument.file_name}</strong><small>Primary CV · uploaded {formatApplicationDate(latestDocument.created_at)}</small></div>
-                            <b>{useSavedDocument && !selectedDocument ? "Selected" : "Use CV"}</b>
-                          </button>
-                        ) : null}
                         <label
                           className={styles.fileDrop}
+                          data-required={!hasCv}
                           data-selected={Boolean(selectedDocument)}
                         >
                           <span aria-hidden="true"><HugeIcon icon={File01Icon} size={19} /></span>
                           <div>
-                            <strong>{selectedDocument ? selectedDocument.name : latestDocument ? "Use a different CV" : "Add your résumé or supporting document"}</strong>
-                            <small>{selectedDocument ? formatApplicationFileSize(selectedDocument.size) : "PDF, DOC, or DOCX · maximum 10 MB"}</small>
+                            <strong>{selectedDocument ? selectedDocument.name : "Upload your CV"}</strong>
+                            <small>{selectedDocument ? formatApplicationFileSize(selectedDocument.size) : "Required · PDF, DOC, or DOCX · maximum 10 MB"}</small>
                           </div>
                           <b>{selectedDocument ? "Replace" : "Choose file"}</b>
                           <input
@@ -353,9 +356,26 @@ export function ApplicationWizard({
                               setSelectedDocument(file);
                               if (file) setUseSavedDocument(false);
                             }}
+                            required={!useSavedDocument}
                             type="file"
                           />
                         </label>
+                        {latestDocument ? (
+                          <button
+                            aria-pressed={useSavedDocument && !selectedDocument}
+                            className={styles.savedDocument}
+                            data-selected={useSavedDocument && !selectedDocument}
+                            onClick={() => {
+                              setUseSavedDocument((selected) => !selected);
+                              setSelectedDocument(null);
+                            }}
+                            type="button"
+                          >
+                            <span aria-hidden="true"><HugeIcon icon={File01Icon} size={18} /></span>
+                            <div><strong>{latestDocument.file_name}</strong><small>Profile CV · uploaded {formatApplicationDate(latestDocument.created_at)}</small></div>
+                            <b>{useSavedDocument && !selectedDocument ? "Selected" : "Use instead"}</b>
+                          </button>
+                        ) : null}
                         {type === "job-listings" ? (
                           <label className={styles.fileDrop} data-selected={Boolean(coverDocument)}>
                             <span aria-hidden="true"><HugeIcon icon={SentIcon} size={19} /></span>
@@ -399,6 +419,7 @@ export function ApplicationWizard({
                         <AuthButton
                           className={styles.footerButton}
                           data-application-submit="true"
+                          disabled={!hasCv}
                           icon={SentIcon}
                           isLoading={pending}
                           key="application-submit"
