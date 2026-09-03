@@ -1,6 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Building03Icon, Location01Icon, Money03Icon, SentIcon, ViewIcon } from "@hugeicons/core-free-icons";
+import {
+  Building03Icon,
+  CheckmarkCircle02Icon,
+  Location01Icon,
+  Money03Icon,
+  SentIcon,
+  ViewIcon,
+} from "@hugeicons/core-free-icons";
 import { HugeIcon } from "@/components/shared/HugeIcon";
 import type { OpportunityRecord, OpportunityRouteType } from "@/types/opportunities";
 import styles from "./StudentOpportunityCard.module.css";
@@ -26,7 +33,13 @@ export function StudentOpportunityCard({ opportunity, type }: { opportunity: Opp
       <footer className={styles.footer}><div className={styles.actions}>
         <Link className={styles.statButton} href={route}><HugeIcon icon={ViewIcon} size={14} /><span>View details</span></Link>
         <span className={styles.actionDivider} aria-hidden="true" />
-        {opportunity.is_open ? <Link className={`${styles.iconButton} ${styles.editButton}`} href={`${route}?apply=true`}><HugeIcon icon={SentIcon} size={14} /><span>Apply now</span></Link> : <span aria-disabled="true" className={styles.statButton}><HugeIcon icon={SentIcon} size={14} /><span>Applications closed</span></span>}
+        {opportunity.has_applied ? (
+          <span aria-disabled="true" className={styles.appliedButton}><HugeIcon icon={CheckmarkCircle02Icon} size={14} /><span>Already applied</span></span>
+        ) : opportunity.is_open ? (
+          <Link className={`${styles.iconButton} ${styles.editButton}`} href={`${route}?apply=true`}><HugeIcon icon={SentIcon} size={14} /><span>Apply now</span></Link>
+        ) : (
+          <span aria-disabled="true" className={styles.statButton}><HugeIcon icon={SentIcon} size={14} /><span>Applications closed</span></span>
+        )}
       </div></footer>
     </article>
   );
