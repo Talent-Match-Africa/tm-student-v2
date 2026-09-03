@@ -1,5 +1,4 @@
-export const APPLICATION_FILE_ACCEPT =
-  ".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+export const APPLICATION_FILE_ACCEPT = ".pdf,application/pdf";
 
 export const APPLICATION_WIZARD_STEPS = [
   { label: "Review fit", description: "Confirm the opportunity" },
@@ -7,11 +6,7 @@ export const APPLICATION_WIZARD_STEPS = [
   { label: "Documents", description: "Review and submit" },
 ] as const;
 
-const SUPPORTED_APPLICATION_FILE_TYPES = new Set([
-  "application/pdf",
-  "application/msword",
-  "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
-]);
+const SUPPORTED_APPLICATION_FILE_TYPES = new Set(["application/pdf"]);
 
 export function applicationFileIsValid(file: File) {
   return (
