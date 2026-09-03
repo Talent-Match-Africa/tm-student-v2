@@ -61,17 +61,21 @@
 /* A CV is mandatory, so the drop zone reads as an outstanding field until one is attached. */
 .fileDrop[data-required='true'] { border-color: #f0b7bd; }
 .fileDrop[data-required='true'] small { color: #a52020; font-weight: 700; }
+.fileDrop[data-disabled] { cursor: not-allowed; opacity: .55; }
+.clearFileButton { background: none; border: 0; color: var(--brand-primary); cursor: pointer; font: inherit; font-size: .7rem; font-weight: 700; justify-self: start; padding: .2rem 0; text-align: left; text-decoration: underline; }
+.clearFileButton:focus-visible { border-radius: .35rem; box-shadow: 0 0 0 3px rgba(73,21,26,.16); outline: 0; }
 .error { background: #fff1f2; border: 1px solid #fecdd3; border-radius: .75rem; color: #a52020; font-size: .74rem; margin: 0; padding: .75rem; }
-.footer { align-items: center; background: #fff; border-top: 1px solid rgba(73,21,26,.08); display: flex; gap: .75rem; justify-content: space-between; min-height: 4.5rem; padding: .75rem 1rem; }
+.footer { align-items: center; background: #fff; border-top: 1px solid rgba(73,21,26,.08); display: flex; flex-wrap: wrap; gap: .75rem; justify-content: space-between; min-height: 4.5rem; padding: .75rem 1rem; position: sticky; bottom: 0; z-index: 2; }
 .footer > span { color: #83777b; font-size: .68rem; font-weight: 700; }
-.footer > div { display: flex; gap: .6rem; }
-.footerButton { min-width: 7.5rem; width: auto; }
+.footer > div { display: flex; flex: 1 1 auto; flex-wrap: wrap; gap: .6rem; justify-content: flex-end; min-width: 0; }
+.footerButton { flex: 0 1 auto; min-width: 7.5rem; width: auto; }
 .success { align-items: center; display: grid; justify-items: center; min-height: 30rem; padding: clamp(1.5rem,5vw,3.5rem); text-align: center; }
 .successIcon { align-items: center; background: #edf7f0; border: 1px solid #cce7d4; border-radius: 999px; color: #28733f; display: flex; height: 5rem; justify-content: center; margin-bottom: 1rem; width: 5rem; }
 .success h3 { color: #2b2023; font-size: clamp(1.35rem,3vw,1.8rem); margin: .35rem 0 0; }
 .success p { color: #75686b; line-height: 1.6; margin: .45rem 0 1.3rem; max-width: 30rem; }
 .successActions { display: flex; flex-wrap: wrap; gap: .7rem; justify-content: center; }
 .successActions button { width: auto; }
+@media (max-width: 900px) { .footer { align-items: stretch; flex-direction: column; } .footer > span { order: 2; text-align: center; } .footer > div { justify-content: stretch; } .footerButton { flex: 1 1 0; min-width: 0; } }
 @media (max-width: 760px) { .dialog { border-radius: 1rem; max-height: calc(100dvh - 1rem); } .wizardLayout { grid-template-columns: 1fr; grid-template-rows: auto minmax(0,1fr); } .stepRail { gap: .65rem; padding: .8rem 1rem; } .stepRail ol { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); margin: 0; } .stepRail li { gap: .35rem; padding: .45rem; } .stepRail li small,.stepRail > p { display: none; } .stepRail li > span { height: 1.65rem; width: 1.65rem; } .progressCopy { display: none; } .form { min-height: 0; } }
 @media (max-width: 520px) { .backdrop { align-items: stretch; padding: 0; } .dialog { border: 0; border-radius: 0; max-height: 100dvh; min-height: 100dvh; } .dialogHeader { min-height: 4.25rem; padding: .7rem .8rem; } .dialogIcon { height: 2.35rem; width: 2.35rem; } .dialogIdentity h2 { max-width: 65vw; } .stepRail { padding: .65rem .75rem; } .stepRail li { grid-template-columns: auto; justify-items: center; text-align: center; } .stepRail li div { display: none; } .stepContent { padding: 1rem .8rem; } .factGrid { grid-template-columns: 1fr; } .savedDocument,.fileDrop { grid-template-columns: auto minmax(0,1fr); } .savedDocument b,.fileDrop b { grid-column: 1 / -1; justify-self: stretch; text-align: center; } .footer { align-items: stretch; flex-direction: column; padding: .65rem .8rem; } .footer > span { display: none; } .footer > div { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); } .footerButton { min-width: 0; width: 100%; } .success { min-height: calc(100dvh - 4.25rem); } .successActions { display: grid; width: 100%; } .successActions button { width: 100%; } }
 @media (prefers-reduced-motion: reduce) { .progress > span { transition: none; } }
