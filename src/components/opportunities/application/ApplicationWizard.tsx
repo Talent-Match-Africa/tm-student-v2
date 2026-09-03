@@ -43,7 +43,7 @@ export function ApplicationWizard({
   type,
 }: ApplicationWizardProps) {
   const router = useRouter();
-  const [open, setOpen] = useState(autoOpen);
+  const [open, setOpen] = useState(autoOpen && !opportunity.has_applied);
   const [step, setStep] = useState(1);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -166,24 +166,38 @@ export function ApplicationWizard({
       <div className={styles.readinessCopy}>
         <span>Application readiness</span>
         <h3>
-          {opportunity.is_open
-            ? "Your next move starts here"
-            : "Applications are closed"}
+          {opportunity.has_applied
+            ? "Application submitted"
+            : opportunity.is_open
+              ? "Your next move starts here"
+              : "Applications are closed"}
         </h3>
         <p>
-          {opportunity.is_open
-            ? "Build a focused application in three guided steps."
-            : "You can still review the complete opportunity details."}
+          {opportunity.has_applied
+            ? "You have already applied. Track progress from your applications."
+            : opportunity.is_open
+              ? "Build a focused application in three guided steps."
+              : "You can still review the complete opportunity details."}
         </p>
       </div>
-      <AuthButton
-        className={styles.launchButton}
-        disabled={!opportunity.is_open}
-        icon={SentIcon}
-        onClick={() => setOpen(true)}
-      >
-        Start application
-      </AuthButton>
+      {opportunity.has_applied ? (
+        <AuthButton
+          className={styles.launchButton}
+          disabled
+          icon={CheckmarkCircle02Icon}
+        >
+          Already applied
+        </AuthButton>
+      ) : (
+        <AuthButton
+          className={styles.launchButton}
+          disabled={!opportunity.is_open}
+          icon={SentIcon}
+          onClick={() => setOpen(true)}
+        >
+          Start application
+        </AuthButton>
+      )}
 
       {open ? (
         <div
@@ -356,7 +370,6 @@ export function ApplicationWizard({
                               setSelectedDocument(file);
                               if (file) setUseSavedDocument(false);
                             }}
-                            required={!useSavedDocument}
                             type="file"
                           />
                         </label>
