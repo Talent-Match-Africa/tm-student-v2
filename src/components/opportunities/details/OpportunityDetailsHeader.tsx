@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import {
   ArrowLeft01Icon,
+  CheckmarkCircle02Icon,
   SentIcon,
 } from "@hugeicons/core-free-icons";
 import { AuthButton } from "@/components/shared/AuthButton";
@@ -82,18 +83,29 @@ export function OpportunityDetailsHeader({
         >
           Go back
         </AuthButton>
-        <AuthButton
-          className={styles.action}
-          disabled={!opportunity.is_open}
-          icon={SentIcon}
-          onClick={() =>
-            router.push(`/opportunities/${type}/${opportunity.id}?apply=true`, {
-              scroll: false,
-            })
-          }
-        >
-          Apply now
-        </AuthButton>
+        {opportunity.has_applied ? (
+          <AuthButton
+            className={styles.action}
+            disabled
+            icon={CheckmarkCircle02Icon}
+          >
+            Already applied
+          </AuthButton>
+        ) : (
+          <AuthButton
+            className={styles.action}
+            disabled={!opportunity.is_open}
+            icon={SentIcon}
+            onClick={() =>
+              router.push(
+                `/opportunities/${type}/${opportunity.id}?apply=true`,
+                { scroll: false },
+              )
+            }
+          >
+            Apply now
+          </AuthButton>
+        )}
       </div>
     </header>
   );
