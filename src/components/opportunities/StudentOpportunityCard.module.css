@@ -419,6 +419,7 @@
 }
 
 .statButton,
+.appliedButton,
 .iconButton {
   align-items: center;
   background: #fff;
@@ -442,6 +443,7 @@
 }
 
 .statButton svg,
+.appliedButton svg,
 .iconButton svg {
   flex-shrink: 0;
 }
@@ -550,4 +552,12 @@
   .iconButton {
     transition: none !important;
   }
+}
+
+/* Already applied: a settled, non-actionable confirmation rather than a control. */
+.appliedButton {
+  background: #ecfdf5;
+  border-color: #bbf7d0;
+  color: #047857;
+  cursor: default;
 }
