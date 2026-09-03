@@ -62,6 +62,10 @@ export function ApplicationWizard({
       ? latestDocument
       : null;
   const hasCv = Boolean(attachedCv);
+  // The cover letter may be written or uploaded, never both, so the reviewer
+  // always has a single canonical version.
+  const coverLetterWritten = Boolean(coverLetter.trim());
+  const coverLetterUploaded = Boolean(coverDocument);
   const displayStep = Math.min(step, 3);
 
   const requestClose = useCallback(() => {
@@ -117,6 +121,10 @@ export function ApplicationWizard({
           ? "Attach your CV to submit. Upload a file or choose your profile CV."
           : "Attach your CV to submit this application.",
       );
+      return;
+    }
+    if (coverLetterWritten && coverLetterUploaded) {
+      setError("Provide the cover letter as text or as a file, not both.");
       return;
     }
     const invalidFile = [selectedDocument, coverDocument].find(
@@ -219,7 +227,9 @@ export function ApplicationWizard({
                   <HugeIcon icon={Briefcase01Icon} size={19} />
                 </span>
                 <div>
-                  <span>{complete ? "Submission complete" : "Apply securely"}</span>
+                  <span>
+                    {complete ? "Submission complete" : "Apply securely"}
+                  </span>
                   <h2 id="application-title">
                     {complete
                       ? "Application submitted"
@@ -239,10 +249,15 @@ export function ApplicationWizard({
 
             {!complete ? (
               <div className={styles.wizardLayout}>
-                <aside className={styles.stepRail} aria-label="Application steps">
+                <aside
+                  className={styles.stepRail}
+                  aria-label="Application steps"
+                >
                   <div className={styles.progressCopy}>
                     <span>Step {displayStep} of 3</span>
-                    <strong>{Math.round((displayStep / 3) * 100)}% complete</strong>
+                    <strong>
+                      {Math.round((displayStep / 3) * 100)}% complete
+                    </strong>
                   </div>
                   <div
                     aria-valuemax={3}
@@ -264,7 +279,10 @@ export function ApplicationWizard({
                         >
                           <span aria-hidden="true">
                             {number < displayStep ? (
-                              <HugeIcon icon={CheckmarkCircle02Icon} size={16} />
+                              <HugeIcon
+                                icon={CheckmarkCircle02Icon}
+                                size={16}
+                              />
                             ) : (
                               number
                             )}
@@ -289,17 +307,42 @@ export function ApplicationWizard({
                         <div className={styles.stepHeading}>
                           <span>Opportunity review</span>
                           <h3>Confirm this opportunity fits your goals</h3>
-                          <p>Review the essentials before preparing your response.</p>
+                          <p>
+                            Review the essentials before preparing your
+                            response.
+                          </p>
                         </div>
                         <dl className={styles.factGrid}>
-                          <div><dt>Opportunity owner</dt><dd>{opportunity.posted_by.name}</dd></div>
-                          <div><dt>Work mode</dt><dd>{opportunity.work_flexibility ?? "Not specified"}</dd></div>
-                          <div><dt>Location</dt><dd>{opportunity.location ?? "Not specified"}</dd></div>
-                          <div><dt>Application deadline</dt><dd>{formatApplicationDate(opportunity.deadline)}</dd></div>
+                          <div>
+                            <dt>Opportunity owner</dt>
+                            <dd>{opportunity.posted_by.name}</dd>
+                          </div>
+                          <div>
+                            <dt>Work mode</dt>
+                            <dd>
+                              {opportunity.work_flexibility ?? "Not specified"}
+                            </dd>
+                          </div>
+                          <div>
+                            <dt>Location</dt>
+                            <dd>{opportunity.location ?? "Not specified"}</dd>
+                          </div>
+                          <div>
+                            <dt>Application deadline</dt>
+                            <dd>
+                              {formatApplicationDate(opportunity.deadline)}
+                            </dd>
+                          </div>
                         </dl>
                         <div className={styles.guidanceNote}>
                           <HugeIcon icon={CheckmarkCircle02Icon} size={18} />
-                          <p><strong>Before you continue</strong><span>Make sure your profile and primary CV reflect your most recent experience.</span></p>
+                          <p>
+                            <strong>Before you continue</strong>
+                            <span>
+                              Make sure your profile and primary CV reflect your
+                              most recent experience.
+                            </span>
+                          </p>
                         </div>
                       </>
                     ) : null}
@@ -309,20 +352,32 @@ export function ApplicationWizard({
                         <div className={styles.stepHeading}>
                           <span>Your story</span>
                           <h3>Show why this opportunity matters to you</h3>
-                          <p>Keep your response specific, relevant, and easy to review.</p>
+                          <p>
+                            Keep your response specific, relevant, and easy to
+                            review.
+                          </p>
                         </div>
                         <div className={styles.fieldBlock}>
                           <TextareaField
+                            disabled={coverLetterUploaded}
                             icon={SentIcon}
                             label="Cover letter"
                             maxLength={5000}
-                            onChange={(event) => setCoverLetter(event.target.value)}
-                            placeholder="Connect your goals and strengths to this opportunity…"
+                            onChange={(event) =>
+                              setCoverLetter(event.target.value)
+                            }
+                            placeholder={
+                              coverLetterUploaded
+                                ? "Remove the uploaded cover letter to write one here."
+                                : "Connect your goals and strengths to this opportunity…"
+                            }
                             requirement="optional"
                             rows={6}
                             value={coverLetter}
                           />
-                          <span className={styles.characterCount}>{coverLetter.length.toLocaleString()} / 5,000</span>
+                          <span className={styles.characterCount}>
+                            {coverLetter.length.toLocaleString()} / 5,000
+                          </span>
                         </div>
                         {type === "job-listings" ? (
                           <div className={styles.fieldBlock}>
@@ -330,13 +385,17 @@ export function ApplicationWizard({
                               icon={Briefcase01Icon}
                               label="Experience summary"
                               maxLength={3000}
-                              onChange={(event) => setExperience(event.target.value)}
+                              onChange={(event) =>
+                                setExperience(event.target.value)
+                              }
                               placeholder="Highlight the skills and experience most relevant to this role…"
                               requirement="optional"
                               rows={5}
                               value={experience}
                             />
-                            <span className={styles.characterCount}>{experience.length.toLocaleString()} / 3,000</span>
+                            <span className={styles.characterCount}>
+                              {experience.length.toLocaleString()} / 3,000
+                            </span>
                           </div>
                         ) : null}
                       </>
@@ -348,8 +407,11 @@ export function ApplicationWizard({
                           <span>Documents and confirmation</span>
                           <h3>Attach your CV</h3>
                           <p>
-                            A CV is required. Upload the version tailored to this
-                            role{latestDocument ? ", or reuse your profile CV." : "."}
+                            A CV is required. Upload the version tailored to
+                            this role
+                            {latestDocument
+                              ? ", or reuse your profile CV."
+                              : "."}
                           </p>
                         </div>
                         <label
@@ -357,10 +419,22 @@ export function ApplicationWizard({
                           data-required={!hasCv}
                           data-selected={Boolean(selectedDocument)}
                         >
-                          <span aria-hidden="true"><HugeIcon icon={File01Icon} size={19} /></span>
+                          <span aria-hidden="true">
+                            <HugeIcon icon={File01Icon} size={19} />
+                          </span>
                           <div>
-                            <strong>{selectedDocument ? selectedDocument.name : "Upload your CV"}</strong>
-                            <small>{selectedDocument ? formatApplicationFileSize(selectedDocument.size) : "Required · PDF, DOC, or DOCX · maximum 10 MB"}</small>
+                            <strong>
+                              {selectedDocument
+                                ? selectedDocument.name
+                                : "Upload your CV"}
+                            </strong>
+                            <small>
+                              {selectedDocument
+                                ? formatApplicationFileSize(
+                                    selectedDocument.size,
+                                  )
+                                : "Required · PDF only · maximum 10 MB"}
+                            </small>
                           </div>
                           <b>{selectedDocument ? "Replace" : "Choose file"}</b>
                           <input
@@ -377,31 +451,99 @@ export function ApplicationWizard({
                           <button
                             aria-pressed={useSavedDocument && !selectedDocument}
                             className={styles.savedDocument}
-                            data-selected={useSavedDocument && !selectedDocument}
+                            data-selected={
+                              useSavedDocument && !selectedDocument
+                            }
                             onClick={() => {
                               setUseSavedDocument((selected) => !selected);
                               setSelectedDocument(null);
                             }}
                             type="button"
                           >
-                            <span aria-hidden="true"><HugeIcon icon={File01Icon} size={18} /></span>
-                            <div><strong>{latestDocument.file_name}</strong><small>Profile CV · uploaded {formatApplicationDate(latestDocument.created_at)}</small></div>
-                            <b>{useSavedDocument && !selectedDocument ? "Selected" : "Use instead"}</b>
+                            <span aria-hidden="true">
+                              <HugeIcon icon={File01Icon} size={18} />
+                            </span>
+                            <div>
+                              <strong>{latestDocument.file_name}</strong>
+                              <small>
+                                Profile CV · uploaded{" "}
+                                {formatApplicationDate(
+                                  latestDocument.created_at,
+                                )}
+                              </small>
+                            </div>
+                            <b>
+                              {useSavedDocument && !selectedDocument
+                                ? "Selected"
+                                : "Use instead"}
+                            </b>
                           </button>
                         ) : null}
                         {type === "job-listings" ? (
-                          <label className={styles.fileDrop} data-selected={Boolean(coverDocument)}>
-                            <span aria-hidden="true"><HugeIcon icon={SentIcon} size={19} /></span>
-                            <div><strong>{coverDocument ? coverDocument.name : "Cover letter document"}</strong><small>{coverDocument ? formatApplicationFileSize(coverDocument.size) : "Optional · PDF, DOC, or DOCX · maximum 10 MB"}</small></div>
-                            <b>{coverDocument ? "Replace" : "Choose file"}</b>
-                            <input accept={APPLICATION_FILE_ACCEPT} onChange={(event) => setCoverDocument(event.target.files?.[0] ?? null)} type="file" />
-                          </label>
+                          <>
+                            <label
+                              className={styles.fileDrop}
+                              data-disabled={coverLetterWritten || undefined}
+                              data-selected={coverLetterUploaded}
+                            >
+                              <span aria-hidden="true">
+                                <HugeIcon icon={SentIcon} size={19} />
+                              </span>
+                              <div>
+                                <strong>
+                                  {coverDocument
+                                    ? coverDocument.name
+                                    : "Cover letter document"}
+                                </strong>
+                                <small>
+                                  {coverDocument
+                                    ? formatApplicationFileSize(
+                                        coverDocument.size,
+                                      )
+                                    : coverLetterWritten
+                                      ? "Clear the written cover letter to upload a file instead"
+                                      : "Optional · PDF only · maximum 10 MB"}
+                                </small>
+                              </div>
+                              <b>{coverDocument ? "Replace" : "Choose file"}</b>
+                              <input
+                                accept={APPLICATION_FILE_ACCEPT}
+                                disabled={coverLetterWritten}
+                                onChange={(event) =>
+                                  setCoverDocument(
+                                    event.target.files?.[0] ?? null,
+                                  )
+                                }
+                                type="file"
+                              />
+                            </label>
+                            {coverDocument ? (
+                              <button
+                                className={styles.clearFileButton}
+                                onClick={() => setCoverDocument(null)}
+                                type="button"
+                              >
+                                Remove file and write a cover letter instead
+                              </button>
+                            ) : null}
+                          </>
                         ) : null}
                         <div className={styles.confirmation}>
                           <HugeIcon icon={CheckmarkCircle02Icon} size={18} />
-                          <p><strong>Ready for secure submission</strong><span>Your application will be sent to {opportunity.posted_by.name}. Duplicate applications are prevented.</span></p>
+                          <p>
+                            <strong>Ready for secure submission</strong>
+                            <span>
+                              Your application will be sent to{" "}
+                              {opportunity.posted_by.name}. Duplicate
+                              applications are prevented.
+                            </span>
+                          </p>
                         </div>
-                        {error ? <p className={styles.error} role="alert">{error}</p> : null}
+                        {error ? (
+                          <p className={styles.error} role="alert">
+                            {error}
+                          </p>
+                        ) : null}
                       </>
                     ) : null}
                   </div>
@@ -413,7 +555,9 @@ export function ApplicationWizard({
                         className={styles.footerButton}
                         disabled={step === 1 || pending}
                         icon={ArrowLeft01Icon}
-                        onClick={() => setStep((value) => Math.max(1, value - 1))}
+                        onClick={() =>
+                          setStep((value) => Math.max(1, value - 1))
+                        }
                         variant="secondary"
                       >
                         Back
@@ -423,7 +567,9 @@ export function ApplicationWizard({
                           className={styles.footerButton}
                           icon={ArrowRight01Icon}
                           key="application-continue"
-                          onClick={() => setStep((value) => Math.min(3, value + 1))}
+                          onClick={() =>
+                            setStep((value) => Math.min(3, value + 1))
+                          }
                           type="button"
                         >
                           Continue
@@ -448,13 +594,29 @@ export function ApplicationWizard({
               </div>
             ) : (
               <div className={styles.success}>
-                <span className={styles.successIcon} aria-hidden="true"><HugeIcon icon={CheckmarkCircle02Icon} size={38} /></span>
+                <span className={styles.successIcon} aria-hidden="true">
+                  <HugeIcon icon={CheckmarkCircle02Icon} size={38} />
+                </span>
                 <span>Application sent</span>
                 <h3>Your application is on its way.</h3>
-                <p>Your submission is secure and ready for review by {opportunity.posted_by.name}.</p>
+                <p>
+                  Your submission is secure and ready for review by{" "}
+                  {opportunity.posted_by.name}.
+                </p>
                 <div className={styles.successActions}>
-                  <AuthButton icon={File01Icon} onClick={() => router.push(`/applications/${type}`)} variant="secondary">View my applications</AuthButton>
-                  <AuthButton icon={ArrowRight01Icon} onClick={() => router.push(`/opportunities/${type}`)}>Explore more opportunities</AuthButton>
+                  <AuthButton
+                    icon={File01Icon}
+                    onClick={() => router.push(`/applications/${type}`)}
+                    variant="secondary"
+                  >
+                    View my applications
+                  </AuthButton>
+                  <AuthButton
+                    icon={ArrowRight01Icon}
+                    onClick={() => router.push(`/opportunities/${type}`)}
+                  >
+                    Explore more opportunities
+                  </AuthButton>
                 </div>
               </div>
             )}
