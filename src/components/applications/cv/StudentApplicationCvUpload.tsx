@@ -53,7 +53,7 @@ export function StudentApplicationCvUpload({
     body.set("document", file);
     try {
       const response = await fetch(
-        `/api/student/applications/${apiType}/${application.id}/document`,
+        `/api/student/application-documents/${apiType}/${application.id}`,
         { body, method: "PATCH" },
       );
       const payload = (await response.json()) as { message?: string };
