@@ -49,8 +49,13 @@ jobs:
       - name: Install dependencies
         run: npm ci --include=dev --include=optional --no-audit --no-fund
 
+      # The audited command is declared here so the deployment CI policy can
+      # verify it. The script only adds retry handling for advisory endpoint
+      # outages; it never changes the audit scope or severity threshold.
       - name: Audit student portal runtime dependencies
-        run: npm audit --omit=dev --audit-level=high
+        env:
+          AUDIT_COMMAND: npm audit --omit=dev --audit-level=high
+        run: bash scripts/audit-runtime-dependencies.sh
 
       - name: Run student portal quality gate
         run: npm run ci:check
