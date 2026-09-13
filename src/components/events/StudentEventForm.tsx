@@ -208,6 +208,7 @@ export function StudentEventForm({ initialForm }: StudentEventFormProps) {
       title={title}
       titleId="student-event-form-title"
     >
+      <EventDetails />
       {form ? (
         <EventFormSummary form={form} />
       ) : (
@@ -336,5 +337,31 @@ function EventFormSummary({ form }: { form: StudentEventFormRecord }) {
         </div>
       </dl>
     </div>
+  );
+}
+
+function EventDetails() {
+  return (
+    <section className={styles.eventDetails} aria-label="Event details">
+      <p className={styles.eventDetailsEyebrow}>
+        Talent Match Alumni &amp; Employer Mixer
+      </p>
+      <p className={styles.eventDetailsBody}>
+        Connect with Talent Match alumni, employers, and professionals to
+        network, exchange insights, and explore career opportunities.
+      </p>
+      <p className={styles.eventDetailsBody}>
+        Join us for an afternoon of meaningful connections and opportunity
+        building.
+      </p>
+      <ul className={styles.eventDetailsMeta}>
+        <li>📅 Date: 25 November 2026</li>
+        <li>🕐 Time: 1:00 PM</li>
+        <li>📍 Location: KG 541 St, Career Center Building, 7th Floor, Kigali</li>
+      </ul>
+      <p className={styles.eventDetailsCta}>
+        Register now and connect with the Talent Match community.
+      </p>
+    </section>
   );
 }
