@@ -352,6 +352,10 @@ function EventFormSummary({ form }: { form: StudentEventFormRecord }) {
 }
 
 function formatSubmissionDate(value: string) {
+  if (Number.isNaN(new Date(value).getTime())) {
+    return "Submission time unavailable";
+  }
+
   return new Intl.DateTimeFormat("en-RW", {
     dateStyle: "medium",
     timeStyle: "medium",
