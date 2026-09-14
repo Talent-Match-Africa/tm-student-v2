@@ -40,6 +40,14 @@ const BOOLEAN_OPTIONS = [
   { label: "No", value: "false" },
 ];
 
+const COHORT_OPTIONS = [
+  { label: "Choose a cohort year", value: "" },
+  ...Array.from({ length: new Date().getFullYear() - 2019 + 1 }, (_, index) => {
+    const year = String(2019 + index);
+    return { label: year, value: year };
+  }),
+];
+
 export function StudentEventForm({ initialForm }: StudentEventFormProps) {
   const router = useRouter();
   const { showSuccessToast } = useToast();
@@ -85,8 +93,8 @@ export function StudentEventForm({ initialForm }: StudentEventFormProps) {
     ) {
       next.working_place = "Enter a working place of up to 255 characters.";
     }
-    if (!whichCohort.trim() || whichCohort.trim().length > 100) {
-      next.which_cohort = "Enter a cohort of up to 100 characters.";
+    if (!whichCohort) {
+      next.which_cohort = "Choose your cohort year.";
     }
     if (attend !== "true" && attend !== "false") {
       next.attend = "Choose whether you will attend.";
@@ -113,7 +121,7 @@ export function StudentEventForm({ initialForm }: StudentEventFormProps) {
           body: JSON.stringify({
             employed: employed === "true",
             working_place: submittedWorkingPlace,
-            which_cohort: whichCohort.trim(),
+            which_cohort: whichCohort,
             attend: attend === "true",
           }),
         },
@@ -247,17 +255,16 @@ export function StudentEventForm({ initialForm }: StudentEventFormProps) {
               ? `Because you are not currently employed, your working place is recorded as “${NOT_EMPLOYED_WORKING_PLACE}”.`
               : "Name the organisation or company you currently work for."}
           </p>
-          <InputField
+          <SelectField
             error={errors.which_cohort}
             icon={GraduationCapIcon}
             label="Which cohort were you in?"
-            maxLength={100}
             name="which_cohort"
             onChange={(event) => {
               setWhichCohort(event.target.value);
               clearError("which_cohort");
             }}
-            placeholder="For example, Class of 2026"
+            options={COHORT_OPTIONS}
             requirement="required"
             value={whichCohort}
           />
@@ -335,9 +342,20 @@ function EventFormSummary({ form }: { form: StudentEventFormRecord }) {
           <dt>Attendance</dt>
           <dd>{form.attend ? "Will attend" : "Will not attend"}</dd>
         </div>
+        <div className={styles.summaryRow}>
+          <dt>Submitted</dt>
+          <dd>{formatSubmissionDate(form.created_at)}</dd>
+        </div>
       </dl>
     </div>
   );
+}
+
+function formatSubmissionDate(value: string) {
+  return new Intl.DateTimeFormat("en-RW", {
+    dateStyle: "medium",
+    timeStyle: "medium",
+  }).format(new Date(value));
 }
 
 function EventDetails() {
