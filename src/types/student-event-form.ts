@@ -1,5 +1,6 @@
 export interface StudentEventForm {
   attend: boolean;
+  created_at: string;
   employed: boolean;
   student_id: string;
   which_cohort: string;
