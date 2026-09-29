@@ -7,7 +7,6 @@ import {
   Briefcase01Icon,
   Calendar03Icon,
   CheckmarkCircle02Icon,
-  GraduationCapIcon,
   SentIcon,
 } from "@hugeicons/core-free-icons";
 import { AuthButton } from "@/components/shared/AuthButton";
@@ -23,7 +22,10 @@ import {
   type StudentProfileFieldErrors,
 } from "@/components/profile/utils";
 import { HugeIcon } from "@/components/shared/HugeIcon";
-import { NOT_EMPLOYED_WORKING_PLACE } from "@/constants/student-event-form";
+import {
+  EVENT_FORM_COHORT,
+  NOT_EMPLOYED_WORKING_PLACE,
+} from "@/constants/student-event-form";
 import type {
   StudentEventForm as StudentEventFormRecord,
   StudentEventFormMutationResponse,
@@ -40,14 +42,6 @@ const BOOLEAN_OPTIONS = [
   { label: "No", value: "false" },
 ];
 
-const COHORT_OPTIONS = [
-  { label: "Choose a cohort year", value: "" },
-  ...Array.from({ length: new Date().getFullYear() - 2019 + 1 }, (_, index) => {
-    const year = String(2019 + index);
-    return { label: year, value: year };
-  }),
-];
-
 export function StudentEventForm({ initialForm }: StudentEventFormProps) {
   const router = useRouter();
   const { showSuccessToast } = useToast();
@@ -55,7 +49,6 @@ export function StudentEventForm({ initialForm }: StudentEventFormProps) {
   const [form, setForm] = useState(initialForm);
   const [employed, setEmployed] = useState("");
   const [workingPlace, setWorkingPlace] = useState("");
-  const [whichCohort, setWhichCohort] = useState("");
   const [attend, setAttend] = useState("");
   const [errors, setErrors] = useState<StudentProfileFieldErrors>({});
   const [formError, setFormError] = useState<string | null>(null);
@@ -93,9 +86,6 @@ export function StudentEventForm({ initialForm }: StudentEventFormProps) {
     ) {
       next.working_place = "Enter a working place of up to 255 characters.";
     }
-    if (!whichCohort) {
-      next.which_cohort = "Choose your cohort year.";
-    }
     if (attend !== "true" && attend !== "false") {
       next.attend = "Choose whether you will attend.";
     }
@@ -121,7 +111,7 @@ export function StudentEventForm({ initialForm }: StudentEventFormProps) {
           body: JSON.stringify({
             employed: employed === "true",
             working_place: submittedWorkingPlace,
-            which_cohort: whichCohort,
+            which_cohort: EVENT_FORM_COHORT,
             attend: attend === "true",
           }),
         },
@@ -256,19 +246,6 @@ export function StudentEventForm({ initialForm }: StudentEventFormProps) {
               : "Name the organisation or company you currently work for."}
           </p>
           <SelectField
-            error={errors.which_cohort}
-            icon={GraduationCapIcon}
-            label="Which cohort were you in?"
-            name="which_cohort"
-            onChange={(event) => {
-              setWhichCohort(event.target.value);
-              clearError("which_cohort");
-            }}
-            options={COHORT_OPTIONS}
-            requirement="required"
-            value={whichCohort}
-          />
-          <SelectField
             error={errors.attend}
             icon={Calendar03Icon}
             label="Will you attend the event?"
@@ -333,10 +310,6 @@ function EventFormSummary({ form }: { form: StudentEventFormRecord }) {
         <div className={styles.summaryRow}>
           <dt>Working place</dt>
           <dd>{form.working_place}</dd>
-        </div>
-        <div className={styles.summaryRow}>
-          <dt>Cohort</dt>
-          <dd>{form.which_cohort}</dd>
         </div>
         <div className={styles.summaryRow}>
           <dt>Attendance</dt>
